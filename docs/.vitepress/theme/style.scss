@@ -1,0 +1,64 @@
+// @import url('http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg2.webp');
+// @import url('http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg3.webp');
+// @import url('http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg4.webp');
+// @import url('http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg5.webp');
+@media (min-width: 960px) {
+  .VPNavBar[data-v-05ada0c5]:not(.has-sidebar):not(.home.top) {
+    background-color: var(--vp-nav-bg-color);
+  }
+}
+body {
+  font-family: STCaiyun;
+  font-weight: normal;
+  font-size: 17px;
+}
+
+.VPHome {
+  // 定义遮罩样式
+  background: radial-gradient(
+    ellipse,
+    rgba(var(--bg-gradient-home), 1) 0%,
+    rgba(var(--bg-gradient-home), 0) 150%
+  );
+
+  // 自定义首页背景图
+  &::before {
+    // 图片来源：https://zhuanlan.zhihu.com/p/54060187
+    // background-image: url(./assets/bg.webp);
+    // background-image: url(https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/R09TUw==/eyJpZCI6IjdjZjA0ZGRlLWRjZDQtNDBkYi04ODA5LTY2ZjU5YjM3OGY0ZSIsIm5hbWUiOiIxLndlYnAiLCJkaXIiOiLog4zmma8ifQ==);
+
+    // background-image: url(./assets/bg1.webp);
+    animation: changeBackground 15s infinite; /* 设置动画持续时间和循环次数 */
+
+    background-size: cover;
+  }
+}
+
+/* 定义背景图切换的动画 */
+@keyframes changeBackground {
+  0% {
+    background-image: url(./assets/bg1.webp);
+  }
+  19% {
+    // background-image: url(http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg2.webp);
+
+    background-image: url(./assets/bg2.webp);
+  }
+  39% {
+    // background-image: url(http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg3.webp);
+
+    background-image: url(./assets/bg3.webp);
+  }
+  59% {
+    // background-image: url(http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg4.webp);
+
+    background-image: url(./assets/bg4.webp);
+  }
+  79% {
+    // background-image: url(http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg5.webp);
+    background-image: url(./assets/bg5.webp);
+  }
+  100% {
+    background-image: url(./assets/bg1.webp);
+  }
+}
