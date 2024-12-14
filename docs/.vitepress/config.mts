@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 import path from 'path'
 import fs from 'fs'
-// import { SponsorPlugin } from 'vitepress-plugin-sponsor'
+import { SponsorPlugin } from 'vitepress-plugin-sponsor'
 
 // 导入主题的配置
 import { blogTheme } from './blog-theme'
@@ -57,19 +57,19 @@ export default defineConfig(() => {
       }
     },
     ignoreDeadLinks: true,
-    // vite: {
-    //   plugins: [
-    //     // 打赏插件
-    //     SponsorPlugin({
-    //       /**
-    //        * 打赏模块样式
-    //        */
-    //       type: 'simple',
-    //       aliPayQR: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/aliQR.jpg',
-    //       weChatQR: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/wxPayQR.jpg'
-    //     })
-    //   ]
-    // },
+    vite: {
+      plugins: [
+        // 打赏插件
+        SponsorPlugin({
+          /**
+           * 打赏模块样式
+           */
+          type: 'simple',
+          aliPayQR: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/aliQR.jpg',
+          weChatQR: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/wxPayQR.jpg'
+        })
+      ]
+    },
     // hmr: true,
     // 继承博客主题(@sugarat/theme)
     extends: blogTheme,
@@ -199,12 +199,6 @@ export default defineConfig(() => {
       //   text: '去 GitHub 上编辑内容'
       // },
       sidebar,
-      // : [
-      //   {
-      //     text: '开篇',
-      //     items: [{ text: 'blob', link: '/articles/javascript/blob' }]
-      //   }
-      // ],
       nav: [
         { text: '首页', link: '/' },
         { text: '文章', link: '/articles/开篇/hello' },
