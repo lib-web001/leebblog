@@ -45,7 +45,7 @@ export default defineConfig(() => {
   const sidebar = []
 
   return {
-    outDir: '/dist',
+    outDir: '../dist',
     sitemap: {
       hostname: 'https://hfyf.netlify.app'
     },
