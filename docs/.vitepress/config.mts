@@ -169,15 +169,14 @@ export default defineConfig(() => {
         {
           src: 'https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js'
         }
+      ][
+        ('script',
+        {
+          defer: 'true',
+          id: 'xplayer',
+          src: 'https://player-cdn.qsdurl.cn/Static/player9/js/player.js'
+        })
       ]
-      // [
-      //   'script',
-      //   {
-      //     defer: 'true',
-      //     id: 'xplayer',
-      //     src: 'https://player-cdn.qsdurl.cn/Static/player9/js/player.js'
-      //   }
-      // ]
     ],
     themeConfig: {
       // 展示 2,3 级标题在目录中
