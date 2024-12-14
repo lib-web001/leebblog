@@ -1,10 +1,9 @@
 import { defineConfig } from 'vitepress'
-import path from 'path'
-import fs from 'fs'
 import { SponsorPlugin } from 'vitepress-plugin-sponsor'
 
 // 导入主题的配置
 import { blogTheme } from './blog-theme'
+import { getSidebar } from '../utils'
 // import './static/jquery.min.js'
 // import './static/font-awesome.min.css'
 // 如果使用 GitHub/Gitee Pages 等公共平台部署
@@ -17,32 +16,7 @@ import { blogTheme } from './blog-theme'
 // Vitepress 默认配置
 // 详见文档：https://vitepress.dev/reference/site-config
 export default defineConfig(() => {
-  const dir = path.resolve(__dirname, '../articles')
-  const dirents = fs.readdirSync(dir, { withFileTypes: true })
-  const sidebar = dirents.reduce((pre, dirent) => {
-    if (dirent.isDirectory()) {
-      const items = fs.readdirSync(dir + '\\' + dirent.name, { withFileTypes: true }).map((o) => {
-        const name = o.name.split('.').shift()
-        return {
-          text: name,
-          link: `/articles/${dirent.name}/${name}`
-        }
-      })
-      if (dirent.name === '开篇') {
-        pre.unshift({
-          text: dirent.name,
-          items
-        })
-      } else {
-        pre.push({
-          text: dirent.name,
-          items
-        })
-      }
-    }
-    return pre
-  }, [])
-  // const sidebar = []
+  const sidebar = getSidebar()
 
   return {
     outDir: '../dist',
@@ -170,15 +144,15 @@ export default defineConfig(() => {
         {
           src: 'https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js'
         }
-      ],
-      [
-        'script',
-        {
-          defer: 'true',
-          id: 'xplayer',
-          src: 'https://player-cdn.qsdurl.cn/Static/player9/js/player.js'
-        }
       ]
+      // [
+      //   'script',
+      //   {
+      //     defer: 'true',
+      //     id: 'xplayer',
+      //     src: 'https://player-cdn.qsdurl.cn/Static/player9/js/player.js'
+      //   }
+      // ]
     ],
     themeConfig: {
       // 展示 2,3 级标题在目录中
