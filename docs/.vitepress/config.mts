@@ -171,12 +171,12 @@ export default defineConfig(() => {
         }
       ],
       [
-        ('script',
+        'script',
         {
           defer: 'true',
           id: 'xplayer',
           src: 'https://player-cdn.qsdurl.cn/Static/player9/js/player.js'
-        })
+        }
       ]
     ],
     themeConfig: {
