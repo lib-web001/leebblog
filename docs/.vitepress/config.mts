@@ -169,7 +169,8 @@ export default defineConfig(() => {
         {
           src: 'https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js'
         }
-      ][
+      ],
+      [
         ('script',
         {
           defer: 'true',
