@@ -51,10 +51,22 @@ const blogTheme = getThemeConfig({
   // 友链
   friend: [],
   oml2d: {
-    dockedPosition: 'right',
-    mobileDisplay: true,
+    // dockedPosition: 'right',
+    // mobileDisplay: true,
     models: [
       {
+        // position: [0, 0],
+        // mobilePosition: [0, 0],
+        scale: 0.02,
+        // mobileScale: 0.02,
+        stageStyle: {
+          height: 450
+        },
+        // mobileStageStyle: {
+        //   height: 370,
+        //   width: 400
+        // },
+        // path: 'https://model.oml2d.com/HK416-1-normal/model.json'
         path: 'https://model.oml2d.com/haruto/haruto.model.json'
         // path: 'https://oml2d-models.sugarat.top/mai/model.json'
       }
@@ -62,8 +74,9 @@ const blogTheme = getThemeConfig({
   },
   // 公告
   popover: {
+    duration: 3,
+    mobileMinify: true,
     title: '公告',
-
     body: [
       { type: 'text', content: '👇👇👇扫我' },
       {
@@ -71,8 +84,7 @@ const blogTheme = getThemeConfig({
         style: 'height:60px;width:60px;object-fit:cover',
         src: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/weChat.jpg'
       }
-    ],
-    duration: 0
+    ]
   }
 })
 

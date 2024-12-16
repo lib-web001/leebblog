@@ -2,6 +2,7 @@
 // @import url('http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg3.webp');
 // @import url('http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg4.webp');
 // @import url('http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg5.webp');
+
 @media (min-width: 960px) {
   .VPNavBar[data-v-05ada0c5]:not(.has-sidebar):not(.home.top) {
     background-color: var(--vp-nav-bg-color);
@@ -27,8 +28,8 @@ body {
     // background-image: url(./assets/bg.webp);
     // background-image: url(https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/R09TUw==/eyJpZCI6IjdjZjA0ZGRlLWRjZDQtNDBkYi04ODA5LTY2ZjU5YjM3OGY0ZSIsIm5hbWUiOiIxLndlYnAiLCJkaXIiOiLog4zmma8ifQ==);
 
-    // background-image: url(./assets/bg1.webp);
-    animation: changeBackground 15s infinite; /* 设置动画持续时间和循环次数 */
+    background-image: url(./assets/bg1.webp);
+    // animation: changeBackground 15s infinite; /* 设置动画持续时间和循环次数 */
 
     background-size: cover;
   }

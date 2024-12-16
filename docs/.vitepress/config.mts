@@ -4,6 +4,7 @@ import { SponsorPlugin } from 'vitepress-plugin-sponsor'
 // 导入主题的配置
 import { blogTheme } from './blog-theme'
 import { getSidebar } from '../utils'
+import { walinePlugin, musicPlugin } from '../plugins'
 // import './static/jquery.min.js'
 // import './static/font-awesome.min.css'
 // 如果使用 GitHub/Gitee Pages 等公共平台部署
@@ -33,6 +34,8 @@ export default defineConfig(() => {
     ignoreDeadLinks: true,
     vite: {
       plugins: [
+        musicPlugin(),
+        walinePlugin(),
         // 打赏插件
         SponsorPlugin({
           /**
@@ -49,16 +52,17 @@ export default defineConfig(() => {
     extends: blogTheme,
     // base,
     lang: 'zh-cn',
-    title: '韩飞羽博客',
+    title: '飞语',
     description: '韩飞羽的个人博客',
-    lastUpdated: true,
+    kwywords: '全能高手,个人网站',
+    lastUpdted: true,
     // 详见：https://vitepress.dev/zh/reference/site-config#head
     head: [
-      // <meta http-equiv="x-dns-prefetch-control" content="on" />
-      // 使用 link 标签
-
-      // <link rel="dns-prefetch" href="https://www.baidu.com" />
-
+      ['meta', { 'http-equiv': 'x-dns-prefetch-control', content: 'on' }],
+      [
+        'link',
+        { rel: 'dns-prefetch', href: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/' }
+      ],
       [
         'link',
         { rel: 'icon', href: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/logo2' }
@@ -72,14 +76,14 @@ export default defineConfig(() => {
           api: 'https://player.qsdurl.cn'
         }
       ],
-      // [
-      //   'link',
-      //   {
-      //     rel: 'preload',
-      //     href: 'http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg1.webp',
-      //     as: 'image/css'
-      //   }
-      // ],
+      [
+        'link',
+        {
+          rel: 'preload',
+          href: 'http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg1.webp',
+          as: 'image/css'
+        }
+      ]
       // [
       //   'link',
       //   {
@@ -120,31 +124,31 @@ export default defineConfig(() => {
       //     as: 'text/css'
       //   }
       // ],
-      [
-        'link',
-        {
-          rel: 'stylesheet',
-          href: 'https://unpkg.com/@waline/client@v3/dist/waline.css',
-          type: 'text/css',
-          media: 'all'
-        }
-      ],
-      [
-        'link',
-        {
-          rel: 'stylesheet',
-          id: 'font-awesome-css',
-          href: 'https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css',
-          type: 'text/css',
-          media: 'all'
-        }
-      ],
-      [
-        'script',
-        {
-          src: 'https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js'
-        }
-      ]
+      // [
+      //   'link',
+      //   {
+      //     rel: 'stylesheet',
+      //     href: 'https://unpkg.com/@waline/client@v3/dist/waline.css',
+      //     type: 'text/css',
+      //     media: 'all'
+      //   }
+      // ],
+      // [
+      //   'link',
+      //   {
+      //     rel: 'stylesheet',
+      //     id: 'font-awesome-css',
+      //     href: 'https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css',
+      //     type: 'text/css',
+      //     media: 'all'
+      //   }
+      // ],
+      // [
+      //   'script',
+      //   {
+      //     src: 'https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js'
+      //   }
+      // ]
       // [
       //   'script',
       //   {
