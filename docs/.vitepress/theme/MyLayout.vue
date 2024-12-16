@@ -83,7 +83,7 @@ function onWalineLoad() {
   console.log('onWalineLoad')
 
   import('https://unpkg.com/@waline/client@v3/dist/waline.js').then(
-    ({ init, commentCount, pageviewCount }) => {
+    ({ init, commentCount, pageviewCount, update }) => {
       init({
         el: '#waline',
         // pageview: true, // 浏览量统计
@@ -100,6 +100,11 @@ function onWalineLoad() {
       pageviewCount({
         serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment',
         path: window.location.pathname
+      })
+
+      update?.({
+        lang: 'cn',
+        login: 'disable'
       })
     }
   )
@@ -149,8 +154,6 @@ function loadJS(src, callback, props = {}) {
 }
 
 onMounted(() => {
-  console.log('unmounted')
-
   loadCSS('https://unpkg.com/@waline/client@v3/dist/waline.css', () => {})
 
   loadCSS('https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css')
