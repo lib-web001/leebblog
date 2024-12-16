@@ -21,26 +21,33 @@
     <template #home-features-after>content</template>
     <template #page-top>content</template> -->
 
-    <!-- <template #page-bottom>pageBottom</template> -->
+    <template #page-bottom> </template>
 
     <template #doc-bottom>
       <!-- 当前页阅读量为:
+       
       <span class="waline-pageview-count" data-path="/guide/client/count.html" /> -->
       <div id="article-info">
         <!-- ... -->
-        阅读量: <span class="waline-pageview-count" data-path="<Your/Path/Name>" />
+        阅读量: <span class="waline-pageview-count" :data-path="window?.location?.pathname" />
         <!-- ... -->
+      </div>
+      <div id="article-info">
+        评论量:
+        <span id="commentCount"></span>
       </div>
       <div id="waline"></div>
       <img
+        hidden
         @load="onWalineLoad"
         src="https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/logo2"
-        style="display: none"
       />
     </template>
-    <!-- <template #doc-after>content</template>
-    <template #layout-after>content</template>
-    <template #layout-bottom>content</template> -->
+
+    <template #doc-after> </template>
+    <template #layout-after>layout-after</template>
+    <template #layout-bottom>layout-bottom</template>
+    <!--  -->
 
     <!-- <template #doc-top>content</template>
 
@@ -69,17 +76,39 @@
 <script setup>
 import BlogTheme from '@sugarat/theme'
 import { onMounted } from 'vue'
+
 const { Layout } = BlogTheme
 
 function onWalineLoad() {
   console.log('onWalineLoad')
 
-  import('https://unpkg.com/@waline/client@v3/dist/waline.js').then(({ init, pageviewCount }) => {
-    init({
-      el: '#waline',
-      serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment'
-    })
-  })
+  import('https://unpkg.com/@waline/client@v3/dist/waline.js').then(
+    ({ init, commentCount, pageviewCount }) => {
+      init({
+        el: '#waline',
+        // pageview: true, // 浏览量统计
+        serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment',
+        path: window.location.pathname
+      })
+      commentCount({
+        selector: '#commentCount',
+        pageview: true, // 浏览量统计
+        serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment',
+        path: window.location.pathname
+      })
+
+      pageviewCount({
+        serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment',
+        path: window.location.pathname
+      })
+    }
+  )
+  // import('https://unpkg.com/@waline/client@v3/dist/pageview.js').then(({ pageviewCount }) => {
+  //   pageviewCount({
+  //     serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment',
+  //     path: window.location.pathname
+  //   })
+  // })
 }
 
 // 动态加载 CSS 函数
@@ -92,8 +121,9 @@ function loadCSS(href) {
 
 function createDIV(props = {}) {
   var newDiv = document.createElement('div')
-
-  Object.assign(newDiv, props)
+  Object.entries(props).forEach((item) => newDiv.setAttribute(item[0], item[1]))
+  // newDiv.setAttribute("api",)
+  // Object.assign(newDiv, props)
 
   // 将新创建的 <div> 元素添加到页面中的 <body> 或其他元素中
   document.body.appendChild(newDiv)
@@ -120,6 +150,7 @@ function loadJS(src, callback, props = {}) {
 
 onMounted(() => {
   console.log('unmounted')
+
   loadCSS('https://unpkg.com/@waline/client@v3/dist/waline.css', () => {})
 
   loadCSS('https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css')

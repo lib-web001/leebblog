@@ -53,24 +53,24 @@ const blogTheme = getThemeConfig({
   oml2d: {
     // dockedPosition: 'right',
     // mobileDisplay: true,
-    models: [
-      {
-        // position: [0, 0],
-        // mobilePosition: [0, 0],
-        scale: 0.02,
-        // mobileScale: 0.02,
-        stageStyle: {
-          height: 450
-        },
-        // mobileStageStyle: {
-        //   height: 370,
-        //   width: 400
-        // },
-        // path: 'https://model.oml2d.com/HK416-1-normal/model.json'
-        path: 'https://model.oml2d.com/haruto/haruto.model.json'
-        // path: 'https://oml2d-models.sugarat.top/mai/model.json'
-      }
-    ]
+    // models: [
+    //   {
+    //     position: [300, 0],
+    //     mobilePosition: [0, 0],
+    //     // scale: 0.05,
+    //     // mobileScale: 0.02,
+    //     stageStyle: {
+    //       // height: 450
+    //     },
+    //     // mobileStageStyle: {
+    //     //   height: 370,
+    //     //   width: 400
+    //     // },
+    //     // path: 'https://model.oml2d.com/HK416-1-normal/model.json'
+    //     path: 'https://model.oml2d.com/haruto/haruto.model.json'
+    //     // path: 'https://oml2d-models.sugarat.top/mai/model.json'
+    //   }
+    // ]
   },
   // 公告
   popover: {

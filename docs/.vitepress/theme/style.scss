@@ -8,6 +8,9 @@
     background-color: var(--vp-nav-bg-color);
   }
 }
+[hidden] {
+  display: none;
+}
 body {
   font-family: FZShuTi;
   font-weight: normal;

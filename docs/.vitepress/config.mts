@@ -67,15 +67,14 @@ export default defineConfig(() => {
         'link',
         { rel: 'icon', href: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/logo2' }
       ],
-
-      [
-        'div',
-        {
-          id: 'music',
-          key: '646868c966e23',
-          api: 'https://player.qsdurl.cn'
-        }
-      ],
+      // [
+      //   'div',
+      //   {
+      //     id: 'music',
+      //     key: '646868c966e23',
+      //     api: 'https://player.qsdurl.cn'
+      //   }
+      // ],
       [
         'link',
         {
@@ -84,79 +83,6 @@ export default defineConfig(() => {
           as: 'image/css'
         }
       ]
-      // [
-      //   'link',
-      //   {
-      //     rel: 'preload',
-      //     href: 'http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg2.webp',
-      //     as: 'image/css'
-      //   }
-      // ],
-      // [
-      //   'link',
-      //   {
-      //     rel: 'preload',
-      //     href: 'http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg3.webp',
-      //     as: 'image/css'
-      //   }
-      // ],
-      // [
-      //   'link',
-      //   {
-      //     rel: 'preload',
-      //     href: 'http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg4.webp',
-      //     as: 'image/css'
-      //   }
-      // ],
-      // [
-      //   'link',
-      //   {
-      //     rel: 'preload',
-      //     href: 'http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg5.webp',
-      //     as: 'image/css'
-      //   }
-      // ],
-      // [
-      //   'link',
-      //   {
-      //     rel: 'prefetch',
-      //     href: 'https://unpkg.com/@waline/client@v3/dist/waline.css',
-      //     as: 'text/css'
-      //   }
-      // ],
-      // [
-      //   'link',
-      //   {
-      //     rel: 'stylesheet',
-      //     href: 'https://unpkg.com/@waline/client@v3/dist/waline.css',
-      //     type: 'text/css',
-      //     media: 'all'
-      //   }
-      // ],
-      // [
-      //   'link',
-      //   {
-      //     rel: 'stylesheet',
-      //     id: 'font-awesome-css',
-      //     href: 'https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css',
-      //     type: 'text/css',
-      //     media: 'all'
-      //   }
-      // ],
-      // [
-      //   'script',
-      //   {
-      //     src: 'https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js'
-      //   }
-      // ]
-      // [
-      //   'script',
-      //   {
-      //     defer: 'true',
-      //     id: 'xplayer',
-      //     src: 'https://player-cdn.qsdurl.cn/Static/player9/js/player.js'
-      //   }
-      // ]
     ],
     themeConfig: {
       // 展示 2,3 级标题在目录中
