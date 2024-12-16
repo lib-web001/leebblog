@@ -4,7 +4,6 @@ import { SponsorPlugin } from 'vitepress-plugin-sponsor'
 // 导入主题的配置
 import { blogTheme } from './blog-theme'
 import { getSidebar } from '../utils'
-import { walinePlugin, musicPlugin } from '../plugins'
 // import './static/jquery.min.js'
 // import './static/font-awesome.min.css'
 // 如果使用 GitHub/Gitee Pages 等公共平台部署
@@ -34,8 +33,8 @@ export default defineConfig(() => {
     ignoreDeadLinks: true,
     vite: {
       plugins: [
-        musicPlugin(),
-        walinePlugin(),
+        // musicPlugin(),
+        // walinePlugin(),
         // 打赏插件
         SponsorPlugin({
           /**
