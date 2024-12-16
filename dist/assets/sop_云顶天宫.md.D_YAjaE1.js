@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as a}from"./chunks/framework.DxlwMnnj.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"sop/云顶天宫.md","filePath":"sop/云顶天宫.md"}'),o={name:"sop/云顶天宫.md"};function s(r,c,n,_,p,d){return t(),a("div")}const f=e(o,[["render",s]]);export{m as __pageData,f as default};
