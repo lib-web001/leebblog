@@ -66,3 +66,18 @@ body {
     background-image: url(./assets/bg1.webp);
   }
 }
+
+#music {
+  animation-name: musicHidden;
+  animation-delay: 0;
+  animation-duration: 8s;
+}
+
+@keyframes musicHidden {
+  from {
+    display: none;
+  }
+  to {
+    display: none;
+  }
+}

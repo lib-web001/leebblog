@@ -1,3 +1,5 @@
+pnpm run build
+
 git add .
 
 message = $1

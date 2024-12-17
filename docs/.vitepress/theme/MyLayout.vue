@@ -44,9 +44,24 @@
       />
     </template>
 
-    <template #doc-after> </template>
-    <template #layout-after>layout-after</template>
-    <template #layout-bottom>layout-bottom</template>
+    <template #doc-after></template>
+    <template #layout-after></template>
+    <template #layout-bottom>
+      <!-- <div
+        id="music"
+        key="646868c966e23"
+        data-key="646868c966e23"
+        api="https://player.qsdurl.cn"
+      ></div> -->
+      <!-- 
+      <link rel="stylesheet" id="font-awesome-css" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+      <script src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js"></script>
+      <script
+        defer="true"
+        id="xplayer"
+        src="https://player.qsdurl.cn/Static/player9/js/player.js"
+      ></script> -->
+    </template>
     <!--  -->
 
     <!-- <template #doc-top>content</template>
@@ -139,7 +154,8 @@ function loadJS(src, callback, props = {}) {
   var script = document.createElement('script')
   script.type = 'text/javascript'
   script.src = src
-  Object.assign(script, props)
+  Object.entries(props).forEach((item) => script.setAttribute(item[0], item[1]))
+  // Object.assign(script, props)
   script.onload = function () {
     if (callback) {
       callback()
@@ -156,24 +172,25 @@ function loadJS(src, callback, props = {}) {
 onMounted(() => {
   loadCSS('https://unpkg.com/@waline/client@v3/dist/waline.css', () => {})
 
-  loadCSS('https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css')
+  // createDIV({
+  //   id: 'music',
+  //   key: '646868c966e23',
+  //   api: 'https://player.qsdurl.cn'
+  // })
+  // loadCSS('https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css')
 
-  loadJS('https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js', () => {
-    console.log('jquery loaded')
-    createDIV({
-      id: 'music',
-      key: '646868c966e23',
-      api: 'https://player.qsdurl.cn'
-    })
-    loadJS(
-      'https://player-cdn.qsdurl.cn/Static/player9/js/player.js',
-      () => {
-        console.log('player loaded')
-      },
-      {
-        id: 'xplayer'
-      }
-    )
-  })
+  // loadJS('https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js', () => {
+  //   console.log('jquery loaded')
+  //   loadJS(
+  //     'https://player-cdn.qsdurl.cn/Static/player9/js/player.js',
+  //     () => {
+  //       console.log('player loaded')
+  //     },
+  //     {
+  //       defer: true,
+  //       id: 'xplayer'
+  //     }
+  //   )
+  // })
 })
 </script>

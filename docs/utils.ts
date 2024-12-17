@@ -3,6 +3,8 @@ import fs from 'fs'
 
 export function getSidebar() {
   const dir = path.resolve(__dirname, 'articles')
+  console.log(dir, 'dir')
+  // const dir = './articles'
   const dirents = fs.readdirSync(dir, { withFileTypes: true })
   const sidebar = dirents.reduce((pre: any, dirent) => {
     if (dirent.isDirectory()) {

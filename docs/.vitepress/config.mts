@@ -66,20 +66,44 @@ export default defineConfig(() => {
         'link',
         { rel: 'icon', href: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/logo2' }
       ],
-      // [
-      //   'div',
-      //   {
-      //     id: 'music',
-      //     key: '646868c966e23',
-      //     api: 'https://player.qsdurl.cn'
-      //   }
-      // ],
       [
         'link',
         {
           rel: 'preload',
           href: 'http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg1.webp',
           as: 'image/css'
+        }
+      ],
+      [
+        'div',
+        {
+          id: 'music',
+          key: '646868c966e23',
+          api: 'https://player.qsdurl.cn'
+        }
+      ],
+      [
+        'script',
+        {
+          src: 'https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js'
+        }
+      ],
+      [
+        'script',
+        {
+          defer: 'true',
+          id: 'xplayer',
+          src: 'https://player.qsdurl.cn/Static/player9/js/player.js'
+        }
+      ],
+      [
+        'link',
+        {
+          rel: 'stylesheet',
+          id: 'font-awesome-css',
+          href: 'https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css',
+          type: 'text/css',
+          media: 'all'
         }
       ]
     ],
