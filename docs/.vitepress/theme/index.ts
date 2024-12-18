@@ -28,6 +28,7 @@ import './style.scss'
 
 import DefaultTheme from 'vitepress/theme'
 import MyLayout from './MyLayout.vue'
+import { useRoute } from 'vitepress' // 引入 vue-router
 
 export default {
   extends: BlogTheme,

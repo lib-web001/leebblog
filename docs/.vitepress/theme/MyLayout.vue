@@ -27,21 +27,16 @@
       <!-- 当前页阅读量为:
        
       <span class="waline-pageview-count" data-path="/guide/client/count.html" /> -->
-      <div id="article-info">
+      <div>
         <!-- ... -->
-        阅读量: <span class="waline-pageview-count" :data-path="window?.location?.pathname" />
+        阅读量: <span id="pageviewCount" :data-path="window?.location?.pathname">0</span>
         <!-- ... -->
       </div>
-      <div id="article-info">
+      <div>
         评论量:
-        <span id="commentCount"></span>
+        <span id="commentCount">0</span>
       </div>
-      <div id="waline"></div>
-      <img
-        hidden
-        @load="onWalineLoad"
-        src="https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/logo2"
-      />
+      <div ref="walineRef"></div>
     </template>
 
     <template #doc-after></template>
@@ -87,49 +82,68 @@
   </Layout>
 </template>
 
-<!--.vitepress/theme/MyLayout.vue-->
 <script setup>
 import BlogTheme from '@sugarat/theme'
-import { onMounted } from 'vue'
+import { onMounted, ref, onUpdated, watch } from 'vue'
+import { useRoute } from 'vitepress' // 引入 vue-router
 
 const { Layout } = BlogTheme
 
-function onWalineLoad() {
-  console.log('onWalineLoad')
+const route = useRoute()
+const walineRef = ref()
+watch(
+  route,
+  (newRoute, oldRoute) => {
+    setTimeout(async () => {
+      // console.log('walineRef', walineRef)
+      // console.log('文章切换了', oldRoute, '->', newRoute, a)
+      if (!!walineRef.value) {
+        // console.log('进来了')
+        // const {
+        //   default: Waline,
+        //   init,
+        //   commentCount,
+        //   pageviewCount,
+        //   update
+        // }
+        const waline = await import('https://unpkg.com/@waline/client@v3/dist/waline.js')
+        console.log(waline, 'init')
 
-  import('https://unpkg.com/@waline/client@v3/dist/waline.js').then(
-    ({ init, commentCount, pageviewCount, update }) => {
-      init({
-        el: '#waline',
-        // pageview: true, // 浏览量统计
-        serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment',
-        path: window.location.pathname
-      })
-      commentCount({
-        selector: '#commentCount',
-        pageview: true, // 浏览量统计
-        serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment',
-        path: window.location.pathname
-      })
+        // 初始化 Waline 评论系统
 
-      pageviewCount({
-        serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment',
-        path: window.location.pathname
-      })
+        const res = waline?.init({
+          el: walineRef.value,
+          // pageview: true, // 浏览量统计
+          serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment',
+          path: window.location.pathname,
+          lang: 'zh', // 设置为中文
+          reaction: true,
+          comment: '#commentCount',
+          pageview: '#pageviewCount'
+        })
+        // console.log('res', res)
+        // res.on('submit', () => {
+        //   console.log('submit')
+        // })
 
-      update?.({
-        lang: 'cn',
-        login: 'disable'
-      })
-    }
-  )
-  // import('https://unpkg.com/@waline/client@v3/dist/pageview.js').then(({ pageviewCount }) => {
-  //   pageviewCount({
-  //     serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment',
-  //     path: window.location.pathname
-  //   })
-  // })
-}
+        // waline?.commentCount({
+        //   selector: '#commentCount',
+        //   pageview: true,
+        //   serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment',
+        //   path: window.location.pathname
+        // })
+
+        // waline?.pageviewCount({
+        //   serverURL: 'https://hfymark.netlify.app/.netlify/functions/comment',
+        //   path: window.location.pathname
+        // })
+      }
+    }, 3000)
+  },
+  {
+    immediate: true
+  }
+)
 
 // 动态加载 CSS 函数
 function loadCSS(href) {
@@ -171,6 +185,7 @@ function loadJS(src, callback, props = {}) {
 
 onMounted(() => {
   loadCSS('https://unpkg.com/@waline/client@v3/dist/waline.css', () => {})
+  loadCSS('https://unpkg.com/@waline/client@v3/dist/waline-meta.css', () => {})
 
   // createDIV({
   //   id: 'music',
