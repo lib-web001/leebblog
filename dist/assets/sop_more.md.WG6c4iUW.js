@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as o}from"./chunks/framework.DxlwMnnj.js";const i=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"sop/more.md","filePath":"sop/more.md"}'),r={name:"sop/more.md"};function a(s,c,n,p,m,_){return t(),o("div")}const f=e(r,[["render",a]]);export{i as __pageData,f as default};
