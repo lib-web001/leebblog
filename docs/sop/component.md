@@ -117,6 +117,7 @@ interface TaskCheckbox {
 效果如下
 
 ::: timeline 2023-05-24
+
 * **do some thing1**
 * do some thing2
 :::
@@ -315,71 +316,6 @@ gantt
     Parallel 2   :         des4, after des1, 1d
     Parallel 3   :         des5, after des3, 1d
     Parallel 4   :         des6, after des4, 1d
-```
-
-## UserWorksPage
-
-* Type: `UserWorks`
-
-用于作品列表展示
-
-效果如下，详见 [个人作品展示](https://theme.sugarat.top/work.html)
-
-![](https://img.cdn.sugarat.top/mdImg/MTY4NzA4ODczMzkwNg==687088733906)
-
-新建一个`works.md`文件，放入以下内容
-  
-```md
----
-layout: page
-title: 个人作品展示
-sidebar: false
-outline: [2,3]
-sticky: 1
----
-<UserWorksPage />
-```
-
-内容配置方式如下
-
-::: code-group
-
-```ts [default]
-const blogTheme = getThemeConfig({
-  works: {
-    title: '个人项目/线上作品',
-    description: '记录开发的点点滴滴',
-    topTitle: '举些🌰',
-    list: [
-      {
-        title: '博客主题 @sugarat/theme',
-        description: '基于 vitepress 实现的博客主题',
-        time: {
-          start: '2023/01/29'
-        },
-        github: {
-          owner: 'ATQQ',
-          repo: 'sugar-blog',
-          branch: 'master',
-          path: 'packages/theme'
-        },
-        status: {
-          text: '自定义badge'
-        },
-        url: 'https://theme.sugarat.top',
-        cover:
-          'https://img.cdn.sugarat.top/mdImg/MTY3MzE3MDUxOTMwMw==673170519303',
-        tags: ['Vitepress', 'Vue'],
-        links: [
-          {
-            title: '一个简约风的VitePress博客主题',
-            url: 'https://juejin.cn/post/7196517835380293693'
-          }
-        ]
-      }
-    ]
-  }
-})
 ```
 
 ```ts [type]
