@@ -52,8 +52,8 @@ export default defineConfig(() => {
     // base,
     lang: 'zh-cn',
     title: '飞语',
-    description: '韩飞羽的个人博客',
-    kwywords: '全能高手,个人网站',
+    description: 'leeb的个人博客',
+    kwywords: '全栈,个人网站',
     lastUpdted: true,
     // 详见：https://vitepress.dev/zh/reference/site-config#head
     head: [
@@ -74,28 +74,28 @@ export default defineConfig(() => {
           as: 'image/css'
         }
       ],
-      [
-        'div',
-        {
-          id: 'music',
-          key: '646868c966e23',
-          api: 'https://player.qsdurl.cn'
-        }
-      ],
-      [
-        'script',
-        {
-          src: 'https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js'
-        }
-      ],
-      [
-        'script',
-        {
-          defer: 'true',
-          id: 'xplayer',
-          src: 'https://player.qsdurl.cn/Static/player9/js/player.js'
-        }
-      ],
+      // [
+      //   'div',
+      //   {
+      //     id: 'music',
+      //     key: '646868c966e23',
+      //     api: 'https://player.qsdurl.cn'
+      //   }
+      // ],
+      // [
+      //   'script',
+      //   {
+      //     src: 'https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js'
+      //   }
+      // ],
+      // [
+      //   'script',
+      //   {
+      //     defer: 'true',
+      //     id: 'xplayer',
+      //     src: 'https://player.qsdurl.cn/Static/player9/js/player.js'
+      //   }
+      // ],
       [
         'link',
         {
