@@ -6,9 +6,9 @@ I am an independent developer,Now I work in [长沙](https://map.baidu.com/@1258
 
 You can also get to know me through [resume](https://hfyf.netlify.app)
 
-:phone: 电话: **15397232864**
+:phone: 电话: **19313117544**
 
-:speech_balloon: 微信: **15397232864**
+:speech_balloon: 微信: **19313117544**
 
 :envelope: Mail: **<3437705679@qq.com>**
 
