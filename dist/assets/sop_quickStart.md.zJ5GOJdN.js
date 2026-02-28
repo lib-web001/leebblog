@@ -1,0 +1,1 @@
+import{_ as t,o as e,c as a}from"./chunks/framework.CrIZQWiq.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"sop/quickStart.md","filePath":"sop/quickStart.md"}'),r={name:"sop/quickStart.md"};function o(c,s,n,i,p,_){return e(),a("div")}const f=t(r,[["render",o]]);export{m as __pageData,f as default};
