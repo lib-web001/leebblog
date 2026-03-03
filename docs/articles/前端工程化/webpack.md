@@ -8,7 +8,9 @@ tag:
 ## webpack 是什么
 
 webpack 是一个打包工具
-将 es6 转 es5 代码用 babel
+
+babel     :将 es6 转 es5 代码
+
 将非 js 资源通过 loader 转成 js
 
 loader 和 plugin 的区别：
@@ -108,3 +110,14 @@ HelloPlugin.prototype.apply = (compiler) => {
 }
 module.exports = HelloPlugin
 ```
+
+
+* Webpack工作流程
+1. 初始化参数：读取配置文件，合并参数
+2. 开始编译：初始化Compiler对象，加载插件
+3. 确定入口：从entry开始解析
+4. 编译模块：通过loader转换文件
+5. 完成编译：生成AST，找出依赖
+6. 输出资源：根据依赖关系生成Chunk
+7. 输出完成：写入文件系统
+

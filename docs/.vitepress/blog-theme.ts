@@ -46,7 +46,7 @@ const blogTheme = getThemeConfig({
   themeColor: 'el-blue',
 
   // 文章默认作者
-  author: '韩 飞 羽',
+  author: 'leeb',
 
   // 友链
   friend: [],
