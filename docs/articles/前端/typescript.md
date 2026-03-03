@@ -950,6 +950,105 @@ declare namespace User {
 
 ### 类型体操
 
+```typescript
+export type IGetAsyncFnType<T> = T extends (
+        ...args: never[]
+    ) => Promise<infer R>
+    ? R
+    : T
+
+export type IGetOptional<T, V = never> = {
+    [K in keyof T as undefined extends T[K] ? K : never]-?: T[K] | V
+}
+
+export type IGetRequire<T, V = never> = {
+    [K in keyof T as undefined extends T[K] ? never : K]-?: T[K] | V
+}
+
+export type IEntity<T> = {
+    [K in keyof T]: any extends T[K] ? never : T[K]
+}
+
+export type IPropertyGetField<T> = {
+    [K in keyof T as `get${Capitalize<string & keyof T>}`]: T[K]
+}
+
+export type IPropertySetField<T> = {
+    [K in keyof T as `set${Capitalize<string & keyof T>}`]: T[K]
+}
+
+export type kebabcase<S> = S extends `${infer first}${infer suf}`
+    ? first extends Lowercase<first>
+        ? `${first}${kebabcase<suf>}`
+        : `-${Lowercase<first>}${kebabcase<suf>}`
+    : S
+
+export type Reverse<T, R extends any[]> = T extends any[]
+    ? T['length'] extends R['length']
+        ? R
+        : Reverse<T, [T[R['length']], ...R]>
+    : []
+
+export type Reverse1<T extends any[]> = T extends [infer First, ...infer Rest]
+    ? [...Reverse1<Rest>, First]
+    : []
+
+export type LengthOfString<S, T extends any[] = []> = S extends any[]
+    ? S['length']
+    : S extends `${infer first}${infer rest}`
+        ? LengthOfString<rest, [...T, first]>
+        : T['length']
+
+export type Permutation<T, U = T> = T extends any
+    ? [T, ...Permutation<Exclude<U, T>>]
+    : []
+
+export type ArrToUnion<T extends any[], M = never> = T extends [
+        infer U,
+        ...infer Rest,
+    ]
+    ? ArrToUnion<Rest, M | U>
+    : M
+export type TupleToUnion<T extends any[]> = T[number]
+
 ```
 
+* 一、基础工具类型
+*  工具类型	作用	示例
+```typescript
+Partial<T>	将 T 的所有属性变为可选	Partial<{ a: number }> → { a?: number }
+
+Required<T>	将 T 的所有属性变为必选	Required<{ a?: number }> → { a: number }
+
+Readonly<T>	将 T 的所有属性变为只读	Readonly<{ a: number }> → { readonly a: number }
+
+Record<K, T>	创建键为 K、值为 T 的对象	Record<'a' | 'b', number> → { a: number; b: number }
+
+Pick<T, K>	从 T 中选取指定属性 K	Pick<{ a: number; b: string }, 'a'> → { a: number }
+
+Omit<T, K>	从 T 中移除指定属性 K	Omit<{ a: number; b: string }, 'a'> → { b: string }
+```
+
+* 二、联合类型工具
+* 工具类型	作用	示例
+```typescript
+Exclude<T, U>	从 T 中排除 U 的类型	Exclude<'a' | 'b', 'a'> → 'b'
+
+Extract<T, U>	从 T 中提取 U 的类型	Extract<'a' | 'b', 'a'> → 'a'
+
+NonNullable<T>	排除 null 和 undefined	NonNullable<string | null> → string
+
+UnionToIntersection<U>	联合类型转交叉类型	UnionToIntersection<{ a: number } | { b: string }> → { a: number } & { b: string }
+```
+
+* 三、函数类型工具
+* 工具类型	作用	示例
+```typescript
+Parameters<T>	获取函数参数类型（元组）	Parameters<(a: number) => void> → [a: number]
+
+ReturnType<T>	获取函数返回值类型	ReturnType<() => number> → number
+
+ConstructorParameters<T>	获取构造函数参数类型	ConstructorParameters<new (a: number) => {}> → [a: number]
+
+InstanceType<T>	获取构造函数实例类型	InstanceType<typeof Date> → Date
 ```
