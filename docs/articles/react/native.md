@@ -564,3 +564,48 @@ npm i react-native-vector-icons
 ```
 gradlew --warning-mode all
 ```
+
+* 平台区分：不同平台（iOS/Android）的设计规范不同。可以利用 Platform 模块来编写平台特定的代码。
+
+```javascript
+import { Platform, Text } from 'react-native';
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 16,
+    ...Platform.select({
+      ios: { fontWeight: '500', fontFamily: 'San Francisco' },
+      android: { fontWeight: '400', fontFamily: 'Roboto' },
+    }),
+  },
+});
+```
+
+
+* React Native 适配的核心公式可以概括为：
+Flexbox 布局 + 等比缩放工具 + 安全区处理 + 平台区分
+
+实际开发中，建议先靠 Flexbox 弹性布局解决 80% 的通用场景，再针对特殊组件（如字体、边框）使用缩放函数，最后别忘了用安全区组件处理异形屏。
+
+* react-native-safe-area-context
+
+```
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+function HomeScreen() {
+  const insets = useSafeAreaInsets();
+  return (
+    <View style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
+      {/* 内容区域 */}
+    </View>
+  );
+}
+```
+
+* 安全区域（刘海屏、挖孔屏）
+```javascript
+简单场景：直接用 RN 官方提供的 SafeAreaView 组件包裹内容，它会自动将内容限定在屏幕的安全区域内。
+
+复杂场景：如果需要对安全区域进行更精细的控制（比如实现沉浸式背景，但文字避开刘海），可以使用 react-native-safe-area-context 库。
+它提供了 useSafeAreaInsets 这个 Hook，能精确获取顶部、底部等边距值。
+```
