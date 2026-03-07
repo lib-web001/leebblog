@@ -609,3 +609,59 @@ function HomeScreen() {
 复杂场景：如果需要对安全区域进行更精细的控制（比如实现沉浸式背景，但文字避开刘海），可以使用 react-native-safe-area-context 库。
 它提供了 useSafeAreaInsets 这个 Hook，能精确获取顶部、底部等边距值。
 ```
+
+* gradlew clean 之后重启变慢
+```
+优化方向	核心操作 (在项目 android/ 目录下的 gradle.properties 文件中设置)	预期收益	注意事项
+1. 启用 Gradle 缓存	添加：org.gradle.caching=true 	即使是 clean 构建，也能从全局缓存中恢复任务结果，大幅加速。	强烈推荐。这是提升 clean 构建速度的核武器。
+2. 开启并行执行	添加：org.gradle.parallel=true 	充分利用多核 CPU，让独立的任务（如多个模块的编译）同时运行。	项目模块越多，效果越明显。
+3. 启用配置缓存	添加：org.gradle.configuration-cache=true 	跳过重复的配置阶段。首次构建后，后续构建（甚至包含代码修改的构建）会快非常多。	部分老旧插件可能不兼容，如有问题可暂时关闭。
+4. 确保守护进程常驻	添加：org.gradle.daemon=true 	让 Gradle 进程在后台保持运行，下次构建直接复用，避免 JVM 启动开销。	通常默认开启，检查一下确保是 true 即可。
+5. 调整 JVM 内存	添加：org.gradle.jvmargs=-Xmx4096m -XX:+UseG1GC 	给 Gradle 分配更多内存（如 4GB），减少垃圾回收暂停，让编译更顺畅。	根据你的电脑内存大小调整 -Xmx 后面的数值
+```
+```
+
+org.gradle.configuration-cache=true
+org.gradle.caching=true
+org.gradle.parallel=true
+org.gradle.configuration-cache=true
+org.gradle.daemon=true
+org.gradle.jvmargs=-Xmx4096m -XX:+UseG1GC
+```
+
+# react-native-cli 约定式路由系统
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+
+function generateRoutes(dir, basePath = './screens') {
+  const routes = [];
+  const files = fs.readdirSync(dir);
+
+  files.forEach(file => {
+    const fullPath = path.join(dir, file);
+    const stat = fs.statSync(fullPath);
+
+    if (stat.isDirectory()) {
+      routes.push(...generateRoutes(fullPath, `${basePath}/${file}`));
+    } else if (file.endsWith('.tsx')) {
+      const routeName = path.basename(file, '.tsx');
+      routes.push(`{
+        "name": "${routeName}",
+        "component": () => import('${basePath}/${file.slice(0, -4)}')
+      }`);
+    }
+  });
+
+  return `export default [${routes.join(',\n')}]`;
+}
+
+const routes = generateRoutes(path.join(__dirname, 'screens'));
+fs.writeFileSync(
+        path.join(__dirname, 'routes.tsx'),
+        routes
+);
+console.log('Routes generated:', routes);
+
+```
