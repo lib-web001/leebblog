@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的足迹 - 地图记录</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 20px 0;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    .map-container {
+      width: 100%;
+      height: 600px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    .info-window {
+      padding: 10px;
+    }
+
+    .info-window h3 {
+      margin: 0 0 8px 0;
+      color: #333;
+      font-size: 18px;
+    }
+
+    .info-window .date {
+      color: #666;
+      font-size: 14px;
+      margin: 0 0 8px 0;
+    }
+
+    .info-window .description {
+      color: #555;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      padding: 20px 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    /* 行走动画相关样式 */
+    .walking-person {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: #ff5722;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      box-shadow: 0 0 10px rgba(255, 87, 34, 0.8);
+      z-index: 1000;
+      transition: all 0.5s ease-in-out;
+    }
+    
+    .walking-person::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      background-color: #fff;
+      border-radius: 50%;
+    }
+    
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .controls button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+    
+    .controls button:hover {
+      background-color: #45a049;
+    }
+    
+    .controls button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>我的足迹</h1>
+      <p>记录我去过的每一个地方</p>
+    </div>
+
+    <div class="map-container">
+      <div id="map"></div>
+      <div id="walking-person" class="walking-person" style="display: none;"></div>
+    </div>
+    
+    <div class="controls">
+      <button id="start-animation">开始行走</button>
+      <button id="pause-animation" disabled>暂停</button>
+      <button id="reset-animation" disabled>重置</button>
+    </div>
+
+    <div class="footer">
+      <p>使用百度地图记录我的足迹</p>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=rfrktLKp8868hxaM4aunBkrA0Rcu6TS0"></script>
+  <script type="text/javascript">
+    // 足迹数据 - 可以根据你的实际情况修改
+    const footprints = [
+      { name: '北京', lat: 39.9042, lng: 116.4074, date: '2020-05-01', description: '参观了故宫和长城' },
+      { name: '上海', lat: 31.2304, lng: 121.4737, date: '2021-03-15', description: '游览了外滩和东方明珠' },
+      { name: '广州', lat: 23.1291, lng: 113.2644, date: '2021-07-20', description: '品尝了正宗粤菜' },
+      { name: '深圳', lat: 22.5431, lng: 114.0579, date: '2022-01-10', description: '参观了深圳湾公园' },
+      { name: '杭州', lat: 30.2741, lng: 120.1551, date: '2022-04-05', description: '游览了西湖' },
+      { name: '成都', lat: 30.5728, lng: 104.0668, date: '2022-08-12', description: '品尝了火锅，看了大熊猫' },
+      { name: '西安', lat: 34.3416, lng: 108.9398, date: '2023-02-18', description: '参观了兵马俑和古城墙' },
+      { name: '重庆', lat: 29.4316, lng: 106.9123, date: '2023-06-25', description: '体验了山城特色' },
+      { name: '厦门', lat: 24.4798, lng: 118.0894, date: '2023-10-01', description: '游览了鼓浪屿' },
+      { name: '昆明', lat: 25.0389, lng: 102.7183, date: '2024-01-15', description: '感受了春城之美' },
+    ];
+
+    // 行走动画相关变量
+    let mapInstance = null;
+    let animationInterval = null;
+    let currentPointIndex = 0;
+    let isAnimating = false;
+    let isPaused = false;
+    const walkingPerson = document.getElementById('walking-person');
+    const startButton = document.getElementById('start-animation');
+    const pauseButton = document.getElementById('pause-animation');
+    const resetButton = document.getElementById('reset-animation');
+    
+    // 初始化地图
+    function initMap() {
+      // 创建地图实例
+      mapInstance = new BMap.Map('map');
+      mapInstance.centerAndZoom(new BMap.Point(104.1954, 35.8617), 4); // 中国中心点
+      mapInstance.enableScrollWheelZoom(true);
+
+      // 添加标记点
+      const markers = [];
+      footprints.forEach(footprint => {
+        const point = new BMap.Point(footprint.lng, footprint.lat);
+        const marker = new BMap.Marker(point);
+
+        // 创建信息窗体
+        const infoWindow = new BMap.InfoWindow(
+          `<div class="info-window">
+            <h3>${footprint.name}</h3>
+            <p class="date">日期: ${footprint.date}</p>
+            <p class="description">${footprint.description}</p>
+          </div>`,
+          {
+            width: 250,
+            height: 100
+          }
+        );
+
+        marker.addEventListener('click', () => {
+          mapInstance.openInfoWindow(infoWindow, point);
+        });
+
+        markers.push(marker);
+        mapInstance.addOverlay(marker);
+      });
+
+      // 自动调整地图视野以包含所有标记点
+      const points = footprints.map(fp => new BMap.Point(fp.lng, fp.lat));
+      mapInstance.setViewport(points);
+    }
+    
+    // 开始行走动画
+    function startWalking() {
+      if (isAnimating && !isPaused) return;
+      
+      if (!isAnimating) {
+        // 首次开始动画
+        isAnimating = true;
+        currentPointIndex = 0;
+        walkingPerson.style.display = 'block';
+        
+        // 将小人移动到第一个点
+        updateWalkingPersonPosition(footprints[0]);
+      } else {
+        // 从暂停状态恢复
+        isPaused = false;
+      }
+      
+      // 更新按钮状态
+      startButton.disabled = true;
+      pauseButton.disabled = false;
+      resetButton.disabled = false;
+      
+      // 开始动画
+      animationInterval = setInterval(() => {
+        if (!isPaused) {
+          currentPointIndex++;
+          
+          if (currentPointIndex < footprints.length) {
+            updateWalkingPersonPosition(footprints[currentPointIndex]);
+            // 移动地图中心到当前点
+            mapInstance.panTo(new BMap.Point(footprints[currentPointIndex].lng, footprints[currentPointIndex].lat));
+          } else {
+            // 动画结束
+            stopAnimation();
+            startButton.disabled = false;
+            pauseButton.disabled = true;
+          }
+        }
+      }, 2000); // 每2秒移动到一个新点
+    }
+    
+    // 更新小人位置
+    function updateWalkingPersonPosition(footprint) {
+      const point = mapInstance.pointToOverlayPixel(new BMap.Point(footprint.lng, footprint.lat));
+      walkingPerson.style.left = `${point.x - 15}px`; // 减去小人宽度的一半
+      walkingPerson.style.top = `${point.y - 15}px`; // 减去小人高度的一半
+    }
+    
+    // 暂停动画
+    function pauseAnimation() {
+      isPaused = true;
+      pauseButton.disabled = true;
+      startButton.disabled = false;
+      startButton.textContent = '继续行走';
+    }
+    
+    // 停止动画
+    function stopAnimation() {
+      isAnimating = false;
+      isPaused = false;
+      if (animationInterval) {
+        clearInterval(animationInterval);
+        animationInterval = null;
+      }
+    }
+    
+    // 重置动画
+    function resetAnimation() {
+      stopAnimation();
+      currentPointIndex = 0;
+      walkingPerson.style.display = 'none';
+      startButton.textContent = '开始行走';
+      startButton.disabled = false;
+      pauseButton.disabled = true;
+      resetButton.disabled = true;
+      
+      // 重置地图视野
+      const points = footprints.map(fp => new BMap.Point(fp.lng, fp.lat));
+      mapInstance.setViewport(points);
+    }
+    
+    // 绑定按钮事件
+    startButton.addEventListener('click', startWalking);
+    pauseButton.addEventListener('click', pauseAnimation);
+    resetButton.addEventListener('click', resetAnimation);
+    
+    // 等待百度地图API加载完成
+    window.onload = function() {
+      initMap();
+    };
+  </script>
+</body>
+</html>

@@ -1,10 +1,6 @@
 import path from 'path'
 import fs from 'fs'
 
-
-
-
-
 export function getSidebar() {
   const dir = path.resolve(__dirname, 'articles')
   console.log(dir, 'dir')
