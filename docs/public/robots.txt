@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://hfyf.netlify.app/sitemap.xml
