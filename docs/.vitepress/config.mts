@@ -53,10 +53,20 @@ export default defineConfig(() => {
     lang: 'zh-cn',
     title: '飞语',
     description: 'leeb的个人博客',
-    kwywords: '全栈,个人网站',
     lastUpdted: true,
     // 详见：https://vitepress.dev/zh/reference/site-config#head
     head: [
+      ['meta', { name: 'keywords', content: '全栈,个人网站,前端,后端,leeb的个人博客' }],
+      ['meta', { name: 'author', content: 'leeb' }],
+      ['meta', { property: 'og:title', content: '飞语' }],
+      ['meta', { property: 'og:description', content: 'leeb的个人博客' }],
+      ['meta', { property: 'og:type', content: 'website' }],
+      ['meta', { property: 'og:url', content: 'https://hfyf.netlify.app/' }],
+      ['meta', { property: 'og:image', content: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/logo2' }],
+      ['meta', { name: 'twitter:card', content: 'summary' }],
+      ['meta', { name: 'twitter:title', content: '飞语' }],
+      ['meta', { name: 'twitter:description', content: 'leeb的个人博客' }],
+      ['meta', { name: 'twitter:image', content: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/logo2' }],
       ['meta', { 'http-equiv': 'x-dns-prefetch-control', content: 'on' }],
       [
         'link',
