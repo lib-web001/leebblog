@@ -5,8 +5,9 @@
   "author": "leeb",
   "license": "MIT",
   "scripts": {
+    "sync": "node scripts/sync-articles.mjs",
     "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
+    "build": "npm run sync && vitepress build docs",
     "serve": "vitepress serve docs",
     "push": "sh push.sh"
   },

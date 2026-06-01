@@ -62,11 +62,23 @@ export default defineConfig(() => {
       ['meta', { property: 'og:description', content: 'leeb的个人博客' }],
       ['meta', { property: 'og:type', content: 'website' }],
       ['meta', { property: 'og:url', content: 'https://hfyf.netlify.app/' }],
-      ['meta', { property: 'og:image', content: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/logo2' }],
+      [
+        'meta',
+        {
+          property: 'og:image',
+          content: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/logo2'
+        }
+      ],
       ['meta', { name: 'twitter:card', content: 'summary' }],
       ['meta', { name: 'twitter:title', content: '飞语' }],
       ['meta', { name: 'twitter:description', content: 'leeb的个人博客' }],
-      ['meta', { name: 'twitter:image', content: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/logo2' }],
+      [
+        'meta',
+        {
+          name: 'twitter:image',
+          content: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/logo2'
+        }
+      ],
       ['meta', { 'http-equiv': 'x-dns-prefetch-control', content: 'on' }],
       [
         'link',
