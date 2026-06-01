@@ -25,18 +25,18 @@
 
     <template #doc-bottom>
       <!-- 当前页阅读量为:
-       
+
       <span class="waline-pageview-count" data-path="/guide/client/count.html" /> -->
-      <div>
-        <!-- ... -->
-        阅读量: <span id="pageviewCount" :data-path="window?.location?.pathname">0</span>
-        <!-- ... -->
+      <div class="doc-stats">
+        <div>
+          阅读量: <span id="pageviewCount">0</span>
+        </div>
+        <div>
+          评论量:
+          <span id="commentCount">0</span>
+        </div>
       </div>
-      <div>
-        评论量:
-        <span id="commentCount">0</span>
-      </div>
-      <div ref="walineRef"></div>
+      <div ref="walineRef" class="waline-wrap"></div>
     </template>
 
     <template #doc-after></template>
@@ -119,7 +119,8 @@ watch(
           lang: 'zh', // 设置为中文
           reaction: true,
           comment: '#commentCount',
-          pageview: '#pageviewCount'
+          pageview: '#pageviewCount',
+          dark: 'html.dark'
         })
         // console.log('res', res)
         // res.on('submit', () => {
@@ -184,6 +185,25 @@ function loadJS(src, callback, props = {}) {
 }
 
 onMounted(() => {
+  // 拦截 LeanCloud 归档报错弹窗
+  const originalAlert = window.alert
+  window.alert = function (msg) {
+    if (
+      typeof msg === 'string' &&
+      (msg.includes('archived') || msg.includes('restore in console') || msg.includes("restoreFromArchive"))
+    ) {
+      console.warn('[Waline] 后端应用已归档，请在 LeanCloud 控制台恢复:', msg)
+      return
+    }
+    return originalAlert.apply(this, arguments)
+  }
+
+  // 安全设置当前路径（避免模板中直接访问 window 导致 SSR 报错）
+  const pvEl = document.getElementById('pageviewCount')
+  if (pvEl) {
+    pvEl.setAttribute('data-path', window.location.pathname)
+  }
+
   loadCSS('https://unpkg.com/@waline/client@v3/dist/waline.css', () => {})
   loadCSS('https://unpkg.com/@waline/client@v3/dist/waline-meta.css', () => {})
 
@@ -209,3 +229,19 @@ onMounted(() => {
   // })
 })
 </script>
+
+<style scoped>
+.doc-stats {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+}
+
+.waline-wrap {
+  max-width: 100%;
+  overflow: hidden;
+  margin-top: 24px;
+  position: relative;
+  z-index: 1;
+}
+</style>
