@@ -2,8 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "类"
+description: "类 创建类 通过 属性接受传递的参数进行赋值 static${User.url}/sayNamesayNamenewthisnewsayNamestaticsetgetsetget${this.data.name}今年${this.data…"
 ---
-
 # 类
 
 ## 创建类

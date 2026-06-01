@@ -1,8 +1,9 @@
 ---
 tag:
   - 前端
+title: "promise"
+description: "promise 静态方法 1. promise.all 所有的 resolve 2. promise.race 任何一个接口先完成就可以，无论是成功还是报错 3. promise.any 任何一个接口先完成的，必须成功 4. promise…"
 ---
-
 # promise
 
 ## 静态方法

@@ -13,6 +13,8 @@ import { getSidebar } from '../utils'
 //   ? '/vitepress-blog-sugar-template/'
 //   : '/'
 
+const siteUrl = 'https://leebblog.netlify.app'
+
 // Vitepress 默认配置
 // 详见文档：https://vitepress.dev/reference/site-config
 export default defineConfig(() => {
@@ -21,16 +23,64 @@ export default defineConfig(() => {
   return {
     outDir: '../dist',
     sitemap: {
-      hostname: 'https://hfyf.netlify.app'
+      hostname: siteUrl
     },
+    cleanUrls: true,
     metaChunk: true,
     srcExclude: ['CHANGELOG.md'],
+    lastUpdated: true,
     markdown: {
       image: {
         lazyLoading: true
       }
     },
     ignoreDeadLinks: true,
+    transformHead({ pageData }) {
+      const head: [string, Record<string, string>][] = []
+
+      // 生成 Canonical URL（统一小写并去掉 .md）
+      const canonicalPath = pageData.relativePath.replace(/\.md$/, '').replace(/\/index$/, '/')
+      const canonicalUrl = `${siteUrl}/${canonicalPath}`
+      head.push(['link', { rel: 'canonical', href: canonicalUrl }])
+
+      // 为文章页注入 JSON-LD 结构化数据（BlogPosting）
+      if (pageData.relativePath.startsWith('articles/')) {
+        const title = pageData.title || pageData.frontmatter.title || '飞语'
+        const description =
+          pageData.description || pageData.frontmatter.description || 'leeb的个人博客'
+        const jsonLd: Record<string, any> = {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: title,
+          description,
+          url: canonicalUrl,
+          author: {
+            '@type': 'Person',
+            name: 'leeb'
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: '飞语',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/logo2'
+            }
+          }
+        }
+        if (pageData.frontmatter.date) {
+          jsonLd.datePublished = pageData.frontmatter.date
+          jsonLd.dateModified = pageData.frontmatter.date
+        }
+        if (pageData.frontmatter.tag?.length) {
+          jsonLd.keywords = Array.isArray(pageData.frontmatter.tag)
+            ? pageData.frontmatter.tag.join(',')
+            : pageData.frontmatter.tag
+        }
+        head.push(['script', { type: 'application/ld+json' }, JSON.stringify(jsonLd)])
+      }
+
+      return head
+    },
     vite: {
       plugins: [
         // musicPlugin(),
@@ -53,15 +103,23 @@ export default defineConfig(() => {
     lang: 'zh-cn',
     title: '飞语',
     description: 'leeb的个人博客',
-    lastUpdted: true,
     // 详见：https://vitepress.dev/zh/reference/site-config#head
     head: [
+      ['meta', { name: 'msvalidate.01', content: 'A0F9BE749D50EE2CE0CF83CF3438CD31' }],
+      // <meta name="msvalidate.01" content="A0F9BE749D50EE2CE0CF83CF3438CD31" />
+
+      [
+        'meta',
+        { name: 'google-site-verification', content: 'xWVSYclHrvHonB0jJO-gdAAxgyEpliZ07xDdLM26Wgg' }
+      ],
+      // <meta name="google-site-verification" content="xWVSYclHrvHonB0jJO-gdAAxgyEpliZ07xDdLM26Wgg" />
+
       ['meta', { name: 'keywords', content: '全栈,个人网站,前端,后端,leeb的个人博客' }],
       ['meta', { name: 'author', content: 'leeb' }],
       ['meta', { property: 'og:title', content: '飞语' }],
       ['meta', { property: 'og:description', content: 'leeb的个人博客' }],
       ['meta', { property: 'og:type', content: 'website' }],
-      ['meta', { property: 'og:url', content: 'https://hfyf.netlify.app/' }],
+      ['meta', { property: 'og:url', content: siteUrl }],
       [
         'meta',
         {
@@ -93,9 +151,9 @@ export default defineConfig(() => {
         {
           rel: 'preload',
           href: 'http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/bg1.webp',
-          as: 'image/css'
+          as: 'image'
         }
-      ],
+      ]
       // [
       //   'div',
       //   {
@@ -118,16 +176,16 @@ export default defineConfig(() => {
       //     src: 'https://player.qsdurl.cn/Static/player9/js/player.js'
       //   }
       // ],
-      [
-        'link',
-        {
-          rel: 'stylesheet',
-          id: 'font-awesome-css',
-          href: 'https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css',
-          type: 'text/css',
-          media: 'all'
-        }
-      ]
+      // [
+      //   'link',
+      //   {
+      //     rel: 'stylesheet',
+      //     id: 'font-awesome-css',
+      //     href: 'https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css',
+      //     type: 'text/css',
+      //     media: 'all'
+      //   }
+      // ]
     ],
     themeConfig: {
       // 展示 2,3 级标题在目录中

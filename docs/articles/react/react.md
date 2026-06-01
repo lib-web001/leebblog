@@ -2,8 +2,9 @@
 tag:
   - react
   - 前端
+title: "创建项目"
+description: "创建项目 npx create-react-app demo 4. 创建项目的基本结构 api: ajax请求的模块 components: 非路由组件 pages: 路由组件 App.js: 应用的根组件 index.js: 入口js 5…"
 ---
-
 ## 创建项目
 
 npx create-react-app demo
@@ -580,7 +581,7 @@ module.exports = {
 
 ## 4. redux 工作流程
 
-![](http://www.ruanyifeng.com/blogimg/asset/2016/bg2016091802.jpg)
+![bg2016091802](http://www.ruanyifeng.com/blogimg/asset/2016/bg2016091802.jpg)
 
 ## 5. 使用 redux 及相关库编码
 

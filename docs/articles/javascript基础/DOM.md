@@ -2,8 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "DOM 相关"
+description: "DOM 相关 childNodes 方法可获取元素中内部的元素 返回的并不是一个数组 lengthArray.from()parentNodenodeNamenodeValuefirstChildlastChildpreviousSibli…"
 ---
-
 # DOM 相关
 
 ## childNodes

@@ -4,8 +4,9 @@ tag:
   - 前端
   - 安卓
   - 移动端
+title: "环境搭建"
+description: "环境搭建 ${basePath}/${file}{ \"name\": \"${routeName}\", \"component\": () =import('${basePath}/${file.slice(0, -4)}') }export de…"
 ---
-
 # 环境搭建
 
 ```
@@ -382,7 +383,7 @@ export default () => {
 <WebView
         domStorageEnabled={true}
         javaScriptEnabled={true}
-        source={{uri: 'https://hfyf.netlify.app'}}
+        source={{uri: 'https://leebblog.netlify.app'}}
         style={{
           width: Dimensions.get('window').width,
           height: Dimensions.get('window').height,

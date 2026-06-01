@@ -2,8 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "proxy 代理"
+description: "proxy 代理 创建空代理 使用 构造函数可以创建一个空代理，它需要接收两个参数： 需要代理的目标对象 处理程序对象 getget()new Proxy()Proxy.revocable()revokeget()Reflect.get()…"
 ---
-
 # proxy 代理
 
 ## 创建空代理

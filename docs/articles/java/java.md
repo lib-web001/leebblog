@@ -1,8 +1,9 @@
 ---
 tag:
   - java
+title: "类型"
+description: "类型 Optional(T value)Optional(T value)of(T value)of(T value)empty（）ofNullable(T value)of(T value)ofNullable(T value)ofNul…"
 ---
-
 # 类型
 
 ```java

@@ -1,8 +1,9 @@
 ---
 tag:
   - 八股文
+title: "Html 相关"
+description: "Html 相关 HTML5 有哪些新特性 详细参考：html5 新特性 1. 绘画：canvas 标签 webworkerwebsocketGeolocation"
 ---
-
 # Html 相关
 
 ## HTML5 有哪些新特性

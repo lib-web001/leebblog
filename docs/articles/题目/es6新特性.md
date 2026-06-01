@@ -1,8 +1,9 @@
 ---
 tag:
   - 八股文
+title: "es6 新特性"
+description: "es6 新特性 let 和 const apple,orange,banana"
 ---
-
 # es6 新特性
 
 ## let 和 const

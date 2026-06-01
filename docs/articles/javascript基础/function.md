@@ -2,8 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "函数"
+description: "函数 箭头函数和 function 区别 addEventListenermapes6()！，+，-，=agechangegetAgearguments.callee()nullarguments.callee.callerargument…"
 ---
-
 # 函数
 
 ## 箭头函数和 function 区别

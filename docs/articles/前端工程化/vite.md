@@ -1,8 +1,9 @@
 ---
 tag:
   - 前端工程化
+title: "vite"
+description: "vite vite 原理 识别 script type=module Vite 的主要功能就是通过劫持浏览器的这些请求，并在后端进行相应的处理将项目中使用的文件通过简单的分解与整合，然后再返回给浏览器,Vite 整个过程中没有对文件进行打包…"
 ---
-
 # vite
 
 ## vite 原理

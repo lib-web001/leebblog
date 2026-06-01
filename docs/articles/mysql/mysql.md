@@ -1,8 +1,9 @@
 ---
 tag:
   - sql
+title: "mysql"
+description: "mysql 常用 sql /usr/local/mysql/bin/mysql -uroot -p$db_password -e \"show databases\" 2/dev/null"
 ---
-
 # mysql
 
 ## 常用 sql

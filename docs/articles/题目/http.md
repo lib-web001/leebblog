@@ -1,8 +1,9 @@
 ---
 tag:
   - 八股文
+title: "http"
+description: "http 三次握手四次挥手 应用场景 通过上面的示例大家可以看出，在 IndexDB 中，我们可以创建多个数据库，一个数据库中创建多张表，一张表中存储多条数据——这足以 hold 住复杂的结构性数据。IndexDB 可以看做是 LocalS…"
 ---
-
 # http
 
 ## 三次握手四次挥手

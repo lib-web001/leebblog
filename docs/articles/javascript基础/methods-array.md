@@ -2,8 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "数组方法"
+description: "数组方法 push() 向数组的末尾添加元素 向数组末尾添加元素是方法有很多，比如使用 arr[] 来添加 .lengthpush()push()pop()pop()unshift()shift()shift()join...for ofE…"
 ---
-
 # 数组方法
 
 ## push()

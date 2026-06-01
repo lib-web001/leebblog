@@ -2,8 +2,9 @@
 tag:
   - vue
   - 前端
+title: "Vue Router"
+description: "Vue Router 安装 routerroutevue-routervue-routervuegetCurrentInstancerouterouter 路由钩子 全局钩子： beforeEach、 afterEach、beforeRes…"
 ---
-
 # Vue Router
 
 ## 安装

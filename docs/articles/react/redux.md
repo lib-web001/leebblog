@@ -2,8 +2,9 @@
 tag:
   - react
   - 前端
+title: "redux概述"
+description: "redux概述 是一个js容器，用于全局状态管理 三个核心 1 单一数据源 整个应用的state被存储在一颗objectTree中，并且这个object tree只存在于唯一一个store中 2 state只读的 唯一改变state的方法是…"
 ---
-
 # redux概述
 
 是一个js容器，用于全局状态管理

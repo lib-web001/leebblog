@@ -1,3 +1,8 @@
+---
+title: "window 命令"
+description: "window 命令"
+---
+
 # window 命令
 ``` 
 cd	切换目录	cd android

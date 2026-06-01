@@ -2,8 +2,9 @@
 tag:
   - react
   - 前端
+title: "umi"
+description: "umi 环境搭建 3 服务器资源 镜像管理 yrm yrm ls yrm test yrm use taobao"
 ---
-
 # umi
 
 ### 环境搭建

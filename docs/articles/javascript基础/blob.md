@@ -2,9 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "Blob"
+description: "Blob 什么是 Blob Blob，Binary Large Object，二进制大对象，是 JavaScript 中的一个对象，表示不可变的、原始数据的类文件对象。 Blob 的用途 Blob 通常用于表示二进制数据，可以用来表示文件内…"
 ---
-
-
 # Blob
 
 ## 什么是 Blob

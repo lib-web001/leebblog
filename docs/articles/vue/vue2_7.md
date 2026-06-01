@@ -2,8 +2,9 @@
 tag:
   - vue
   - 前端
+title: "Vue2.7 支持你的项目在不升级 Vue3 的情况下使用 Vue3 的特性，例如 Composition Api、setup、Css v-bind 等"
+description: "Vue2.7 支持你的项目在不升级 Vue3 的情况下使用 Vue3 的特性，例如 Composition Api、setup、Css v-bind 等 vue2.6 升级到 vue2.7 一、删除 nodemodules 和 packag…"
 ---
-
 # Vue2.7 支持你的项目在不升级 Vue3 的情况下使用 Vue3 的特性，例如 Composition Api、setup、Css v-bind 等
 
 ## vue2.6 升级到 vue2.7

@@ -1,8 +1,9 @@
 ---
 tag:
   - css
+title: "布局"
+description: "布局 flex 居中 fit-content width:fit-content 表示将元素宽度收缩为内容宽度 <iframe width='100%' height='auto' frameborder=\"0\" srcdoc=' <sty…"
 ---
-
 # 布局
 
 ## flex
@@ -129,7 +130,7 @@ grid-column: 1 / 3;
 grid-row
 行合并两个属性的简写（grid-row-start、grid-row-end）用法同上
 
-![](/img/gridline.png)
+![gridline](/img/gridline.png)
 
 ## 媒体查询
 

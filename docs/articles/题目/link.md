@@ -1,8 +1,9 @@
 ---
 tag:
   - 八股文
+title: "<link> 标签预加载"
+description: "<link标签预加载 1、<link标签的 preload 属性的属性介绍 属性名 取值范围 介绍 as audio 音频文件。 video: 视频文件。 document: 一个将要被嵌入到或内部的HTML文档。 embed: 一个将要被…"
 ---
-
 ### <link> 标签预加载
 
 1、<link> 标签的 preload 属性的属性介绍

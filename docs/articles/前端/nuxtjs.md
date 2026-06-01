@@ -1,8 +1,9 @@
 ---
 tag:
   - 前端
+title: "nuxtjs"
+description: "nuxtjs 生命周期 asyncData 和 fetch seo 解决 token 丢失并持久化方案 1.下载 yarn add cookie-universal-nuxt -S 2.配置 nuxt.config.js modules:[…"
 ---
-
 # nuxtjs
 
 ## 生命周期

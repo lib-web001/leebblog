@@ -2,8 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "JavaScript API"
+description: "JavaScript API Blob Blob（Binary Large Object）表示二进制类型的大对象。在数据库管理系统中，将二进制数据存储为一个单一个体的集合。Blob 通常是影像、声音或多媒体文件。在 JavaScript 中…"
 ---
-
 # JavaScript API
 
 ## Blob

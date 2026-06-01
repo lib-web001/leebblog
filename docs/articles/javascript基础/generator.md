@@ -2,8 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "迭代器"
+description: "迭代器 说明 可以迭代对象可以使用 作为键来查看是否可以进行迭代，这个在实际开发中并不常用。 next()next()IteratorResultvaluedonedonetruevalueundefined生成器"
 ---
-
 # 迭代器
 
 ## 说明

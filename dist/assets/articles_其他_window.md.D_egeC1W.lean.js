@@ -1,0 +1,7 @@
+import{_ as n,o as s,c as t,ac as e}from"./chunks/framework.CrIZQWiq.js";const m=JSON.parse('{"title":"window 命令","description":"window 命令","frontmatter":{"title":"window 命令","description":"window 命令"},"headers":[],"relativePath":"articles/其他/window.md","filePath":"articles/其他/window.md","lastUpdated":1772883090000}'),i={name:"articles/其他/window.md"};function o(p,a,d,c,l,r){return s(),t("div",{"data-pagefind-body":!0,"data-pagefind-meta":"date:1772883090000"},a[0]||(a[0]=[e(`<h1 id="window-命令" tabindex="-1">window 命令 <a class="header-anchor" href="#window-命令" aria-label="Permalink to &quot;window 命令&quot;">​</a></h1><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>cd	切换目录	cd android</span></span>
+<span class="line"><span>type	查看文件内容	type package.json</span></span>
+<span class="line"><span>findstr	在文件中搜索文本	findstr &quot;worklets&quot; package.json</span></span>
+<span class="line"><span>copy	复制文件	copy config.js config.bak.js</span></span>
+<span class="line"><span>move	移动文件	move file.txt backup\\</span></span>
+<span class="line"><span>del	删除文件	del *.log</span></span>
+<span class="line"><span>rmdir /s	删除文件夹	rmdir /s /q node_modules</span></span></code></pre></div>`,2)]))}const f=n(i,[["render",o]]);export{m as __pageData,f as default};
