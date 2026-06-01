@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { SponsorPlugin } from 'vitepress-plugin-sponsor'
+import fs from 'fs'
+import path from 'path'
 
 // 导入主题的配置
 import { blogTheme } from './blog-theme'
@@ -27,7 +29,7 @@ export default defineConfig(() => {
     },
     cleanUrls: true,
     metaChunk: true,
-    srcExclude: ['CHANGELOG.md'],
+    srcExclude: ['CHANGELOG.md', 'seo/**'],
     lastUpdated: true,
     markdown: {
       image: {
@@ -187,6 +189,28 @@ export default defineConfig(() => {
       //   }
       // ]
     ],
+    buildEnd(siteConfig) {
+      const seoDir = path.resolve(siteConfig.srcDir, 'seo')
+      const outDir = siteConfig.outDir
+      if (!fs.existsSync(seoDir)) return
+
+      const copyRecursive = (src: string, dest: string) => {
+        if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true })
+        const entries = fs.readdirSync(src, { withFileTypes: true })
+        for (const entry of entries) {
+          const srcPath = path.join(src, entry.name)
+          const destPath = path.join(dest, entry.name)
+          if (entry.isDirectory()) {
+            copyRecursive(srcPath, destPath)
+          } else {
+            fs.copyFileSync(srcPath, destPath)
+          }
+        }
+      }
+
+      copyRecursive(seoDir, outDir)
+      console.log(`[copy-seo-dir] copied ${path.relative(process.cwd(), seoDir)} -> ${path.relative(process.cwd(), outDir)}`)
+    },
     themeConfig: {
       // 展示 2,3 级标题在目录中
       outline: {
