@@ -1,8 +1,9 @@
 ---
 tag:
   - 八股文
+title: "Web 相关"
+description: "Web 相关 前端需要注意哪些 SEO SEO 是什么？ 全称：Search Engine Optimization 翻译是：搜索引擎优化 网站进行合理的 SEO 优化是你的网站在搜索引擎的排名提高，从而利用搜索引擎给自己带来客户 1. 合…"
 ---
-
 # Web 相关
 
 ## 前端需要注意哪些 SEO

@@ -2,8 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "对象方法"
+description: "对象方法 Object.defineProperty() 方法可以直接在一个对象上定义一个新的属性，或者修改一个对象的现有属性，返回此对象 它接收了三个参数： 要给其添加属性的对象 属性的名称 描述对象 Object.definePrope…"
 ---
-
 # 对象方法
 
 ## Object.defineProperty()

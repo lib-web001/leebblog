@@ -2,9 +2,9 @@
 tag:
   - vue
   - 前端
+title: "Vue2 相关"
+description: "Vue2 相关 生命周期 /public//settingrouter/index.jshandlerimmediate${publicPath}my-image.png"
 ---
-
-
 # Vue2 相关
 
 ## 生命周期

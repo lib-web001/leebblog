@@ -2,8 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "数学对象"
+description: "数学对象 Math.round() 取整，四舍五入 Math.max()Math.min()Math.ceil()Math.floor()Math.random()Math.ceil(Math.random() 最大值)最小值 Math.c…"
 ---
-
 # 数学对象
 
 ## Math.round()

@@ -1,8 +1,9 @@
 ---
 tag:
   - ai
+title: "ai与代码的结合"
+description: "ai与代码的结合 AI 增强前端开发体验 (AI for Frontend Dev) 这是目前对前端开发者最立竿见影的影响。AI工具正在成为开发流程中不可或缺的一部分。 1. 智能代码生成与补全 这是最基础也是最广泛的应用。 工具： Git…"
 ---
-
 # ai与代码的结合
 AI 增强前端开发体验 (AI for Frontend Dev)
 这是目前对前端开发者最立竿见影的影响。AI工具正在成为开发流程中不可或缺的一部分。
@@ -37,7 +38,7 @@ AI 增强前端开发体验 (AI for Frontend Dev)
 
 * 结合方式： AI可以自动为你的函数、组件生成JSDoc注释。或者，当你选中一段晦涩的代码时，AI可以用自然语言（中文）向你解释这段代码的逻辑和作用。
 
-![](/img/aiagent.png)
+![aiagent](/img/aiagent.png)
 
 
 ### 使用体验

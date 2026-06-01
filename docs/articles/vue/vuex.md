@@ -2,8 +2,9 @@
 tag:
   - vue
   - 前端
+title: "Vuex"
+description: "Vuex 安装 在 vue3 的项目中使用 vuex 首先需要下载： src/storeindex.jscreateStorestoremain.jsimport { useStore } from 'vuex'textstore.comm…"
 ---
-
 # Vuex
 
 ## 安装

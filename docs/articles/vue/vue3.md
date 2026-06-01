@@ -2,8 +2,9 @@
 tag:
   - vue
   - 前端
+title: "Vue3 相关"
+description: "Vue3 相关 Vue3 新特性 Vue3.0 改进主要在以下几点： npm run devsetupComposition APIsetup但是必须将这些函数或变量 return 出去reactive<script setup>defin…"
 ---
-
 # Vue3 相关
 
 ## Vue3 新特性

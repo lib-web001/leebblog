@@ -2,8 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "日期对象"
+description: "日期对象 new Date() 可以通过 获取当前时间 getTime()new${year}-${month}-${day} ${hour}:${minute}toLocaleDateString()Date.now()"
 ---
-
 # 日期对象
 
 ## new Date()

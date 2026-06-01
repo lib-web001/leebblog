@@ -3,8 +3,9 @@ tag:
   - typescript
   - 开发体验
 
+title: "typescript"
+description: "typescript 基础 typescript是js的超集，主要学习ts里面的 1 原始类型 2 字面量类型 3 数组类型 4 函数类型 5 类类型 6 接口类型 7 类型别名 8 联合与交叉类型 9 枚举类型 0 泛型等类型元素，以及类…"
 ---
-
 # typescript
 
 ## 基础

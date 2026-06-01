@@ -2,8 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "数据类型"
+description: "数据类型 Map() 类型实际上是键值对的有序集合，键和值是任意类型，可以使用构造函数来创建，一个键对应一个值 sizelengthset()键/值get()has()delete()clear()keys()values()MapObje…"
 ---
-
 # 数据类型
 
 ## Map()

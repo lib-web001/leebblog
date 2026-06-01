@@ -4,7 +4,7 @@ import { getThemeConfig } from '@sugarat/theme/node'
 // 开启RSS支持（RSS配置）
 import type { Theme } from '@sugarat/theme'
 
-const baseUrl = 'https://hfyf.netlify.app'
+const baseUrl = 'https://leebblog.netlify.app'
 const RSS: Theme.RSSOptions = {
   title: '飞语',
   baseUrl,

@@ -1,8 +1,9 @@
 ---
 tag:
  - 开发体验
+title: "jest"
+description: "jest 前端工程化 前端自动化测试 高质量代码设计 高质量代码实现 jest.config.js // <div// <button type=\"button\">all</button// <button v-if=\"admin\" typ…"
 ---
-
 # jest
 
 ## 前端工程化

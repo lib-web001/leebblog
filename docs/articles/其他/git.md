@@ -1,3 +1,8 @@
+---
+title: "git 初始化 配置"
+description: "git 初始化 配置"
+---
+
 # git 初始化 配置
 
 ```
@@ -199,7 +204,7 @@ id_rsa.pub公钥，id_rsa私钥
 ssh-keygen
 ```
 
-![](/img/git.png)
+![git](/img/git.png)
 
 #### .gitignore 文件
 
@@ -243,7 +248,7 @@ git config core.ignorecase false
   ssh-keygen -t rsa -C "3437705679@qq.com"
 ```
 
-![](/img/git.png)
+![git](/img/git.png)
 
 ### 关闭 git 证书校验
 

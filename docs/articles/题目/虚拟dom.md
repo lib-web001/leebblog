@@ -1,8 +1,9 @@
 ---
 tag:
   - 八股文
+title: "Vue 的虚拟 DOM 和 DOM Diff 算法"
+description: "Vue 的虚拟 DOM 和 DOM Diff 算法 什么是虚拟 DOM？"
 ---
-
 # Vue 的虚拟 DOM 和 DOM Diff 算法
 
 ### 什么是虚拟 DOM？

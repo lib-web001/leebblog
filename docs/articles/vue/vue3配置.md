@@ -2,8 +2,9 @@
 tag:
   - vue
   - 前端
+title: "安装 Volar 插件"
+description: "安装 Volar 插件 vue language feature 禁用 @builtin typescript cnpm"
 ---
-
 #### 安装 Volar 插件
 
 vue language feature

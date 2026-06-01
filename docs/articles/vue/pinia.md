@@ -2,8 +2,9 @@
 tag:
   - vue
   - 前端
+title: "Pinia"
+description: "Pinia 安装 srcstore/index.tsmain.tsstateuseStorestategetterscomputedaction"
 ---
-
 # Pinia
 
 ## 安装

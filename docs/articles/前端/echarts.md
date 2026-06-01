@@ -1,8 +1,9 @@
 ---
 tag:
   - 可视化
+title: "echarts"
+description: "echarts 饼状图自动算百分比 ${name} ${v} ${p}width:${activeIndex (100 / (stepList.length 1)) 100 / (stepList.length 1) / 2}%(^ &)$…"
 ---
-
 # echarts
 
 ## 饼状图自动算百分比

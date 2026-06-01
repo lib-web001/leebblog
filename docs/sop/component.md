@@ -35,7 +35,7 @@ const blogTheme = getThemeConfig({
 
 效果图如下
 
-![](https://loclink-1259720482.cos.ap-beijing.myqcloud.com/image/%E5%BD%95%E5%B1%8F2024-03-11%2023.51.51.gif)
+![录屏2024-03-11 23.51.51](https://loclink-1259720482.cos.ap-beijing.myqcloud.com/image/%E5%BD%95%E5%B1%8F2024-03-11%2023.51.51.gif)
 
 之后您还可以前往[配置选项](https://oml2d.com/options/Options.html)查阅更多自定义内容
 

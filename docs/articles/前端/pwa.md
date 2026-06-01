@@ -1,8 +1,9 @@
 ---
 tag:
   - 前端
+title: "什么是 pwa"
+description: "什么是 pwa 一个 pwa 应用首先是一个网页，通过 web 技术写的一个网页应用，然后通过添加 app manifest 和 service worker 来实现 pwd 安装和离线功能 优点"
 ---
-
 # 什么是 pwa
 
 一个 pwa 应用首先是一个网页，通过 web 技术写的一个网页应用，然后通过添加

@@ -1,8 +1,9 @@
 ---
 tag:
   - 八股文
+title: "mysql 题目"
+description: "mysql 题目 MySQL 读写分离及主从时延 如何实现 mysql 的读写分离？ MySQL 主从复制原理的是啥？ 如何解决 mysql 主从同步的延时问题？"
 ---
-
 # mysql 题目
 
 ## MySQL 读写分离及主从时延

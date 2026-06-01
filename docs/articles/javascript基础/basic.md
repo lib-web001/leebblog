@@ -2,8 +2,9 @@
 tag:
   - 前端
   - JavaScript 
+title: "基础"
+description: "基础 运算符 一元运算符 关于 a+和 ++a 的问题 正常在不参与运算的情况下是没什么区别的 namenamecasebreakswitchdefaultitemitemHelloHibreakconsole.log()console.t…"
 ---
-
 # 基础
 
 ## 运算符
