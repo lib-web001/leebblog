@@ -6,7 +6,9 @@ import { fileURLToPath, pathToFileURL } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // 加载配置
-const { default: config } = await import(pathToFileURL(path.join(__dirname, 'sync.config.mjs')).href)
+const { default: config } = await import(
+  pathToFileURL(path.join(__dirname, 'sync.config.mjs')).href
+)
 
 const OUTPUT_DIR = path.resolve(config.outputDir || 'docs/articles')
 const SYNC_MARK = '_syncSource: api'
@@ -51,10 +53,12 @@ async function fetchText(url) {
 }
 
 function sanitizeFilename(name) {
-  return name
-    .replace(/[\\/:*?"<>|]/g, '_')
-    .trim()
-    .slice(0, 100) || 'untitled'
+  return (
+    name
+      .replace(/[\\/:*?"<>|]/g, '_')
+      .trim()
+      .slice(0, 100) || 'untitled'
+  )
 }
 
 function hasSyncMark(content) {
@@ -73,7 +77,7 @@ function injectSyncMark(content, extraFm = {}) {
       const keyRe = new RegExp(`^${k}\\s*:`, 'm')
       if (!keyRe.test(fm)) {
         if (Array.isArray(v)) {
-          fm += `\n${k}:\n` + v.map(item => `  - ${item}`).join('\n')
+          fm += `\n${k}:\n` + v.map((item) => `  - ${item}`).join('\n')
         } else {
           const val = typeof v === 'string' && !/[\n\r]/.test(v) ? v : JSON.stringify(v)
           fm += `\n${k}: ${val}`
@@ -87,7 +91,7 @@ function injectSyncMark(content, extraFm = {}) {
   for (const [k, v] of Object.entries(extraFm)) {
     if (Array.isArray(v)) {
       lines.push(`${k}:`)
-      v.forEach(item => lines.push(`  - ${item}`))
+      v.forEach((item) => lines.push(`  - ${item}`))
     } else {
       const val = typeof v === 'string' && !/[\n\r]/.test(v) ? v : JSON.stringify(v)
       lines.push(`${k}: ${val}`)
@@ -101,7 +105,7 @@ async function main() {
   console.log(`[sync] 开始同步文章...`)
 
   // 1. 获取文章列表
-  let list
+  let list = []
   try {
     if (typeof config.request === 'function') {
       console.log(`[sync] 使用自定义 request 获取列表`)
@@ -116,12 +120,12 @@ async function main() {
     }
   } catch (e) {
     console.error(`[sync] 获取列表失败: ${e.message}`)
-    process.exit(1)
+    // process.exit(1)
   }
 
   if (!Array.isArray(list)) {
     console.error('[sync] 解析到的列表不是数组，请检查 request() 或 parseList 配置')
-    process.exit(1)
+    // process.exit(1)
   }
 
   console.log(`[sync] 接口返回 ${list.length} 篇文章`)
@@ -239,7 +243,7 @@ async function main() {
   console.log(`[sync] 完成: 新建 ${created} | 更新 ${updated} | 跳过 ${skipped} | 失败 ${failed}`)
 }
 
-main().catch(e => {
+main().catch((e) => {
   console.error(e)
   process.exit(1)
 })

@@ -1,8 +1,12 @@
 export default {
   request() {
-    return fetch(
-      'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/leeb/eyJuYW1lIjoibWFya2Rvd24taW5kZXguanNvbiIsImlkIjoibWFya2Rvd24taW5kZXgiLCJkaXIiOiIifQ=='
-    ).then((r) => r.json())
+    try {
+      return fetch(
+        'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/leeb/eyJuYW1lIjoibWFya2Rvd24taW5kZXguanNvbiIsImlkIjoibWFya2Rvd24taW5kZXgiLCJkaXIiOiIifQ=='
+      ).then((r) => r.json())
+    } catch (e) {
+      return {}
+    }
   },
 
   mapFields(item) {

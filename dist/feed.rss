@@ -4,7 +4,7 @@
         <title>飞语</title>
         <link>https://leebblog.netlify.app</link>
         <description>leeb的个人博客 - 全栈开发、前端、后端技术分享</description>
-        <lastBuildDate>Mon, 01 Jun 2026 09:02:44 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 14 Jun 2026 03:59:10 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-cn</language>
@@ -14,6 +14,376 @@
             <link>https://leebblog.netlify.app</link>
         </image>
         <copyright>Copyright (c) 2024-present, leeb</copyright>
+        <item>
+            <title><![CDATA[自我介紹]]></title>
+            <link>https://leebblog.netlify.app/articles/其他/自我介紹</link>
+            <guid isPermaLink="false">https://leebblog.netlify.app/articles/其他/自我介紹</guid>
+            <pubDate>Sat, 13 Jun 2026 00:38:31 GMT</pubDate>
+            <description><![CDATA[[//]: # (介绍自己) [//]: # (我这边之前在通办信息，上线 全军系统 对军队内部的个人身份的登记认证，调学系统 研究生系统 湘易办 app) [//]: # (在之前在计支宝前端开发 独立负责 销售管理 对公司的 客户，联系…]]></description>
+            <content:encoded><![CDATA[<!-- 微信小程序:
+id: wxde40c501c4b93fd8
+key: 2461b161a065a071b3f7ad1cb5569c6c
+
+
+deepseek:
+sk-6e8149830db74fb99e7a815eb868d14d
+
+openroute:
+key: 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 -->
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[LeebApi：把 Swagger 文档一键变成 TypeScript / JavaScript 代码]]></title>
+            <link>https://leebblog.netlify.app/articles/产品/leebapi-intro</link>
+            <guid isPermaLink="false">https://leebblog.netlify.app/articles/产品/leebapi-intro</guid>
+            <pubDate>Sat, 13 Jun 2026 00:35:43 GMT</pubDate>
+            <description><![CDATA[# LeebApi：把 Swagger 文档一键变成 TypeScript / JavaScript 代码
+
+> 后端接口文档更新了，前端类型却还在手写？LeebApi 让你告别重复劳动。
+
+]]></description>
+            <content:encoded><![CDATA[<h1 id="leebapi-把-swagger-文档一键变成-typescript-javascript-代码" tabindex="-1">LeebApi：把 Swagger 文档一键变成 TypeScript / JavaScript 代码 <a class="header-anchor" href="#leebapi-把-swagger-文档一键变成-typescript-javascript-代码" aria-label="Permalink to &quot;LeebApi：把 Swagger 文档一键变成 TypeScript / JavaScript 代码&quot;"></a></h1>
+<blockquote>
+<p>后端接口文档更新了，前端类型却还在手写？LeebApi 让你告别重复劳动。</p>
+</blockquote>
+<hr>
+<h2 id="一句话介绍" tabindex="-1">一句话介绍 <a class="header-anchor" href="#一句话介绍" aria-label="Permalink to &quot;一句话介绍&quot;"></a></h2>
+<p><strong>LeebApi</strong> 是一款 VS Code 插件，能够基于 Swagger / OpenAPI 文档自动生成 TypeScript 或 JavaScript 的接口类型定义与请求配置代码。</p>
+<hr>
+<h2 id="下载安装" tabindex="-1">下载安装 <a class="header-anchor" href="#下载安装" aria-label="Permalink to &quot;下载安装&quot;"></a></h2>
+<ul>
+<li><strong>VS Code Marketplace</strong>：<a href="https://marketplace.visualstudio.com/items?itemName=leeb.leeb-api" target="_blank" rel="noreferrer">https://marketplace.visualstudio.com/items?itemName=leeb.leeb-api</a></li>
+<li><strong>一键安装</strong>（需本地已安装 VS Code）：<a href="vscode:extension/leeb.leeb-api" target="_blank" rel="noreferrer">vscode:extension/leeb.leeb-api</a></li>
+</ul>
+<hr>
+<h2 id="为什么需要它" tabindex="-1">为什么需要它？ <a class="header-anchor" href="#为什么需要它" aria-label="Permalink to &quot;为什么需要它？&quot;"></a></h2>
+<p>在前后端分离的项目里，前端开发者最熟悉这样的场景：</p>
+<ul>
+<li>打开 Swagger UI，对照每个接口手写 <code>interface</code>；</li>
+<li>手动拼接 URL、method、path 参数、query 参数、请求体；</li>
+<li>后端文档一更新，前端类型就过时，导致运行时才发现字段对不上；</li>
+<li>项目越大，接口越多，这种重复劳动越让人崩溃。</li>
+</ul>
+<p>LeebApi 的目的很简单：<strong>让机器接管这部分机械工作</strong>，你只需要专注于业务逻辑。</p>
+<hr>
+<h2 id="核心功能" tabindex="-1">核心功能 <a class="header-anchor" href="#核心功能" aria-label="Permalink to &quot;核心功能&quot;"></a></h2>
+<h3 id="🎨-可视化生成面板" tabindex="-1">🎨 可视化生成面板 <a class="header-anchor" href="#🎨-可视化生成面板" aria-label="Permalink to &quot;🎨 可视化生成面板&quot;"></a></h3>
+<p>点击 VS Code 左侧活动栏的 <code>&lt;/&gt;</code> 图标，即可打开 LeebApi 的 Webview 面板，无需离开编辑器。</p>
+<h3 id="🔗-支持两种输入方式" tabindex="-1">🔗 支持两种输入方式 <a class="header-anchor" href="#🔗-支持两种输入方式" aria-label="Permalink to &quot;🔗 支持两种输入方式&quot;"></a></h3>
+<ul>
+<li><strong>Swagger URL</strong>：直接填入后端暴露的 Swagger JSON 地址；</li>
+<li><strong>JSON 内容</strong>：也可以把 Swagger JSON 直接粘贴进面板。</li>
+</ul>
+<h3 id="📝-typescript-javascript-双输出" tabindex="-1">📝 TypeScript / JavaScript 双输出 <a class="header-anchor" href="#📝-typescript-javascript-双输出" aria-label="Permalink to &quot;📝 TypeScript / JavaScript 双输出&quot;"></a></h3>
+<p>根据项目需要选择输出语言：</p>
+<ul>
+<li><strong>TypeScript</strong>：生成完整类型定义，支持接口继承、枚举、数组、对象等复杂结构；</li>
+<li><strong>JavaScript</strong>：生成带 JSDoc 注释的类型提示版本。</li>
+</ul>
+<h3 id="📁-自动生成两个文件" tabindex="-1">📁 自动生成两个文件 <a class="header-anchor" href="#📁-自动生成两个文件" aria-label="Permalink to &quot;📁 自动生成两个文件&quot;"></a></h3>
+<p>以你设置的前缀命名，例如 <code>swagger-api</code>：</p>
+<ul>
+<li><code>swagger-api.types.ts</code>：实体类型定义（interface / typedef）；</li>
+<li><code>swagger-api.api.ts</code>：接口请求配置，包含 method、url、pathParams、queryParams、body、headers、response 等完整信息。</li>
+</ul>
+<h3 id="🔧-贴心的辅助函数" tabindex="-1">🔧 贴心的辅助函数 <a class="header-anchor" href="#🔧-贴心的辅助函数" aria-label="Permalink to &quot;🔧 贴心的辅助函数&quot;"></a></h3>
+<p>自动生成 <code>fillPath</code> 和 <code>buildQuery</code> 等工具函数，处理路径参数填充和查询字符串拼接。</p>
+<h3 id="🔄-兼容-swagger-2-0-与-openapi-3-x" tabindex="-1">🔄 兼容 Swagger 2.0 与 OpenAPI 3.x <a class="header-anchor" href="#🔄-兼容-swagger-2-0-与-openapi-3-x" aria-label="Permalink to &quot;🔄 兼容 Swagger 2.0 与 OpenAPI 3.x&quot;"></a></h3>
+<p>支持 <code>$ref</code>、<code>components/schemas</code>、<code>requestBody.content</code> 等常见结构，不用纠结后端用的是什么版本。</p>
+<h3 id="👀-预览-一键保存" tabindex="-1">👀 预览 + 一键保存 <a class="header-anchor" href="#👀-预览-一键保存" aria-label="Permalink to &quot;👀 预览 + 一键保存&quot;"></a></h3>
+<p>生成结果可先预览，满意后再保存到项目目录，或分别复制类型 / 接口代码到剪贴板。</p>
+<h3 id="⚙️-可配置默认值" tabindex="-1">⚙️ 可配置默认值 <a class="header-anchor" href="#⚙️-可配置默认值" aria-label="Permalink to &quot;⚙️ 可配置默认值&quot;"></a></h3>
+<p>支持在 VS Code 设置中配置默认 Swagger URL 和输出前缀：</p>
+<ul>
+<li><code>leebApi.defaultSwaggerUrl</code></li>
+<li><code>leebApi.defaultOutputPrefix</code></li>
+</ul>
+<hr>
+<h2 id="使用流程" tabindex="-1">使用流程 <a class="header-anchor" href="#使用流程" aria-label="Permalink to &quot;使用流程&quot;"></a></h2>
+<ol>
+<li>点击左侧活动栏的 LeebApi 图标；</li>
+<li>选择「URL 地址」或「JSON 内容」模式输入 Swagger 文档；</li>
+<li>选择输出语言：TypeScript 或 JavaScript；</li>
+<li>选择保存目录，设置文件名前缀（默认 <code>swagger-api</code>）；</li>
+<li>点击「生成预览」，查看类型定义与接口请求代码；</li>
+<li>点击「保存到文件」或分别「复制类型 / 复制接口」。</li>
+</ol>
+<hr>
+<h2 id="技术亮点" tabindex="-1">技术亮点 <a class="header-anchor" href="#技术亮点" aria-label="Permalink to &quot;技术亮点&quot;"></a></h2>
+<ul>
+<li><strong>自研 Swagger / OpenAPI 解析器</strong>，不依赖外部代码生成库，轻量可控；</li>
+<li><strong>递归 JSON Schema 转 TS 类型</strong>，支持 <code>enum</code>、<code>array</code>、<code>object</code>、<code>additionalProperties</code>、<code>date-time</code>、<code>binary</code> 等；</li>
+<li><strong>自动提取接口要素</strong>：路径参数、查询参数、请求体、表单、请求头、响应类型；</li>
+<li><strong>Webview 与 Extension 双向通信</strong>，并配置了 <code>Content-Security-Policy</code>；</li>
+<li><strong>生成的 API 配置使用 <code>as const</code> 断言</strong>，方法名与 URL 都能获得字面量类型推导。</li>
+</ul>
+<hr>
+<h2 id="适合谁用" tabindex="-1">适合谁用？ <a class="header-anchor" href="#适合谁用" aria-label="Permalink to &quot;适合谁用？&quot;"></a></h2>
+<ul>
+<li>前端工程师、全栈开发者；</li>
+<li>需要快速把 Swagger 文档落地为代码的 TS/JS 项目团队；</li>
+<li>任何基于 RESTful API 的项目，例如 Vue、React、Node 后端 SDK 等。</li>
+</ul>
+<hr>
+<h2 id="典型场景" tabindex="-1">典型场景 <a class="header-anchor" href="#典型场景" aria-label="Permalink to &quot;典型场景&quot;"></a></h2>
+<ul>
+<li>项目初始化时批量生成后端接口代码；</li>
+<li>Swagger 文档更新后快速同步前端类型与请求配置；</li>
+<li>统一团队接口请求规范，减少手写类型错误。</li>
+</ul>
+<hr>
+<h2 id="写在最后" tabindex="-1">写在最后 <a class="header-anchor" href="#写在最后" aria-label="Permalink to &quot;写在最后&quot;"></a></h2>
+<p>LeebApi 不是想替代你的手写代码，而是想帮你把最枯燥、最容易出错的部分自动化。让文档真正变成代码，让前后端协作更顺畅。</p>
+<p>如果你也在为 Swagger 文档和前端类型之间的鸿沟头疼，不妨试试 LeebApi。</p>
+<blockquote>
+<p>👉 <a href="https://marketplace.visualstudio.com/items?itemName=leeb.leeb-api" target="_blank" rel="noreferrer">点击前往 VS Code Marketplace 下载 LeebApi</a></p>
+</blockquote>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Leebox：把 AI 编程助手嵌入 VS Code 侧边栏]]></title>
+            <link>https://leebblog.netlify.app/articles/产品/leebox-intro</link>
+            <guid isPermaLink="false">https://leebblog.netlify.app/articles/产品/leebox-intro</guid>
+            <pubDate>Sat, 13 Jun 2026 00:35:43 GMT</pubDate>
+            <description><![CDATA[# Leebox：把 AI 编程助手嵌入 VS Code 侧边栏
+
+> 不用切换窗口，不用复制粘贴，让大模型就在编辑器里陪你写代码。
+
+]]></description>
+            <content:encoded><![CDATA[<h1 id="leebox-把-ai-编程助手嵌入-vs-code-侧边栏" tabindex="-1">Leebox：把 AI 编程助手嵌入 VS Code 侧边栏 <a class="header-anchor" href="#leebox-把-ai-编程助手嵌入-vs-code-侧边栏" aria-label="Permalink to &quot;Leebox：把 AI 编程助手嵌入 VS Code 侧边栏&quot;"></a></h1>
+<blockquote>
+<p>不用切换窗口，不用复制粘贴，让大模型就在编辑器里陪你写代码。</p>
+</blockquote>
+<hr>
+<h2 id="一句话介绍" tabindex="-1">一句话介绍 <a class="header-anchor" href="#一句话介绍" aria-label="Permalink to &quot;一句话介绍&quot;"></a></h2>
+<p><strong>Leebox</strong> 是一款将 AI 对话面板嵌入 VS Code 侧边栏的插件，基于 OpenRouter 平台提供多模型对话与代码编辑能力。</p>
+<hr>
+<h2 id="下载安装" tabindex="-1">下载安装 <a class="header-anchor" href="#下载安装" aria-label="Permalink to &quot;下载安装&quot;"></a></h2>
+<ul>
+<li><strong>VS Code Marketplace</strong>：<a href="https://marketplace.visualstudio.com/items?itemName=leeb.leebox" target="_blank" rel="noreferrer">https://marketplace.visualstudio.com/items?itemName=leeb.leebox</a></li>
+<li><strong>一键安装</strong>（需本地已安装 VS Code）：<a href="vscode:extension/leeb.leebox" target="_blank" rel="noreferrer">vscode:extension/leeb.leebox</a></li>
+</ul>
+<hr>
+<h2 id="为什么需要它" tabindex="-1">为什么需要它？ <a class="header-anchor" href="#为什么需要它" aria-label="Permalink to &quot;为什么需要它？&quot;"></a></h2>
+<p>AI 辅助编程已经成为日常，但很多人都有过这样的体验：</p>
+<ul>
+<li>在浏览器和编辑器之间来回切换，上下文不断被打断；</li>
+<li>想把当前文件发给 AI，需要手动复制粘贴；</li>
+<li>AI 生成的代码想用到项目里，又要复制、找位置、粘贴；</li>
+<li>每个模型都要单独注册、配置 API Key，门槛不低；</li>
+<li>希望 AI 用中文回答，却总要额外叮嘱。</li>
+</ul>
+<p>Leebox 的想法很直接：<strong>把 AI 无缝嵌入你的编码工作流</strong>，让它像侧边栏一样常驻，随时可用。</p>
+<hr>
+<h2 id="核心功能" tabindex="-1">核心功能 <a class="header-anchor" href="#核心功能" aria-label="Permalink to &quot;核心功能&quot;"></a></h2>
+<h3 id="🤖-20-内置-openrouter-免费模型" tabindex="-1">🤖 20+ 内置 OpenRouter 免费模型 <a class="header-anchor" href="#🤖-20-内置-openrouter-免费模型" aria-label="Permalink to &quot;🤖 20+ 内置 OpenRouter 免费模型&quot;"></a></h3>
+<p>涵盖 GPT、Claude、Kimi、Llama、GLM、Qwen、Gemma、Nemotron 等主流模型。其中实测可用的模型会标有 ⭐ 推荐，省去你一个个试错的麻烦。</p>
+<h3 id="📄-一键引用当前文件" tabindex="-1">📄 一键引用当前文件 <a class="header-anchor" href="#📄-一键引用当前文件" aria-label="Permalink to &quot;📄 一键引用当前文件&quot;"></a></h3>
+<p>勾选「引用当前文件」后，Leebox 会自动把当前打开的文件内容作为上下文发送给 AI，让模型基于真实代码作答，回答更精准。</p>
+<h3 id="✍️-代码直接应用到编辑器" tabindex="-1">✍️ 代码直接应用到编辑器 <a class="header-anchor" href="#✍️-代码直接应用到编辑器" aria-label="Permalink to &quot;✍️ 代码直接应用到编辑器&quot;"></a></h3>
+<p>AI 返回的代码块下方会显示操作按钮：</p>
+<ul>
+<li><strong>插入到光标</strong>：把代码插入当前光标位置；</li>
+<li><strong>替换整个文件</strong>：一键用 AI 生成的新代码覆盖当前文件。</li>
+</ul>
+<h3 id="🖼️-多模态附件支持" tabindex="-1">🖼️ 多模态附件支持 <a class="header-anchor" href="#🖼️-多模态附件支持" aria-label="Permalink to &quot;🖼️ 多模态附件支持&quot;"></a></h3>
+<p>支持上传图片或文本文件作为附件：</p>
+<ul>
+<li>图片会自动转为 base64 dataUrl，作为视觉输入发送给模型；</li>
+<li>文本文件可直接作为上下文补充。</li>
+</ul>
+<h3 id="🇨🇳-默认简体中文回答" tabindex="-1">🇨🇳 默认简体中文回答 <a class="header-anchor" href="#🇨🇳-默认简体中文回答" aria-label="Permalink to &quot;🇨🇳 默认简体中文回答&quot;"></a></h3>
+<p>内置系统提示要求 AI 始终使用简体中文，对中文开发者更友好。</p>
+<h3 id="🎨-markdown-渲染" tabindex="-1">🎨 Markdown 渲染 <a class="header-anchor" href="#🎨-markdown-渲染" aria-label="Permalink to &quot;🎨 Markdown 渲染&quot;"></a></h3>
+<p>支持标题、粗体、斜体、行内代码、代码块、列表、链接等常见 Markdown 格式，阅读体验接近文档页面。</p>
+<h3 id="⌨️-快捷键发送" tabindex="-1">⌨️ 快捷键发送 <a class="header-anchor" href="#⌨️-快捷键发送" aria-label="Permalink to &quot;⌨️ 快捷键发送&quot;"></a></h3>
+<p>输入完成后按 <code>Ctrl + Enter</code> 即可快速发送消息，不需要点按钮。</p>
+<h3 id="🔑-可配置-api-key" tabindex="-1">🔑 可配置 API Key <a class="header-anchor" href="#🔑-可配置-api-key" aria-label="Permalink to &quot;🔑 可配置 API Key&quot;"></a></h3>
+<ul>
+<li>留空即可使用插件内置的默认 Key，开箱即用；</li>
+<li>也可以在 VS Code 设置中填入自己的 OpenRouter API Key，更灵活。</li>
+</ul>
+<h3 id="🖱️-拖拽上传" tabindex="-1">🖱️ 拖拽上传 <a class="header-anchor" href="#🖱️-拖拽上传" aria-label="Permalink to &quot;🖱️ 拖拽上传&quot;"></a></h3>
+<p>直接把文件拖到 Leebox 面板中即可添加为附件，操作自然流畅。</p>
+<hr>
+<h2 id="使用流程" tabindex="-1">使用流程 <a class="header-anchor" href="#使用流程" aria-label="Permalink to &quot;使用流程&quot;"></a></h2>
+<ol>
+<li>点击 VS Code 左侧活动栏的 Leebox 图标，打开 AI 面板；</li>
+<li>在下拉框中选择想使用的模型；</li>
+<li>在输入框中描述问题或需求；</li>
+<li>（可选）勾选「引用当前文件」，把当前编辑器内容作为上下文；</li>
+<li>（可选）点击「上传文件/图片」，或拖拽文件添加附件；</li>
+<li>点击「发送」或按 <code>Ctrl + Enter</code>，等待 AI 回答；</li>
+<li>对回答中的代码块点击「插入到光标」或「替换整个文件」。</li>
+</ol>
+<hr>
+<h2 id="技术亮点" tabindex="-1">技术亮点 <a class="header-anchor" href="#技术亮点" aria-label="Permalink to &quot;技术亮点&quot;"></a></h2>
+<ul>
+<li><strong>纯 Webview 实现的侧边栏面板</strong>，UI 风格与 VS Code 主题保持一致；</li>
+<li><strong>实时同步当前文件名</strong>：监听 <code>onDidChangeActiveTextEditor</code>，AI 始终知道你正在编辑哪个文件；</li>
+<li><strong>自定义 Markdown 渲染器</strong>：逐行扫描代码块，生成带「应用」按钮的代码块组件；</li>
+<li><strong>代码应用通过 VS Code <code>editor.edit</code> API 实现</strong>，支持插入、替换选区或全文件替换；</li>
+<li><strong>多模态输入</strong>：图片附件读取为 base64 后作为 <code>image_url</code> 类型消息发送给 OpenRouter；</li>
+<li><strong>内置默认 API Key</strong>，降低首次使用门槛，同时支持用户覆盖配置。</li>
+</ul>
+<hr>
+<h2 id="适合谁用" tabindex="-1">适合谁用？ <a class="header-anchor" href="#适合谁用" aria-label="Permalink to &quot;适合谁用？&quot;"></a></h2>
+<ul>
+<li>希望把 AI 深度集成到编码流程的开发者；</li>
+<li>学生、独立开发者、技术爱好者；</li>
+<li>经常需要代码重构、修 bug、加功能的程序员；</li>
+<li>想对比多个免费模型效果的 AI 尝鲜者。</li>
+</ul>
+<hr>
+<h2 id="典型场景" tabindex="-1">典型场景 <a class="header-anchor" href="#典型场景" aria-label="Permalink to &quot;典型场景&quot;"></a></h2>
+<ul>
+<li>日常编码问答、算法讲解、技术概念查询；</li>
+<li>基于当前文件进行代码重构、修 bug、加功能；</li>
+<li>图片相关的编程辅助，例如 UI 截图分析、流程图识别；</li>
+<li>减少上下文切换，把问答和改代码集中在同一个窗口完成。</li>
+</ul>
+<hr>
+<h2 id="写在最后" tabindex="-1">写在最后 <a class="header-anchor" href="#写在最后" aria-label="Permalink to &quot;写在最后&quot;"></a></h2>
+<p>Leebox 不追求成为最强大的 AI 客户端，它只专注于一件事：<strong>让 AI 离你正在写的代码更近一点</strong>。当你不需要再复制粘贴、不再需要切窗口、不再需要手动传上下文时，AI 才真正成了你工作流的一部分。</p>
+<p>如果你也希望编辑器里常驻一个懂代码的助手，Leebox 值得一试。</p>
+<blockquote>
+<p>👉 <a href="https://marketplace.visualstudio.com/items?itemName=leeb.leebox" target="_blank" rel="noreferrer">点击前往 VS Code Marketplace 下载 Leebox</a></p>
+</blockquote>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[LMulator：在 VS Code 里管理移动模拟器、看画面、跑项目]]></title>
+            <link>https://leebblog.netlify.app/articles/产品/lmulator-intro</link>
+            <guid isPermaLink="false">https://leebblog.netlify.app/articles/产品/lmulator-intro</guid>
+            <pubDate>Sat, 13 Jun 2026 00:35:43 GMT</pubDate>
+            <description><![CDATA[# LMulator：在 VS Code 里管理移动模拟器、看画面、跑项目
+
+> 移动开发不必再周旋于 Android Studio、Xcode 和命令行之间。
+
+]]></description>
+            <content:encoded><![CDATA[<h1 id="lmulator-在-vs-code-里管理移动模拟器、看画面、跑项目" tabindex="-1">LMulator：在 VS Code 里管理移动模拟器、看画面、跑项目 <a class="header-anchor" href="#lmulator-在-vs-code-里管理移动模拟器、看画面、跑项目" aria-label="Permalink to &quot;LMulator：在 VS Code 里管理移动模拟器、看画面、跑项目&quot;"></a></h1>
+<blockquote>
+<p>移动开发不必再周旋于 Android Studio、Xcode 和命令行之间。</p>
+</blockquote>
+<hr>
+<h2 id="一句话介绍" tabindex="-1">一句话介绍 <a class="header-anchor" href="#一句话介绍" aria-label="Permalink to &quot;一句话介绍&quot;"></a></h2>
+<p><strong>LMulator</strong> 是一款在 VS Code 中管理 Android / iOS 模拟器、嵌入模拟器画面并一键运行移动端项目的插件。</p>
+<hr>
+<h2 id="下载安装" tabindex="-1">下载安装 <a class="header-anchor" href="#下载安装" aria-label="Permalink to &quot;下载安装&quot;"></a></h2>
+<ul>
+<li><strong>VS Code Marketplace</strong>：<a href="https://marketplace.visualstudio.com/items?itemName=leeb.lmulator" target="_blank" rel="noreferrer">https://marketplace.visualstudio.com/items?itemName=leeb.lmulator</a></li>
+<li><strong>一键安装</strong>（需本地已安装 VS Code）：<a href="vscode:extension/leeb.lmulator" target="_blank" rel="noreferrer">vscode:extension/leeb.lmulator</a></li>
+</ul>
+<hr>
+<h2 id="为什么需要它" tabindex="-1">为什么需要它？ <a class="header-anchor" href="#为什么需要它" aria-label="Permalink to &quot;为什么需要它？&quot;"></a></h2>
+<p>做移动开发的同学，往往要面对一套复杂的工具链：</p>
+<ul>
+<li>启动模拟器要开 Android Studio 或 Xcode；</li>
+<li>运行项目要记不同框架的命令；</li>
+<li>想看一下模拟器画面，得把窗口切来切去；</li>
+<li>Flutter、React Native、Ionic、Capacitor、uni-app……每个项目启动方式都不一样；</li>
+<li>日志窗口、终端、IDE、模拟器挤满屏幕，手忙脚乱。</li>
+</ul>
+<p>LMulator 的目标是：<strong>把模拟器管理、项目运行、日志查看都集中在 VS Code 里完成</strong>，让你少切几次窗口，多写几行代码。</p>
+<hr>
+<h2 id="核心功能" tabindex="-1">核心功能 <a class="header-anchor" href="#核心功能" aria-label="Permalink to &quot;核心功能&quot;"></a></h2>
+<h3 id="📱-左侧活动栏面板" tabindex="-1">📱 左侧活动栏面板 <a class="header-anchor" href="#📱-左侧活动栏面板" aria-label="Permalink to &quot;📱 左侧活动栏面板&quot;"></a></h3>
+<p>点击 VS Code 左侧活动栏的手机图标，打开 LMulator 面板。面板分为三个标签页：</p>
+<ul>
+<li><strong>Android</strong>：管理 Android AVD 和已连接设备；</li>
+<li><strong>iOS</strong>：管理 iOS Simulator（macOS）；</li>
+<li><strong>环境</strong>：查看和配置 SDK 路径等环境信息。</li>
+</ul>
+<h3 id="📋-设备列表" tabindex="-1">📋 设备列表 <a class="header-anchor" href="#📋-设备列表" aria-label="Permalink to &quot;📋 设备列表&quot;"></a></h3>
+<p>自动列出可用的 Android AVD、已连接的 Android 设备，以及 iOS Simulator，方便你快速选择目标设备。</p>
+<h3 id="🖥️-嵌入模拟器画面" tabindex="-1">🖥️ 嵌入模拟器画面 <a class="header-anchor" href="#🖥️-嵌入模拟器画面" aria-label="Permalink to &quot;🖥️ 嵌入模拟器画面&quot;"></a></h3>
+<p>无需离开 VS Code，就能在面板内实时查看模拟器屏幕：</p>
+<ul>
+<li><strong>Android</strong>：通过 <code>adb exec-out screencap -p</code> 定时截图刷新；</li>
+<li><strong>iOS</strong>：通过 <code>xcrun simctl io &lt;udid&gt; screenshot</code> 定时截图刷新。</li>
+</ul>
+<h3 id="👆-点击画面控制-android-模拟器" tabindex="-1">👆 点击画面控制 Android 模拟器 <a class="header-anchor" href="#👆-点击画面控制-android-模拟器" aria-label="Permalink to &quot;👆 点击画面控制 Android 模拟器&quot;"></a></h3>
+<p>在预览画面上点击，插件会自动计算缩放比例，把坐标映射为真实屏幕坐标，并通过 <code>adb shell input tap</code> 发送触摸事件，真正做到「看着画面就能操作」。</p>
+<h3 id="▶️-一键启动-停止" tabindex="-1">▶️ 一键启动 / 停止 <a class="header-anchor" href="#▶️-一键启动-停止" aria-label="Permalink to &quot;▶️ 一键启动 / 停止&quot;"></a></h3>
+<ul>
+<li>启动 Android AVD 或 iOS Simulator；</li>
+<li>关闭正在运行的设备。</li>
+</ul>
+<h3 id="🚀-启动并运行" tabindex="-1">🚀 启动并运行 <a class="header-anchor" href="#🚀-启动并运行" aria-label="Permalink to &quot;🚀 启动并运行&quot;"></a></h3>
+<p>一键完成「启动模拟器 → 等待设备就绪 → 运行当前项目」的完整流程。</p>
+<h3 id="🧠-自动识别项目类型" tabindex="-1">🧠 自动识别项目类型 <a class="header-anchor" href="#🧠-自动识别项目类型" aria-label="Permalink to &quot;🧠 自动识别项目类型&quot;"></a></h3>
+<p>LMulator 会根据项目文件特征判断你正在开发哪类应用：</p>
+<ul>
+<li><strong>Flutter</strong>：<code>pubspec.yaml</code>；</li>
+<li><strong>React Native</strong>：<code>react-native.config.js</code>、<code>metro.config.js</code>、<code>package.json</code> 依赖；</li>
+<li><strong>Ionic / Cordova</strong>：<code>ionic.config.json</code>；</li>
+<li><strong>Capacitor</strong>：<code>capacitor.config.json</code>；</li>
+<li><strong>uni-app</strong>：<code>manifest.json</code> + <code>pages.json</code>。</li>
+</ul>
+<h3 id="🛠️-自动生成运行命令" tabindex="-1">🛠️ 自动生成运行命令 <a class="header-anchor" href="#🛠️-自动生成运行命令" aria-label="Permalink to &quot;🛠️ 自动生成运行命令&quot;"></a></h3>
+<p>根据项目类型和目标设备，自动生成对应命令：</p>
+<ul>
+<li>Flutter：<code>flutter run -d &lt;device&gt;</code></li>
+<li>React Native：<code>npx react-native run-android --deviceId &lt;id&gt;</code></li>
+<li>Capacitor：<code>npx cap run android --target &lt;id&gt;</code></li>
+<li>Ionic：<code>ionic cordova run android --target=&lt;id&gt;</code></li>
+</ul>
+<h3 id="⚙️-自定义命令模板" tabindex="-1">⚙️ 自定义命令模板 <a class="header-anchor" href="#⚙️-自定义命令模板" aria-label="Permalink to &quot;⚙️ 自定义命令模板&quot;"></a></h3>
+<p>如果默认命令不满足需求，可以在设置中自定义：</p>
+<ul>
+<li><code>lmulator.runCommand.android</code></li>
+<li><code>lmulator.runCommand.ios</code></li>
+</ul>
+<h3 id="📜-实时日志面板" tabindex="-1">📜 实时日志面板 <a class="header-anchor" href="#📜-实时日志面板" aria-label="Permalink to &quot;📜 实时日志面板&quot;"></a></h3>
+<p>运行命令的 <code>stdout</code> 和 <code>stderr</code> 会流式显示在下方面板中，方便你实时查看应用输出。</p>
+<h3 id="🔧-sdk-配置" tabindex="-1">🔧 SDK 配置 <a class="header-anchor" href="#🔧-sdk-配置" aria-label="Permalink to &quot;🔧 SDK 配置&quot;"></a></h3>
+<p>支持手动指定 Android SDK 根目录，解决环境变量未配置或路径特殊的情况。</p>
+<hr>
+<h2 id="使用流程" tabindex="-1">使用流程 <a class="header-anchor" href="#使用流程" aria-label="Permalink to &quot;使用流程&quot;"></a></h2>
+<ol>
+<li>安装插件后点击左侧活动栏的 LMulator 图标；</li>
+<li>如需要，点击「设置 SDK」指定 Android SDK 路径；</li>
+<li>在 Android / iOS 标签页查看可用设备列表；</li>
+<li>点击「启动」启动模拟器，或「启动并运行」启动后直接运行项目；</li>
+<li>设备运行后点击「画面」，在面板内嵌入实时屏幕；</li>
+<li>点击「📋 命令」查看自动生成的运行命令，可复制或点击「运行」直接执行；</li>
+<li>在下方面板查看实时运行日志。</li>
+</ol>
+<hr>
+<h2 id="技术亮点" tabindex="-1">技术亮点 <a class="header-anchor" href="#技术亮点" aria-label="Permalink to &quot;技术亮点&quot;"></a></h2>
+<ul>
+<li><strong>直接调用系统 CLI</strong>：<code>emulator</code>、<code>adb</code>、<code>xcrun simctl</code>，无需额外守护进程；</li>
+<li><strong>定时截图流实现画面嵌入</strong>，Android 700ms、iOS 1000ms 刷新；</li>
+<li><strong>Android 点击回传</strong>通过计算预览图与实际屏幕的缩放比例，映射为真实坐标后发送 <code>adb shell input tap</code>；</li>
+<li><strong>项目类型自动检测</strong>，通过多种文件特征组合判断框架类型；</li>
+<li><strong>子进程 <code>spawn</code> 管理</strong>，支持运行命令的流式日志输出与进程清理；</li>
+<li><strong>跨平台适配</strong>，Windows 下自动为命令追加 <code>.exe</code> 后缀。</li>
+</ul>
+<hr>
+<h2 id="适合谁用" tabindex="-1">适合谁用？ <a class="header-anchor" href="#适合谁用" aria-label="Permalink to &quot;适合谁用？&quot;"></a></h2>
+<ul>
+<li>Flutter、React Native、Ionic / Cordova、Capacitor、uni-app 开发者；</li>
+<li>需要在编码时持续查看模拟器画面的调试场景；</li>
+<li>频繁切换 Android 与 iOS 模拟器的多端开发者；</li>
+<li>希望把模拟器管理、项目运行、日志查看集中在 VS Code 内的团队。</li>
+</ul>
+<hr>
+<h2 id="典型场景" tabindex="-1">典型场景 <a class="header-anchor" href="#典型场景" aria-label="Permalink to &quot;典型场景&quot;"></a></h2>
+<ul>
+<li>在 VS Code 内启动 Android 模拟器并预览 Flutter 应用；</li>
+<li>在 macOS 上启动 iOS Simulator 调试 React Native 项目；</li>
+<li>边看模拟器画面边查看实时日志，快速定位问题；</li>
+<li>多个移动项目之间切换，无需记忆不同的启动命令。</li>
+</ul>
+<hr>
+<h2 id="写在最后" tabindex="-1">写在最后 <a class="header-anchor" href="#写在最后" aria-label="Permalink to &quot;写在最后&quot;"></a></h2>
+<p>LMulator 想做的事情很简单：<strong>让移动开发的日常操作更集中在编辑器里完成</strong>。模拟器、命令、日志、画面，本该都在你写代码的地方。</p>
+<p>如果你也厌倦了在不同工具之间反复横跳，LMulator 可能会让你的移动开发流程顺畅许多。</p>
+<blockquote>
+<p>👉 <a href="https://marketplace.visualstudio.com/items?itemName=leeb.lmulator" target="_blank" rel="noreferrer">点击前往 VS Code Marketplace 下载 LMulator</a></p>
+</blockquote>
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[ai与代码的结合]]></title>
             <link>https://leebblog.netlify.app/articles/ai/ai</link>
@@ -7244,45 +7614,6 @@ IntersectionObserver.disconnect():停止IntersectionObserver对象观察任何�
 </div>]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[2026]]></title>
-            <link>https://leebblog.netlify.app/articles/md/2026</link>
-            <guid isPermaLink="false">https://leebblog.netlify.app/articles/md/2026</guid>
-            <pubDate>Mon, 01 Jun 2026 08:44:43 GMT</pubDate>
-            <description><![CDATA[2026 今年很幸运进了大厂工作]]></description>
-            <content:encoded><![CDATA[<h2 id="_2026" tabindex="-1">2026 <a class="header-anchor" href="#_2026" aria-label="Permalink to &quot;2026&quot;"></a></h2>
-<p>今年很幸运进了大厂工作</p>
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[bb]]></title>
-            <link>https://leebblog.netlify.app/articles/md/bb</link>
-            <guid isPermaLink="false">https://leebblog.netlify.app/articles/md/bb</guid>
-            <pubDate>Mon, 01 Jun 2026 08:44:43 GMT</pubDate>
-            <description><![CDATA[bb bb]]></description>
-            <content:encoded><![CDATA[<h2 id="bb" tabindex="-1">bb <a class="header-anchor" href="#bb" aria-label="Permalink to &quot;bb&quot;"></a></h2>
-<p>bb</p>
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[产品]]></title>
-            <link>https://leebblog.netlify.app/articles/md/产品</link>
-            <guid isPermaLink="false">https://leebblog.netlify.app/articles/md/产品</guid>
-            <pubDate>Mon, 01 Jun 2026 08:44:43 GMT</pubDate>
-            <description><![CDATA[aigc]]></description>
-            <content:encoded><![CDATA[<p>aigc</p>
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[湘钢日记]]></title>
-            <link>https://leebblog.netlify.app/articles/md/湘钢日记</link>
-            <guid isPermaLink="false">https://leebblog.netlify.app/articles/md/湘钢日记</guid>
-            <pubDate>Mon, 01 Jun 2026 08:44:43 GMT</pubDate>
-            <description><![CDATA[湘钢日记 今天是六一]]></description>
-            <content:encoded><![CDATA[<h2 id="湘钢日记" tabindex="-1">湘钢日记 <a class="header-anchor" href="#湘钢日记" aria-label="Permalink to &quot;湘钢日记&quot;"></a></h2>
-<p>今天是六一</p>
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[mysql]]></title>
             <link>https://leebblog.netlify.app/articles/mysql/mysql</link>
             <guid isPermaLink="false">https://leebblog.netlify.app/articles/mysql/mysql</guid>
@@ -13473,19 +13804,6 @@ meta标签配置 <meta http-equiv="Content-Security-Policy" content="script-src 
 <p>1、CSRF是跨站请求伪造; XSS是跨域脚本攻击。
 2、CSRF需要用户先登录网站A,获取cookie; XSS不需要登录。
 3、CSRF是利用网站A本身的漏洞,去请求网站A的api; XSS是向网站A注入JS代码,然后执行JS里的代码,篡改网站A的内容。（XSS利用的是站点内的信任用户，而CSRF则是通过伪装来自受信任用户的请求来利用受信任的网站。你可以这么理解CSRF攻击：攻击者盗用了你的身份，以你的名义向第三方网站发送恶意请求。）</p>
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[自我介紹]]></title>
-            <link>https://leebblog.netlify.app/articles/其他/自我介紹</link>
-            <guid isPermaLink="false">https://leebblog.netlify.app/articles/其他/自我介紹</guid>
-            <pubDate>Mon, 01 Jun 2026 08:44:43 GMT</pubDate>
-            <description><![CDATA[[//]: # (介绍自己) [//]: # (我这边之前在通办信息，上线 全军系统 对军队内部的个人身份的登记认证，调学系统 研究生系统 湘易办 app) [//]: # (在之前在计支宝前端开发 独立负责 销售管理 对公司的 客户，联系…]]></description>
-            <content:encoded><![CDATA[<p>微信小程序:
-id: wxde40c501c4b93fd8
-key: 2461b161a065a071b3f7ad1cb5569c6c</p>
-<p>deepseek:
-sk-6e8149830db74fb99e7a815eb868d14d</p>
 ]]></content:encoded>
         </item>
         <item>
