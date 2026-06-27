@@ -4,7 +4,7 @@
         <title>飞语</title>
         <link>https://leebblog.netlify.app</link>
         <description>leeb的个人博客 - 全栈开发、前端、后端技术分享</description>
-        <lastBuildDate>Tue, 16 Jun 2026 07:27:52 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 27 Jun 2026 08:47:01 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-cn</language>
@@ -15,18 +15,232 @@
         </image>
         <copyright>Copyright (c) 2024-present, leeb</copyright>
         <item>
-            <title><![CDATA[demo]]></title>
-            <link>https://leebblog.netlify.app/articles/产品/demo</link>
-            <guid isPermaLink="false">https://leebblog.netlify.app/articles/产品/demo</guid>
-            <pubDate>Tue, 16 Jun 2026 07:26:26 GMT</pubDate>
-            <content:encoded><![CDATA[<h2 id="demo" tabindex="-1">demo <a class="header-anchor" href="#demo" aria-label="Permalink to &quot;demo&quot;"></a></h2>
+            <title><![CDATA[cmd命令]]></title>
+            <link>https://leebblog.netlify.app/articles/md/cmd命令</link>
+            <guid isPermaLink="false">https://leebblog.netlify.app/articles/md/cmd命令</guid>
+            <pubDate>Sat, 27 Jun 2026 08:45:50 GMT</pubDate>
+            <description><![CDATA[用端口号查询进程  netstat -ano | findstr :9596
+杀死进程 taskkill /pid 70440 /t /f]]></description>
+            <content:encoded><![CDATA[<p>用端口号查询进程  netstat -ano | findstr :9596</p>
+<p>杀死进程 taskkill /pid 70440 /t /f</p>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[leebapi]]></title>
+            <link>https://leebblog.netlify.app/articles/产品/leebapi</link>
+            <guid isPermaLink="false">https://leebblog.netlify.app/articles/产品/leebapi</guid>
+            <pubDate>Tue, 16 Jun 2026 08:10:43 GMT</pubDate>
+            <description><![CDATA[接口文档转换]]></description>
+            <content:encoded><![CDATA[<h1 id="leebapi-把-swagger-文档一键变成-typescript-javascript-代码" tabindex="-1">LeebApi：把 Swagger 文档一键变成 TypeScript / JavaScript 代码 <a class="header-anchor" href="#leebapi-把-swagger-文档一键变成-typescript-javascript-代码" aria-label="Permalink to &quot;LeebApi：把 Swagger 文档一键变成 TypeScript / JavaScript 代码&quot;"></a></h1>
+<blockquote>
+<p>后端接口文档更新了，前端类型却还在手写？LeebApi 让你告别重复劳动。</p>
+</blockquote>
+<hr>
+<h2 id="一句话介绍" tabindex="-1">一句话介绍 <a class="header-anchor" href="#一句话介绍" aria-label="Permalink to &quot;一句话介绍&quot;"></a></h2>
+<p><strong>LeebApi</strong> 是一款 VS Code 插件，能够基于 Swagger / OpenAPI 文档自动生成 TypeScript 或 JavaScript 的接口类型定义与请求配置代码。</p>
+<hr>
+<h2 id="下载安装" tabindex="-1">下载安装 <a class="header-anchor" href="#下载安装" aria-label="Permalink to &quot;下载安装&quot;"></a></h2>
+<ul>
+<li><strong>VS Code Marketplace</strong>：<a href="https://marketplace.visualstudio.com/items?itemName=leeb.leeb-api" target="_blank" rel="noreferrer">https://marketplace.visualstudio.com/items?itemName=leeb.leeb-api</a></li>
+<li><strong>一键安装</strong>（需本地已安装 VS Code）：<a href="vscode:extension/leeb.leeb-api" target="_blank" rel="noreferrer">vscode:extension/leeb.leeb-api</a></li>
+</ul>
+<hr>
+<h2 id="为什么需要它" tabindex="-1">为什么需要它？ <a class="header-anchor" href="#为什么需要它" aria-label="Permalink to &quot;为什么需要它？&quot;"></a></h2>
+<p>在前后端分离的项目里，前端开发者最熟悉这样的场景：</p>
+<ul>
+<li>打开 Swagger UI，对照每个接口手写 <code>interface</code>；</li>
+<li>手动拼接 URL、method、path 参数、query 参数、请求体；</li>
+<li>后端文档一更新，前端类型就过时，导致运行时才发现字段对不上；</li>
+<li>项目越大，接口越多，这种重复劳动越让人崩溃。</li>
+</ul>
+<p>LeebApi 的目的很简单：<strong>让机器接管这部分机械工作</strong>，你只需要专注于业务逻辑。</p>
+<hr>
+<h2 id="核心功能" tabindex="-1">核心功能 <a class="header-anchor" href="#核心功能" aria-label="Permalink to &quot;核心功能&quot;"></a></h2>
+<h3 id="🎨-可视化生成面板" tabindex="-1">🎨 可视化生成面板 <a class="header-anchor" href="#🎨-可视化生成面板" aria-label="Permalink to &quot;🎨 可视化生成面板&quot;"></a></h3>
+<p>点击 VS Code 左侧活动栏的 <code>&lt;/&gt;</code> 图标，即可打开 LeebApi 的 Webview 面板，无需离开编辑器。</p>
+<h3 id="🔗-支持两种输入方式" tabindex="-1">🔗 支持两种输入方式 <a class="header-anchor" href="#🔗-支持两种输入方式" aria-label="Permalink to &quot;🔗 支持两种输入方式&quot;"></a></h3>
+<ul>
+<li><strong>Swagger URL</strong>：直接填入后端暴露的 Swagger JSON 地址；</li>
+<li><strong>JSON 内容</strong>：也可以把 Swagger JSON 直接粘贴进面板。</li>
+</ul>
+<h3 id="📝-typescript-javascript-双输出" tabindex="-1">📝 TypeScript / JavaScript 双输出 <a class="header-anchor" href="#📝-typescript-javascript-双输出" aria-label="Permalink to &quot;📝 TypeScript / JavaScript 双输出&quot;"></a></h3>
+<p>根据项目需要选择输出语言：</p>
+<ul>
+<li><strong>TypeScript</strong>：生成完整类型定义，支持接口继承、枚举、数组、对象等复杂结构；</li>
+<li><strong>JavaScript</strong>：生成带 JSDoc 注释的类型提示版本。</li>
+</ul>
+<h3 id="📁-自动生成两个文件" tabindex="-1">📁 自动生成两个文件 <a class="header-anchor" href="#📁-自动生成两个文件" aria-label="Permalink to &quot;📁 自动生成两个文件&quot;"></a></h3>
+<p>以你设置的前缀命名，例如 <code>swagger-api</code>：</p>
+<ul>
+<li><code>swagger-api.types.ts</code>：实体类型定义（interface / typedef）；</li>
+<li><code>swagger-api.api.ts</code>：接口请求配置，包含 method、url、pathParams、queryParams、body、headers、response 等完整信息。</li>
+</ul>
+<h3 id="🔧-贴心的辅助函数" tabindex="-1">🔧 贴心的辅助函数 <a class="header-anchor" href="#🔧-贴心的辅助函数" aria-label="Permalink to &quot;🔧 贴心的辅助函数&quot;"></a></h3>
+<p>自动生成 <code>fillPath</code> 和 <code>buildQuery</code> 等工具函数，处理路径参数填充和查询字符串拼接。</p>
+<h3 id="🔄-兼容-swagger-2-0-与-openapi-3-x" tabindex="-1">🔄 兼容 Swagger 2.0 与 OpenAPI 3.x <a class="header-anchor" href="#🔄-兼容-swagger-2-0-与-openapi-3-x" aria-label="Permalink to &quot;🔄 兼容 Swagger 2.0 与 OpenAPI 3.x&quot;"></a></h3>
+<p>支持 <code>$ref</code>、<code>components/schemas</code>、<code>requestBody.content</code> 等常见结构，不用纠结后端用的是什么版本。</p>
+<h3 id="👀-预览-一键保存" tabindex="-1">👀 预览 + 一键保存 <a class="header-anchor" href="#👀-预览-一键保存" aria-label="Permalink to &quot;👀 预览 + 一键保存&quot;"></a></h3>
+<p>生成结果可先预览，满意后再保存到项目目录，或分别复制类型 / 接口代码到剪贴板。</p>
+<h3 id="⚙️-可配置默认值" tabindex="-1">⚙️ 可配置默认值 <a class="header-anchor" href="#⚙️-可配置默认值" aria-label="Permalink to &quot;⚙️ 可配置默认值&quot;"></a></h3>
+<p>支持在 VS Code 设置中配置默认 Swagger URL 和输出前缀：</p>
+<ul>
+<li><code>leebApi.defaultSwaggerUrl</code></li>
+<li><code>leebApi.defaultOutputPrefix</code></li>
+</ul>
+<hr>
+<h2 id="使用流程" tabindex="-1">使用流程 <a class="header-anchor" href="#使用流程" aria-label="Permalink to &quot;使用流程&quot;"></a></h2>
+<ol>
+<li>点击左侧活动栏的 LeebApi 图标；</li>
+<li>选择「URL 地址」或「JSON 内容」模式输入 Swagger 文档；</li>
+<li>选择输出语言：TypeScript 或 JavaScript；</li>
+<li>选择保存目录，设置文件名前缀（默认 <code>swagger-api</code>）；</li>
+<li>点击「生成预览」，查看类型定义与接口请求代码；</li>
+<li>点击「保存到文件」或分别「复制类型 / 复制接口」。</li>
+</ol>
+<hr>
+<h2 id="技术亮点" tabindex="-1">技术亮点 <a class="header-anchor" href="#技术亮点" aria-label="Permalink to &quot;技术亮点&quot;"></a></h2>
+<ul>
+<li><strong>自研 Swagger / OpenAPI 解析器</strong>，不依赖外部代码生成库，轻量可控；</li>
+<li><strong>递归 JSON Schema 转 TS 类型</strong>，支持 <code>enum</code>、<code>array</code>、<code>object</code>、<code>additionalProperties</code>、<code>date-time</code>、<code>binary</code> 等；</li>
+<li><strong>自动提取接口要素</strong>：路径参数、查询参数、请求体、表单、请求头、响应类型；</li>
+<li><strong>Webview 与 Extension 双向通信</strong>，并配置了 <code>Content-Security-Policy</code>；</li>
+<li><strong>生成的 API 配置使用 <code>as const</code> 断言</strong>，方法名与 URL 都能获得字面量类型推导。</li>
+</ul>
+<hr>
+<h2 id="适合谁用" tabindex="-1">适合谁用？ <a class="header-anchor" href="#适合谁用" aria-label="Permalink to &quot;适合谁用？&quot;"></a></h2>
+<ul>
+<li>前端工程师、全栈开发者；</li>
+<li>需要快速把 Swagger 文档落地为代码的 TS/JS 项目团队；</li>
+<li>任何基于 RESTful API 的项目，例如 Vue、React、Node 后端 SDK 等。</li>
+</ul>
+<hr>
+<h2 id="典型场景" tabindex="-1">典型场景 <a class="header-anchor" href="#典型场景" aria-label="Permalink to &quot;典型场景&quot;"></a></h2>
+<ul>
+<li>项目初始化时批量生成后端接口代码；</li>
+<li>Swagger 文档更新后快速同步前端类型与请求配置；</li>
+<li>统一团队接口请求规范，减少手写类型错误。</li>
+</ul>
+<hr>
+<h2 id="写在最后" tabindex="-1">写在最后 <a class="header-anchor" href="#写在最后" aria-label="Permalink to &quot;写在最后&quot;"></a></h2>
+<p>LeebApi 不是想替代你的手写代码，而是想帮你把最枯燥、最容易出错的部分自动化。让文档真正变成代码，让前后端协作更顺畅。</p>
+<p>如果你也在为 Swagger 文档和前端类型之间的鸿沟头疼，不妨试试 LeebApi。</p>
+<blockquote>
+<p>👉 <a href="https://marketplace.visualstudio.com/items?itemName=leeb.leeb-api" target="_blank" rel="noreferrer">点击前往 VS Code Marketplace 下载 LeebApi</a></p>
+</blockquote>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[leebox]]></title>
+            <link>https://leebblog.netlify.app/articles/产品/leebox</link>
+            <guid isPermaLink="false">https://leebblog.netlify.app/articles/产品/leebox</guid>
+            <pubDate>Tue, 16 Jun 2026 08:10:43 GMT</pubDate>
+            <description><![CDATA[ai助手]]></description>
+            <content:encoded><![CDATA[<h1 id="leebox-把-ai-编程助手嵌入-vs-code-侧边栏" tabindex="-1">Leebox：把 AI 编程助手嵌入 VS Code 侧边栏 <a class="header-anchor" href="#leebox-把-ai-编程助手嵌入-vs-code-侧边栏" aria-label="Permalink to &quot;Leebox：把 AI 编程助手嵌入 VS Code 侧边栏&quot;"></a></h1>
+<blockquote>
+<p>不用切换窗口，不用复制粘贴，让大模型就在编辑器里陪你写代码。</p>
+</blockquote>
+<hr>
+<h2 id="一句话介绍" tabindex="-1">一句话介绍 <a class="header-anchor" href="#一句话介绍" aria-label="Permalink to &quot;一句话介绍&quot;"></a></h2>
+<p><strong>Leebox</strong> 是一款将 AI 对话面板嵌入 VS Code 侧边栏的插件，基于 OpenRouter 平台提供多模型对话与代码编辑能力。</p>
+<hr>
+<h2 id="下载安装" tabindex="-1">下载安装 <a class="header-anchor" href="#下载安装" aria-label="Permalink to &quot;下载安装&quot;"></a></h2>
+<ul>
+<li><strong>VS Code Marketplace</strong>：<a href="https://marketplace.visualstudio.com/items?itemName=leeb.leebox" target="_blank" rel="noreferrer">https://marketplace.visualstudio.com/items?itemName=leeb.leebox</a></li>
+<li><strong>一键安装</strong>（需本地已安装 VS Code）：<a href="vscode:extension/leeb.leebox" target="_blank" rel="noreferrer">vscode:extension/leeb.leebox</a></li>
+</ul>
+<hr>
+<h2 id="为什么需要它" tabindex="-1">为什么需要它？ <a class="header-anchor" href="#为什么需要它" aria-label="Permalink to &quot;为什么需要它？&quot;"></a></h2>
+<p>AI 辅助编程已经成为日常，但很多人都有过这样的体验：</p>
+<ul>
+<li>在浏览器和编辑器之间来回切换，上下文不断被打断；</li>
+<li>想把当前文件发给 AI，需要手动复制粘贴；</li>
+<li>AI 生成的代码想用到项目里，又要复制、找位置、粘贴；</li>
+<li>每个模型都要单独注册、配置 API Key，门槛不低；</li>
+<li>希望 AI 用中文回答，却总要额外叮嘱。</li>
+</ul>
+<p>Leebox 的想法很直接：<strong>把 AI 无缝嵌入你的编码工作流</strong>，让它像侧边栏一样常驻，随时可用。</p>
+<hr>
+<h2 id="核心功能" tabindex="-1">核心功能 <a class="header-anchor" href="#核心功能" aria-label="Permalink to &quot;核心功能&quot;"></a></h2>
+<h3 id="🤖-20-内置-openrouter-免费模型" tabindex="-1">🤖 20+ 内置 OpenRouter 免费模型 <a class="header-anchor" href="#🤖-20-内置-openrouter-免费模型" aria-label="Permalink to &quot;🤖 20+ 内置 OpenRouter 免费模型&quot;"></a></h3>
+<p>涵盖 GPT、Claude、Kimi、Llama、GLM、Qwen、Gemma、Nemotron 等主流模型。其中实测可用的模型会标有 ⭐ 推荐，省去你一个个试错的麻烦。</p>
+<h3 id="📄-一键引用当前文件" tabindex="-1">📄 一键引用当前文件 <a class="header-anchor" href="#📄-一键引用当前文件" aria-label="Permalink to &quot;📄 一键引用当前文件&quot;"></a></h3>
+<p>勾选「引用当前文件」后，Leebox 会自动把当前打开的文件内容作为上下文发送给 AI，让模型基于真实代码作答，回答更精准。</p>
+<h3 id="✍️-代码直接应用到编辑器" tabindex="-1">✍️ 代码直接应用到编辑器 <a class="header-anchor" href="#✍️-代码直接应用到编辑器" aria-label="Permalink to &quot;✍️ 代码直接应用到编辑器&quot;"></a></h3>
+<p>AI 返回的代码块下方会显示操作按钮：</p>
+<ul>
+<li><strong>插入到光标</strong>：把代码插入当前光标位置；</li>
+<li><strong>替换整个文件</strong>：一键用 AI 生成的新代码覆盖当前文件。</li>
+</ul>
+<h3 id="🖼️-多模态附件支持" tabindex="-1">🖼️ 多模态附件支持 <a class="header-anchor" href="#🖼️-多模态附件支持" aria-label="Permalink to &quot;🖼️ 多模态附件支持&quot;"></a></h3>
+<p>支持上传图片或文本文件作为附件：</p>
+<ul>
+<li>图片会自动转为 base64 dataUrl，作为视觉输入发送给模型；</li>
+<li>文本文件可直接作为上下文补充。</li>
+</ul>
+<h3 id="🇨🇳-默认简体中文回答" tabindex="-1">🇨🇳 默认简体中文回答 <a class="header-anchor" href="#🇨🇳-默认简体中文回答" aria-label="Permalink to &quot;🇨🇳 默认简体中文回答&quot;"></a></h3>
+<p>内置系统提示要求 AI 始终使用简体中文，对中文开发者更友好。</p>
+<h3 id="🎨-markdown-渲染" tabindex="-1">🎨 Markdown 渲染 <a class="header-anchor" href="#🎨-markdown-渲染" aria-label="Permalink to &quot;🎨 Markdown 渲染&quot;"></a></h3>
+<p>支持标题、粗体、斜体、行内代码、代码块、列表、链接等常见 Markdown 格式，阅读体验接近文档页面。</p>
+<h3 id="⌨️-快捷键发送" tabindex="-1">⌨️ 快捷键发送 <a class="header-anchor" href="#⌨️-快捷键发送" aria-label="Permalink to &quot;⌨️ 快捷键发送&quot;"></a></h3>
+<p>输入完成后按 <code>Ctrl + Enter</code> 即可快速发送消息，不需要点按钮。</p>
+<h3 id="🔑-可配置-api-key" tabindex="-1">🔑 可配置 API Key <a class="header-anchor" href="#🔑-可配置-api-key" aria-label="Permalink to &quot;🔑 可配置 API Key&quot;"></a></h3>
+<ul>
+<li>留空即可使用插件内置的默认 Key，开箱即用；</li>
+<li>也可以在 VS Code 设置中填入自己的 OpenRouter API Key，更灵活。</li>
+</ul>
+<h3 id="🖱️-拖拽上传" tabindex="-1">🖱️ 拖拽上传 <a class="header-anchor" href="#🖱️-拖拽上传" aria-label="Permalink to &quot;🖱️ 拖拽上传&quot;"></a></h3>
+<p>直接把文件拖到 Leebox 面板中即可添加为附件，操作自然流畅。</p>
+<hr>
+<h2 id="使用流程" tabindex="-1">使用流程 <a class="header-anchor" href="#使用流程" aria-label="Permalink to &quot;使用流程&quot;"></a></h2>
+<ol>
+<li>点击 VS Code 左侧活动栏的 Leebox 图标，打开 AI 面板；</li>
+<li>在下拉框中选择想使用的模型；</li>
+<li>在输入框中描述问题或需求；</li>
+<li>（可选）勾选「引用当前文件」，把当前编辑器内容作为上下文；</li>
+<li>（可选）点击「上传文件/图片」，或拖拽文件添加附件；</li>
+<li>点击「发送」或按 <code>Ctrl + Enter</code>，等待 AI 回答；</li>
+<li>对回答中的代码块点击「插入到光标」或「替换整个文件」。</li>
+</ol>
+<hr>
+<h2 id="技术亮点" tabindex="-1">技术亮点 <a class="header-anchor" href="#技术亮点" aria-label="Permalink to &quot;技术亮点&quot;"></a></h2>
+<ul>
+<li><strong>纯 Webview 实现的侧边栏面板</strong>，UI 风格与 VS Code 主题保持一致；</li>
+<li><strong>实时同步当前文件名</strong>：监听 <code>onDidChangeActiveTextEditor</code>，AI 始终知道你正在编辑哪个文件；</li>
+<li><strong>自定义 Markdown 渲染器</strong>：逐行扫描代码块，生成带「应用」按钮的代码块组件；</li>
+<li><strong>代码应用通过 VS Code <code>editor.edit</code> API 实现</strong>，支持插入、替换选区或全文件替换；</li>
+<li><strong>多模态输入</strong>：图片附件读取为 base64 后作为 <code>image_url</code> 类型消息发送给 OpenRouter；</li>
+<li><strong>内置默认 API Key</strong>，降低首次使用门槛，同时支持用户覆盖配置。</li>
+</ul>
+<hr>
+<h2 id="适合谁用" tabindex="-1">适合谁用？ <a class="header-anchor" href="#适合谁用" aria-label="Permalink to &quot;适合谁用？&quot;"></a></h2>
+<ul>
+<li>希望把 AI 深度集成到编码流程的开发者；</li>
+<li>学生、独立开发者、技术爱好者；</li>
+<li>经常需要代码重构、修 bug、加功能的程序员；</li>
+<li>想对比多个免费模型效果的 AI 尝鲜者。</li>
+</ul>
+<hr>
+<h2 id="典型场景" tabindex="-1">典型场景 <a class="header-anchor" href="#典型场景" aria-label="Permalink to &quot;典型场景&quot;"></a></h2>
+<ul>
+<li>日常编码问答、算法讲解、技术概念查询；</li>
+<li>基于当前文件进行代码重构、修 bug、加功能；</li>
+<li>图片相关的编程辅助，例如 UI 截图分析、流程图识别；</li>
+<li>减少上下文切换，把问答和改代码集中在同一个窗口完成。</li>
+</ul>
+<hr>
+<h2 id="写在最后" tabindex="-1">写在最后 <a class="header-anchor" href="#写在最后" aria-label="Permalink to &quot;写在最后&quot;"></a></h2>
+<p>Leebox 不追求成为最强大的 AI 客户端，它只专注于一件事：<strong>让 AI 离你正在写的代码更近一点</strong>。当你不需要再复制粘贴、不再需要切窗口、不再需要手动传上下文时，AI 才真正成了你工作流的一部分。</p>
+<p>如果你也希望编辑器里常驻一个懂代码的助手，Leebox 值得一试。</p>
+<blockquote>
+<p>👉 <a href="https://marketplace.visualstudio.com/items?itemName=leeb.leebox" target="_blank" rel="noreferrer">点击前往 VS Code Marketplace 下载 Leebox</a></p>
+</blockquote>
 ]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[lmulator]]></title>
             <link>https://leebblog.netlify.app/articles/产品/lmulator</link>
             <guid isPermaLink="false">https://leebblog.netlify.app/articles/产品/lmulator</guid>
-            <pubDate>Sun, 14 Jun 2026 04:09:04 GMT</pubDate>
+            <pubDate>Tue, 16 Jun 2026 08:10:43 GMT</pubDate>
             <description><![CDATA[模拟器插件]]></description>
             <content:encoded><![CDATA[<h1 id="lmulator-在-vs-code-里管理移动模拟器、看画面、跑项目" tabindex="-1">LMulator：在 VS Code 里管理移动模拟器、看画面、跑项目 <a class="header-anchor" href="#lmulator-在-vs-code-里管理移动模拟器、看画面、跑项目" aria-label="Permalink to &quot;LMulator：在 VS Code 里管理移动模拟器、看画面、跑项目&quot;"></a></h1>
 <blockquote>
@@ -152,214 +366,12 @@
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[leebapi]]></title>
-            <link>https://leebblog.netlify.app/articles/产品/leebapi</link>
-            <guid isPermaLink="false">https://leebblog.netlify.app/articles/产品/leebapi</guid>
-            <pubDate>Sun, 14 Jun 2026 04:08:41 GMT</pubDate>
-            <description><![CDATA[接口文档转换]]></description>
-            <content:encoded><![CDATA[<h1 id="leebapi-把-swagger-文档一键变成-typescript-javascript-代码" tabindex="-1">LeebApi：把 Swagger 文档一键变成 TypeScript / JavaScript 代码 <a class="header-anchor" href="#leebapi-把-swagger-文档一键变成-typescript-javascript-代码" aria-label="Permalink to &quot;LeebApi：把 Swagger 文档一键变成 TypeScript / JavaScript 代码&quot;"></a></h1>
-<blockquote>
-<p>后端接口文档更新了，前端类型却还在手写？LeebApi 让你告别重复劳动。</p>
-</blockquote>
-<hr>
-<h2 id="一句话介绍" tabindex="-1">一句话介绍 <a class="header-anchor" href="#一句话介绍" aria-label="Permalink to &quot;一句话介绍&quot;"></a></h2>
-<p><strong>LeebApi</strong> 是一款 VS Code 插件，能够基于 Swagger / OpenAPI 文档自动生成 TypeScript 或 JavaScript 的接口类型定义与请求配置代码。</p>
-<hr>
-<h2 id="下载安装" tabindex="-1">下载安装 <a class="header-anchor" href="#下载安装" aria-label="Permalink to &quot;下载安装&quot;"></a></h2>
-<ul>
-<li><strong>VS Code Marketplace</strong>：<a href="https://marketplace.visualstudio.com/items?itemName=leeb.leeb-api" target="_blank" rel="noreferrer">https://marketplace.visualstudio.com/items?itemName=leeb.leeb-api</a></li>
-<li><strong>一键安装</strong>（需本地已安装 VS Code）：<a href="vscode:extension/leeb.leeb-api" target="_blank" rel="noreferrer">vscode:extension/leeb.leeb-api</a></li>
-</ul>
-<hr>
-<h2 id="为什么需要它" tabindex="-1">为什么需要它？ <a class="header-anchor" href="#为什么需要它" aria-label="Permalink to &quot;为什么需要它？&quot;"></a></h2>
-<p>在前后端分离的项目里，前端开发者最熟悉这样的场景：</p>
-<ul>
-<li>打开 Swagger UI，对照每个接口手写 <code>interface</code>；</li>
-<li>手动拼接 URL、method、path 参数、query 参数、请求体；</li>
-<li>后端文档一更新，前端类型就过时，导致运行时才发现字段对不上；</li>
-<li>项目越大，接口越多，这种重复劳动越让人崩溃。</li>
-</ul>
-<p>LeebApi 的目的很简单：<strong>让机器接管这部分机械工作</strong>，你只需要专注于业务逻辑。</p>
-<hr>
-<h2 id="核心功能" tabindex="-1">核心功能 <a class="header-anchor" href="#核心功能" aria-label="Permalink to &quot;核心功能&quot;"></a></h2>
-<h3 id="🎨-可视化生成面板" tabindex="-1">🎨 可视化生成面板 <a class="header-anchor" href="#🎨-可视化生成面板" aria-label="Permalink to &quot;🎨 可视化生成面板&quot;"></a></h3>
-<p>点击 VS Code 左侧活动栏的 <code>&lt;/&gt;</code> 图标，即可打开 LeebApi 的 Webview 面板，无需离开编辑器。</p>
-<h3 id="🔗-支持两种输入方式" tabindex="-1">🔗 支持两种输入方式 <a class="header-anchor" href="#🔗-支持两种输入方式" aria-label="Permalink to &quot;🔗 支持两种输入方式&quot;"></a></h3>
-<ul>
-<li><strong>Swagger URL</strong>：直接填入后端暴露的 Swagger JSON 地址；</li>
-<li><strong>JSON 内容</strong>：也可以把 Swagger JSON 直接粘贴进面板。</li>
-</ul>
-<h3 id="📝-typescript-javascript-双输出" tabindex="-1">📝 TypeScript / JavaScript 双输出 <a class="header-anchor" href="#📝-typescript-javascript-双输出" aria-label="Permalink to &quot;📝 TypeScript / JavaScript 双输出&quot;"></a></h3>
-<p>根据项目需要选择输出语言：</p>
-<ul>
-<li><strong>TypeScript</strong>：生成完整类型定义，支持接口继承、枚举、数组、对象等复杂结构；</li>
-<li><strong>JavaScript</strong>：生成带 JSDoc 注释的类型提示版本。</li>
-</ul>
-<h3 id="📁-自动生成两个文件" tabindex="-1">📁 自动生成两个文件 <a class="header-anchor" href="#📁-自动生成两个文件" aria-label="Permalink to &quot;📁 自动生成两个文件&quot;"></a></h3>
-<p>以你设置的前缀命名，例如 <code>swagger-api</code>：</p>
-<ul>
-<li><code>swagger-api.types.ts</code>：实体类型定义（interface / typedef）；</li>
-<li><code>swagger-api.api.ts</code>：接口请求配置，包含 method、url、pathParams、queryParams、body、headers、response 等完整信息。</li>
-</ul>
-<h3 id="🔧-贴心的辅助函数" tabindex="-1">🔧 贴心的辅助函数 <a class="header-anchor" href="#🔧-贴心的辅助函数" aria-label="Permalink to &quot;🔧 贴心的辅助函数&quot;"></a></h3>
-<p>自动生成 <code>fillPath</code> 和 <code>buildQuery</code> 等工具函数，处理路径参数填充和查询字符串拼接。</p>
-<h3 id="🔄-兼容-swagger-2-0-与-openapi-3-x" tabindex="-1">🔄 兼容 Swagger 2.0 与 OpenAPI 3.x <a class="header-anchor" href="#🔄-兼容-swagger-2-0-与-openapi-3-x" aria-label="Permalink to &quot;🔄 兼容 Swagger 2.0 与 OpenAPI 3.x&quot;"></a></h3>
-<p>支持 <code>$ref</code>、<code>components/schemas</code>、<code>requestBody.content</code> 等常见结构，不用纠结后端用的是什么版本。</p>
-<h3 id="👀-预览-一键保存" tabindex="-1">👀 预览 + 一键保存 <a class="header-anchor" href="#👀-预览-一键保存" aria-label="Permalink to &quot;👀 预览 + 一键保存&quot;"></a></h3>
-<p>生成结果可先预览，满意后再保存到项目目录，或分别复制类型 / 接口代码到剪贴板。</p>
-<h3 id="⚙️-可配置默认值" tabindex="-1">⚙️ 可配置默认值 <a class="header-anchor" href="#⚙️-可配置默认值" aria-label="Permalink to &quot;⚙️ 可配置默认值&quot;"></a></h3>
-<p>支持在 VS Code 设置中配置默认 Swagger URL 和输出前缀：</p>
-<ul>
-<li><code>leebApi.defaultSwaggerUrl</code></li>
-<li><code>leebApi.defaultOutputPrefix</code></li>
-</ul>
-<hr>
-<h2 id="使用流程" tabindex="-1">使用流程 <a class="header-anchor" href="#使用流程" aria-label="Permalink to &quot;使用流程&quot;"></a></h2>
-<ol>
-<li>点击左侧活动栏的 LeebApi 图标；</li>
-<li>选择「URL 地址」或「JSON 内容」模式输入 Swagger 文档；</li>
-<li>选择输出语言：TypeScript 或 JavaScript；</li>
-<li>选择保存目录，设置文件名前缀（默认 <code>swagger-api</code>）；</li>
-<li>点击「生成预览」，查看类型定义与接口请求代码；</li>
-<li>点击「保存到文件」或分别「复制类型 / 复制接口」。</li>
-</ol>
-<hr>
-<h2 id="技术亮点" tabindex="-1">技术亮点 <a class="header-anchor" href="#技术亮点" aria-label="Permalink to &quot;技术亮点&quot;"></a></h2>
-<ul>
-<li><strong>自研 Swagger / OpenAPI 解析器</strong>，不依赖外部代码生成库，轻量可控；</li>
-<li><strong>递归 JSON Schema 转 TS 类型</strong>，支持 <code>enum</code>、<code>array</code>、<code>object</code>、<code>additionalProperties</code>、<code>date-time</code>、<code>binary</code> 等；</li>
-<li><strong>自动提取接口要素</strong>：路径参数、查询参数、请求体、表单、请求头、响应类型；</li>
-<li><strong>Webview 与 Extension 双向通信</strong>，并配置了 <code>Content-Security-Policy</code>；</li>
-<li><strong>生成的 API 配置使用 <code>as const</code> 断言</strong>，方法名与 URL 都能获得字面量类型推导。</li>
-</ul>
-<hr>
-<h2 id="适合谁用" tabindex="-1">适合谁用？ <a class="header-anchor" href="#适合谁用" aria-label="Permalink to &quot;适合谁用？&quot;"></a></h2>
-<ul>
-<li>前端工程师、全栈开发者；</li>
-<li>需要快速把 Swagger 文档落地为代码的 TS/JS 项目团队；</li>
-<li>任何基于 RESTful API 的项目，例如 Vue、React、Node 后端 SDK 等。</li>
-</ul>
-<hr>
-<h2 id="典型场景" tabindex="-1">典型场景 <a class="header-anchor" href="#典型场景" aria-label="Permalink to &quot;典型场景&quot;"></a></h2>
-<ul>
-<li>项目初始化时批量生成后端接口代码；</li>
-<li>Swagger 文档更新后快速同步前端类型与请求配置；</li>
-<li>统一团队接口请求规范，减少手写类型错误。</li>
-</ul>
-<hr>
-<h2 id="写在最后" tabindex="-1">写在最后 <a class="header-anchor" href="#写在最后" aria-label="Permalink to &quot;写在最后&quot;"></a></h2>
-<p>LeebApi 不是想替代你的手写代码，而是想帮你把最枯燥、最容易出错的部分自动化。让文档真正变成代码，让前后端协作更顺畅。</p>
-<p>如果你也在为 Swagger 文档和前端类型之间的鸿沟头疼，不妨试试 LeebApi。</p>
-<blockquote>
-<p>👉 <a href="https://marketplace.visualstudio.com/items?itemName=leeb.leeb-api" target="_blank" rel="noreferrer">点击前往 VS Code Marketplace 下载 LeebApi</a></p>
-</blockquote>
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[leebox]]></title>
-            <link>https://leebblog.netlify.app/articles/产品/leebox</link>
-            <guid isPermaLink="false">https://leebblog.netlify.app/articles/产品/leebox</guid>
-            <pubDate>Sun, 14 Jun 2026 04:08:32 GMT</pubDate>
-            <description><![CDATA[ai助手]]></description>
-            <content:encoded><![CDATA[<h1 id="leebox-把-ai-编程助手嵌入-vs-code-侧边栏" tabindex="-1">Leebox：把 AI 编程助手嵌入 VS Code 侧边栏 <a class="header-anchor" href="#leebox-把-ai-编程助手嵌入-vs-code-侧边栏" aria-label="Permalink to &quot;Leebox：把 AI 编程助手嵌入 VS Code 侧边栏&quot;"></a></h1>
-<blockquote>
-<p>不用切换窗口，不用复制粘贴，让大模型就在编辑器里陪你写代码。</p>
-</blockquote>
-<hr>
-<h2 id="一句话介绍" tabindex="-1">一句话介绍 <a class="header-anchor" href="#一句话介绍" aria-label="Permalink to &quot;一句话介绍&quot;"></a></h2>
-<p><strong>Leebox</strong> 是一款将 AI 对话面板嵌入 VS Code 侧边栏的插件，基于 OpenRouter 平台提供多模型对话与代码编辑能力。</p>
-<hr>
-<h2 id="下载安装" tabindex="-1">下载安装 <a class="header-anchor" href="#下载安装" aria-label="Permalink to &quot;下载安装&quot;"></a></h2>
-<ul>
-<li><strong>VS Code Marketplace</strong>：<a href="https://marketplace.visualstudio.com/items?itemName=leeb.leebox" target="_blank" rel="noreferrer">https://marketplace.visualstudio.com/items?itemName=leeb.leebox</a></li>
-<li><strong>一键安装</strong>（需本地已安装 VS Code）：<a href="vscode:extension/leeb.leebox" target="_blank" rel="noreferrer">vscode:extension/leeb.leebox</a></li>
-</ul>
-<hr>
-<h2 id="为什么需要它" tabindex="-1">为什么需要它？ <a class="header-anchor" href="#为什么需要它" aria-label="Permalink to &quot;为什么需要它？&quot;"></a></h2>
-<p>AI 辅助编程已经成为日常，但很多人都有过这样的体验：</p>
-<ul>
-<li>在浏览器和编辑器之间来回切换，上下文不断被打断；</li>
-<li>想把当前文件发给 AI，需要手动复制粘贴；</li>
-<li>AI 生成的代码想用到项目里，又要复制、找位置、粘贴；</li>
-<li>每个模型都要单独注册、配置 API Key，门槛不低；</li>
-<li>希望 AI 用中文回答，却总要额外叮嘱。</li>
-</ul>
-<p>Leebox 的想法很直接：<strong>把 AI 无缝嵌入你的编码工作流</strong>，让它像侧边栏一样常驻，随时可用。</p>
-<hr>
-<h2 id="核心功能" tabindex="-1">核心功能 <a class="header-anchor" href="#核心功能" aria-label="Permalink to &quot;核心功能&quot;"></a></h2>
-<h3 id="🤖-20-内置-openrouter-免费模型" tabindex="-1">🤖 20+ 内置 OpenRouter 免费模型 <a class="header-anchor" href="#🤖-20-内置-openrouter-免费模型" aria-label="Permalink to &quot;🤖 20+ 内置 OpenRouter 免费模型&quot;"></a></h3>
-<p>涵盖 GPT、Claude、Kimi、Llama、GLM、Qwen、Gemma、Nemotron 等主流模型。其中实测可用的模型会标有 ⭐ 推荐，省去你一个个试错的麻烦。</p>
-<h3 id="📄-一键引用当前文件" tabindex="-1">📄 一键引用当前文件 <a class="header-anchor" href="#📄-一键引用当前文件" aria-label="Permalink to &quot;📄 一键引用当前文件&quot;"></a></h3>
-<p>勾选「引用当前文件」后，Leebox 会自动把当前打开的文件内容作为上下文发送给 AI，让模型基于真实代码作答，回答更精准。</p>
-<h3 id="✍️-代码直接应用到编辑器" tabindex="-1">✍️ 代码直接应用到编辑器 <a class="header-anchor" href="#✍️-代码直接应用到编辑器" aria-label="Permalink to &quot;✍️ 代码直接应用到编辑器&quot;"></a></h3>
-<p>AI 返回的代码块下方会显示操作按钮：</p>
-<ul>
-<li><strong>插入到光标</strong>：把代码插入当前光标位置；</li>
-<li><strong>替换整个文件</strong>：一键用 AI 生成的新代码覆盖当前文件。</li>
-</ul>
-<h3 id="🖼️-多模态附件支持" tabindex="-1">🖼️ 多模态附件支持 <a class="header-anchor" href="#🖼️-多模态附件支持" aria-label="Permalink to &quot;🖼️ 多模态附件支持&quot;"></a></h3>
-<p>支持上传图片或文本文件作为附件：</p>
-<ul>
-<li>图片会自动转为 base64 dataUrl，作为视觉输入发送给模型；</li>
-<li>文本文件可直接作为上下文补充。</li>
-</ul>
-<h3 id="🇨🇳-默认简体中文回答" tabindex="-1">🇨🇳 默认简体中文回答 <a class="header-anchor" href="#🇨🇳-默认简体中文回答" aria-label="Permalink to &quot;🇨🇳 默认简体中文回答&quot;"></a></h3>
-<p>内置系统提示要求 AI 始终使用简体中文，对中文开发者更友好。</p>
-<h3 id="🎨-markdown-渲染" tabindex="-1">🎨 Markdown 渲染 <a class="header-anchor" href="#🎨-markdown-渲染" aria-label="Permalink to &quot;🎨 Markdown 渲染&quot;"></a></h3>
-<p>支持标题、粗体、斜体、行内代码、代码块、列表、链接等常见 Markdown 格式，阅读体验接近文档页面。</p>
-<h3 id="⌨️-快捷键发送" tabindex="-1">⌨️ 快捷键发送 <a class="header-anchor" href="#⌨️-快捷键发送" aria-label="Permalink to &quot;⌨️ 快捷键发送&quot;"></a></h3>
-<p>输入完成后按 <code>Ctrl + Enter</code> 即可快速发送消息，不需要点按钮。</p>
-<h3 id="🔑-可配置-api-key" tabindex="-1">🔑 可配置 API Key <a class="header-anchor" href="#🔑-可配置-api-key" aria-label="Permalink to &quot;🔑 可配置 API Key&quot;"></a></h3>
-<ul>
-<li>留空即可使用插件内置的默认 Key，开箱即用；</li>
-<li>也可以在 VS Code 设置中填入自己的 OpenRouter API Key，更灵活。</li>
-</ul>
-<h3 id="🖱️-拖拽上传" tabindex="-1">🖱️ 拖拽上传 <a class="header-anchor" href="#🖱️-拖拽上传" aria-label="Permalink to &quot;🖱️ 拖拽上传&quot;"></a></h3>
-<p>直接把文件拖到 Leebox 面板中即可添加为附件，操作自然流畅。</p>
-<hr>
-<h2 id="使用流程" tabindex="-1">使用流程 <a class="header-anchor" href="#使用流程" aria-label="Permalink to &quot;使用流程&quot;"></a></h2>
-<ol>
-<li>点击 VS Code 左侧活动栏的 Leebox 图标，打开 AI 面板；</li>
-<li>在下拉框中选择想使用的模型；</li>
-<li>在输入框中描述问题或需求；</li>
-<li>（可选）勾选「引用当前文件」，把当前编辑器内容作为上下文；</li>
-<li>（可选）点击「上传文件/图片」，或拖拽文件添加附件；</li>
-<li>点击「发送」或按 <code>Ctrl + Enter</code>，等待 AI 回答；</li>
-<li>对回答中的代码块点击「插入到光标」或「替换整个文件」。</li>
-</ol>
-<hr>
-<h2 id="技术亮点" tabindex="-1">技术亮点 <a class="header-anchor" href="#技术亮点" aria-label="Permalink to &quot;技术亮点&quot;"></a></h2>
-<ul>
-<li><strong>纯 Webview 实现的侧边栏面板</strong>，UI 风格与 VS Code 主题保持一致；</li>
-<li><strong>实时同步当前文件名</strong>：监听 <code>onDidChangeActiveTextEditor</code>，AI 始终知道你正在编辑哪个文件；</li>
-<li><strong>自定义 Markdown 渲染器</strong>：逐行扫描代码块，生成带「应用」按钮的代码块组件；</li>
-<li><strong>代码应用通过 VS Code <code>editor.edit</code> API 实现</strong>，支持插入、替换选区或全文件替换；</li>
-<li><strong>多模态输入</strong>：图片附件读取为 base64 后作为 <code>image_url</code> 类型消息发送给 OpenRouter；</li>
-<li><strong>内置默认 API Key</strong>，降低首次使用门槛，同时支持用户覆盖配置。</li>
-</ul>
-<hr>
-<h2 id="适合谁用" tabindex="-1">适合谁用？ <a class="header-anchor" href="#适合谁用" aria-label="Permalink to &quot;适合谁用？&quot;"></a></h2>
-<ul>
-<li>希望把 AI 深度集成到编码流程的开发者；</li>
-<li>学生、独立开发者、技术爱好者；</li>
-<li>经常需要代码重构、修 bug、加功能的程序员；</li>
-<li>想对比多个免费模型效果的 AI 尝鲜者。</li>
-</ul>
-<hr>
-<h2 id="典型场景" tabindex="-1">典型场景 <a class="header-anchor" href="#典型场景" aria-label="Permalink to &quot;典型场景&quot;"></a></h2>
-<ul>
-<li>日常编码问答、算法讲解、技术概念查询；</li>
-<li>基于当前文件进行代码重构、修 bug、加功能；</li>
-<li>图片相关的编程辅助，例如 UI 截图分析、流程图识别；</li>
-<li>减少上下文切换，把问答和改代码集中在同一个窗口完成。</li>
-</ul>
-<hr>
-<h2 id="写在最后" tabindex="-1">写在最后 <a class="header-anchor" href="#写在最后" aria-label="Permalink to &quot;写在最后&quot;"></a></h2>
-<p>Leebox 不追求成为最强大的 AI 客户端，它只专注于一件事：<strong>让 AI 离你正在写的代码更近一点</strong>。当你不需要再复制粘贴、不再需要切窗口、不再需要手动传上下文时，AI 才真正成了你工作流的一部分。</p>
-<p>如果你也希望编辑器里常驻一个懂代码的助手，Leebox 值得一试。</p>
-<blockquote>
-<p>👉 <a href="https://marketplace.visualstudio.com/items?itemName=leeb.leebox" target="_blank" rel="noreferrer">点击前往 VS Code Marketplace 下载 Leebox</a></p>
-</blockquote>
+            <title><![CDATA[湘钢日记]]></title>
+            <link>https://leebblog.netlify.app/articles/md/湘钢日记</link>
+            <guid isPermaLink="false">https://leebblog.netlify.app/articles/md/湘钢日记</guid>
+            <pubDate>Sun, 14 Jun 2026 04:00:42 GMT</pubDate>
+            <description><![CDATA[快被累死了]]></description>
+            <content:encoded><![CDATA[<p>快被累死了</p>
 ]]></content:encoded>
         </item>
         <item>
@@ -15726,6 +15738,7 @@ app manifest 和 service worker 来实现 pwd 安装和离线功能</p>
             <pubDate>Mon, 01 Jun 2026 08:44:43 GMT</pubDate>
             <description><![CDATA[前端 seo 及 nuxt 实践分享 seo 背景介绍 google 搜索中心 百度搜索资源平台 百度搜索引擎优化指南 2.0 搜索引擎优化 搜索引擎只是网站上一个普通的访客，对网站的抓取方式、对网站/网页的价值判断，也都是从用户的角度出发…]]></description>
             <content:encoded><![CDATA[<h1 id="前端-seo-及-nuxt-实践分享" tabindex="-1">前端 seo 及 nuxt 实践分享 <a class="header-anchor" href="#前端-seo-及-nuxt-实践分享" aria-label="Permalink to &quot;前端 seo 及 nuxt 实践分享&quot;"></a></h1>
+<p><img src="https://leebblog.netlify.app/assets/seo.Ce-aJ-Es.png" alt="seo" loading="lazy"></p>
 <h2 id="seo-背景介绍" tabindex="-1">seo 背景介绍 <a class="header-anchor" href="#seo-背景介绍" aria-label="Permalink to &quot;seo 背景介绍&quot;"></a></h2>
 <p>google 搜索中心
 百度搜索资源平台
@@ -15969,6 +15982,7 @@ tree
 &lt;img((?![^&gt;]*\balt=('|&quot;)[^&quot;']+('|&quot;))|(?=.<em>alt=('|&quot;)\s+('|&quot;).</em>))[^&gt;]_?&gt; 这正则可以查没有 alt 的 img 标签, 放到 vscode 搜索就行，
 有兴趣的可以写个 eslint 规则来实现</p>
 ]]></content:encoded>
+            <enclosure url="https://leebblog.netlify.app/assets/seo.Ce-aJ-Es.png" length="0" type="image/png"/>
         </item>
         <item>
             <title><![CDATA[threejs]]></title>
