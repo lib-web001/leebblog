@@ -5,7 +5,7 @@
 export default {
   // 文章列表接口地址
   apiUrl:
-    'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/leeb/eyJuYW1lIjoibWFya2Rvd24taW5kZXguanNvbiIsImlkIjoibWFya2Rvd24taW5kZXgiLCJkaXIiOiIifQ==',
+    'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/leeb/markdown/eyJuYW1lIjoibWFya2Rvd24taW5kZXguanNvbiIsImlkIjoibWFya2Rvd24taW5kZXgiLCJkaXIiOiIifQ==',
 
   // 请求方法
   method: 'GET',

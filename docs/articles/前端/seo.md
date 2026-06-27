@@ -6,6 +6,9 @@ description: "前端 seo 及 nuxt 实践分享 seo 背景介绍 google 搜索中
 ---
 # 前端 seo 及 nuxt 实践分享
 
+![seo](/img/seo.png)
+
+
 ## seo 背景介绍
 
 google 搜索中心

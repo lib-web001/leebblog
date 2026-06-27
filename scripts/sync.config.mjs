@@ -2,7 +2,7 @@ export default {
   request() {
     try {
       return fetch(
-        'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/leeb/eyJuYW1lIjoibWFya2Rvd24taW5kZXguanNvbiIsImlkIjoibWFya2Rvd24taW5kZXgiLCJkaXIiOiIifQ=='
+        'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/leeb/markdown/eyJuYW1lIjoibWFya2Rvd24taW5kZXguanNvbiIsImlkIjoibWFya2Rvd24taW5kZXgiLCJkaXIiOiIifQ=='
       ).then((r) => r.json())
     } catch (e) {
       return {}
