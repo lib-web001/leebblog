@@ -96,8 +96,8 @@ async function main() {
 
   const fm = buildFrontmatter(front)
 
-  // 构建 body（简单的 Markdown 列表）
-  const bodyLines = ['# 友链', '']
+  // 构建 body：优先渲染组件，再保留 Markdown 列表作为 SEO 和兼容性
+  const bodyLines = ['<FriendsList />', '', '# 友链', '']
   for (const it of items) {
     const name = it.name || it.title || it.display || ''
     const url = it.url || it.link || '#'
