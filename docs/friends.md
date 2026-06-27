@@ -6,14 +6,13 @@ title: 友链
 
 # 友链
 
-欢迎来到友链页面。把你希望展示的站点按下面格式添加到此页：
+欢迎来到友链页面。把你希望展示的站点按下面格式评论：
 
-- [站点名](https://example.com) — 简短描述
+站点名 — 简短描述
 
 以下为示例：
 
-- [gzlibiao](https://github.com/gzlibiao) — 开发者/朋友
-- [leebblog](https://leebblog.netlify.app) — 我的主页
-- [示例站点](https://example.com) — 示例说明
+name: 'resume',
+url: 'http://hfyf.netlify.app'
 
-想要自动化管理友链，可以把 JSON 文件放在 docs/.vitepress/friends.json 并在模板中读取。
+（或者直接在 docs/.vitepress/friends.json 中添加 JSON 条目）
