@@ -262,7 +262,8 @@ export default defineConfig(() => {
               link: 'https://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/R09TUw==/eyJpZCI6IjI2NjE2MjUzLWNiYzktNDUzMC1iNzVjLWQ3YTBjODBlZGNhMyIsIm5hbWUiOiLkvaDkuI3nn6XpgZPnmoRKYXZhU2NyaXB077yI5LiL5Y2377yJLnBkZiIsImRpciI6IuS5piJ9'
             }
           ]
-        }
+        },
+        { text: '友链', link: '/friends' }
         // {
         //   text: '里程',
         //   link: 'https://gmilepost.netlify.app'
