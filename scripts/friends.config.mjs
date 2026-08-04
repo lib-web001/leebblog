@@ -4,12 +4,21 @@ import path from 'path'
 // 友链同步配置
 // 优先从本地 docs/.vitepress/friends.json 读取，若不存在则请求远端 apiUrl
 export default {
-  apiUrl: 'http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/leeb/text/eyJuYW1lIjoiZnJpZW5kcy50eHQiLCJpZCI6ImM4a2k0a2F1OGg4IiwiZGlyIjoiIiwib3duZXIiOiJ1XzE3Nzc5NTc4NjgxMjAifQ==',
+  apiUrl:
+    'http://jf-temp-1301446188.cos.ap-guangzhou.myqcloud.com/leeb/text/eyJuYW1lIjoiZnJpZW5kcy50eHQiLCJpZCI6ImxlZWIvdGV4dC9leUp1WVcxbElqb2labkpwWlc1a2N5NTBlSFFpTENKcFpDSTZJbXhsWldJdmRHVjRkQzlsZVVwMVdWY3hiRWxxYjJsYWJrcHdXbGMxYTJONU5UQmxTRkZwVEVOS2NGcERTVFpKYlUwMFlUSnJNR0V5UmpGUFIyYzBTV2wzYVZwSGJIbEphbTlwU1dsM2FXSXpaSFZhV0VscFQybEtNVmg2UlROT2VtTTFUbFJqTkU1cVozaE5ha0ZwWmxFOVBTSXNJbVJwY2lJNklpSXNJbTkzYm1WeUlqb2lkVjh4TnpjM09UVTNPRFk0TVRJd0luMD0iLCJkaXIiOiIiLCJvd25lciI6InVfMTc3Nzk1Nzg2ODEyMCJ9',
 
   // 优先读取本地文件，否则通过 fetch 获取并尝试解析（支持非标准引号）
   async request() {
     try {
-      const p = path.resolve(path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'docs', '.vitepress', 'friends.json'))
+      const p = path.resolve(
+        path.join(
+          path.dirname(new URL(import.meta.url).pathname),
+          '..',
+          'docs',
+          '.vitepress',
+          'friends.json'
+        )
+      )
       const str = fs.readFileSync(p, 'utf-8')
       return JSON.parse(str)
     } catch (e) {

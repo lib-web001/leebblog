@@ -30,7 +30,7 @@ export default defineConfig(() => {
     cleanUrls: true,
     metaChunk: true,
     srcExclude: ['CHANGELOG.md', 'seo/**'],
-    lastUpdated: true,
+    lastUpdated: false,
     markdown: {
       image: {
         lazyLoading: true
