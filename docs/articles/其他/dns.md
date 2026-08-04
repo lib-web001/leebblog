@@ -1,4 +1,5 @@
 ---
+date: "2021-06-01 16:44:43"
 title: "host 文件配置 加速 github 访问"
 description: "host 文件配置 加速 github 访问 https://ip.tool.chinaz.com/140.82.121.4 cdn 什么是 cdn 公司的一些静态文件 css sdk 图标这些放到 腾讯 阿里云 客户端下次请求资源的时候…"
 ---

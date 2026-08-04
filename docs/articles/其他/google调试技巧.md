@@ -1,4 +1,5 @@
 ---
+date: "2021-06-01 16:44:43"
 title: "google 调试技巧"
 description: "google 调试技巧 获取网页图片的 base64 在开发者工具里打开源代码模式 source 选择图片 找到右边图片显示区 以数据 uri 格式复制图片 网络请求过滤 netword fetch/xhr 请求重发 netword 请求…"
 ---
