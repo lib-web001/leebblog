@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as s}from"./chunks/framework.CrIZQWiq.js";const i=JSON.parse('{"title":"","description":"","frontmatter":{"date":"2021-06-01 16:44:43"},"headers":[],"relativePath":"sop/style.md","filePath":"sop/style.md"}'),a={name:"sop/style.md"};function o(r,c,n,p,d,l){return t(),s("div")}const m=e(a,[["render",o]]);export{i as __pageData,m as default};
