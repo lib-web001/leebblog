@@ -4,7 +4,7 @@
         <title>飞语</title>
         <link>https://leebblog.netlify.app</link>
         <description>leeb的个人博客 - 全栈开发、前端、后端技术分享</description>
-        <lastBuildDate>Sat, 08 Aug 2026 10:13:46 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 08 Aug 2026 15:00:39 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-cn</language>
@@ -14,6 +14,110 @@
             <link>https://leebblog.netlify.app</link>
         </image>
         <copyright>Copyright (c) 2024-present, leeb</copyright>
+        <item>
+            <title><![CDATA[leebai]]></title>
+            <link>https://leebblog.netlify.app/articles/产品/leebai</link>
+            <guid isPermaLink="false">https://leebblog.netlify.app/articles/产品/leebai</guid>
+            <pubDate>Sat, 08 Aug 2026 14:50:00 GMT</pubDate>
+            <description><![CDATA[leebai 我的 AI 平台 基于 Agnes AI 全模态 API 的个人 AI 站点，Next.js 全栈实现，支持 AI 对话、文生图、文生视频、AI 编剧一键出片，已部署到 Netlify]]></description>
+            <content:encoded><![CDATA[<h1 id="leebai-我的个人-ai-平台-对话-绘画-视频一站式体验" tabindex="-1">leebai：我的个人 AI 平台，对话 / 绘画 / 视频一站式体验 <a class="header-anchor" href="#leebai-我的个人-ai-平台-对话-绘画-视频一站式体验" aria-label="Permalink to &quot;leebai：我的个人 AI 平台，对话 / 绘画 / 视频一站式体验&quot;"></a></h1>
+<blockquote>
+<p>一句创意，AI 自动写剧本、逐镜生成视频、末帧续拍、合成出片。</p>
+</blockquote>
+<hr>
+<h2 id="一句话介绍" tabindex="-1">一句话介绍 <a class="header-anchor" href="#一句话介绍" aria-label="Permalink to &quot;一句话介绍&quot;"></a></h2>
+<p><strong>leebai</strong> 是基于 Agnes AI 全模态 API 打造的个人 AI 平台，集 <strong>AI 对话、文生图、文生视频、AI 编剧一键出片</strong> 于一体，Next.js 全栈实现，API Key 仅保存在服务端，不会暴露到前端。</p>
+<hr>
+<h2 id="体验地址" tabindex="-1">体验地址 <a class="header-anchor" href="#体验地址" aria-label="Permalink to &quot;体验地址&quot;"></a></h2>
+<p>👉 <a href="https://leebai.netlify.app/" target="_blank" rel="noreferrer">https://leebai.netlify.app/</a></p>
+<hr>
+<h2 id="核心功能" tabindex="-1">核心功能 <a class="header-anchor" href="#核心功能" aria-label="Permalink to &quot;核心功能&quot;"></a></h2>
+<h3 id="💬-ai-对话" tabindex="-1">💬 AI 对话 <a class="header-anchor" href="#💬-ai-对话" aria-label="Permalink to &quot;💬 AI 对话&quot;"></a></h3>
+<p><img src="https://leebblog.netlify.app/assets/leebai-chat.BGX06MEZ.png" alt="leebai-chat" loading="lazy"></p>
+<ul>
+<li><strong>流式输出</strong>：SSE 逐字返回，体验丝滑；</li>
+<li><strong>多模型切换</strong>：agnes-2.0-flash / agnes-2.5-flash / agnes-2.5-pro-alpha；</li>
+<li><strong>全类型附件上传</strong>：图片多模态识别，PDF / Word / Excel / PPT 解析后注入上下文，任意文本文件直接投喂；</li>
+<li><strong>对话记录本地缓存</strong>：刷新不丢失，自动保存在浏览器本地。</li>
+</ul>
+<h3 id="🎨-文生图" tabindex="-1">🎨 文生图 <a class="header-anchor" href="#🎨-文生图" aria-label="Permalink to &quot;🎨 文生图&quot;"></a></h3>
+<p><img src="https://leebblog.netlify.app/assets/leebai-image.DOFfCcQA.png" alt="leebai-image" loading="lazy"></p>
+<ul>
+<li>支持比例（1:1、16:9、9:16 等）、清晰度（最高 2K）、反向提示词；</li>
+<li>模型：agnes-image-2.0-flash / agnes-image-2.1-flash。</li>
+</ul>
+<h3 id="🎬-文生视频-ai-编剧一键出片" tabindex="-1">🎬 文生视频 &amp; AI 编剧一键出片 <a class="header-anchor" href="#🎬-文生视频-ai-编剧一键出片" aria-label="Permalink to &quot;🎬 文生视频 &amp; AI 编剧一键出片&quot;"></a></h3>
+<p><img src="https://leebblog.netlify.app/assets/leebai-video.k1omYA_N.png" alt="leebai-video" loading="lazy"></p>
+<p>这是最好玩的部分——<strong>AI 编剧 · 一键出片</strong>：</p>
+<ol>
+<li>输入一句创意，比如「一只橘猫在小院里追蝴蝶，最后治愈地睡着」；</li>
+<li>AI 自动创作剧本：片名、剧情梗概、分镜（每个镜头含景别、动作、场景、画风、镜头运动、光线、台词音效）；</li>
+<li>自动逐镜提交视频生成任务，异步任务 + 进度轮询；</li>
+<li><strong>末帧续拍</strong>：自动抽取上一段的最后一帧作为下一段的首帧，保证画面连贯；</li>
+<li>全部镜头生成后，<strong>在浏览器端用 FFmpeg.wasm 自动转场合成</strong>完整长视频。</li>
+</ol>
+<p>另外还有：</p>
+<ul>
+<li><strong>AI 提示词助手</strong>：一句话创意帮你扩写成专业提示词（单段 / 分镜两种模式）；</li>
+<li><strong>文生视频</strong>：agnes-video-v2.0，音画同步，单段最长 20 秒；</li>
+<li><strong>多片段合成</strong>：多段视频在浏览器端合成长视频，不经过服务器。</li>
+</ul>
+<hr>
+<h2 id="技术栈" tabindex="-1">技术栈 <a class="header-anchor" href="#技术栈" aria-label="Permalink to &quot;技术栈&quot;"></a></h2>
+<ul>
+<li><strong>框架</strong>：Next.js 15 + React 19 + TypeScript</li>
+<li><strong>模型服务</strong>：Agnes AI 全模态 API（对话 / 图像 / 视频）</li>
+<li><strong>文档解析</strong>：pdfjs-dist（PDF）、mammoth（Word）、xlsx（Excel）</li>
+<li><strong>视频合成</strong>：FFmpeg.wasm（纯浏览器端，无需服务器转码）</li>
+<li><strong>部署</strong>：Netlify（Next.js Runtime + Functions）</li>
+</ul>
+<hr>
+<h2 id="技术亮点" tabindex="-1">技术亮点 <a class="header-anchor" href="#技术亮点" aria-label="Permalink to &quot;技术亮点&quot;"></a></h2>
+<ul>
+<li><strong>API Key 服务端代理</strong>：所有模型请求经过 Next.js API Routes 转发，Key 只存在于服务端环境变量，前端零暴露；</li>
+<li><strong>SSE 流式转发</strong>：后端把模型流式响应原样转发给前端，逐字渲染；</li>
+<li><strong>异步任务轮询</strong>：视频生成是分钟级任务，提交后每 5 秒轮询一次进度，429 限流自动重试；</li>
+<li><strong>末帧续拍保持连贯</strong>：抽取上一段视频最后一帧作为下一段首帧输入，角色和画风不跳变；</li>
+<li><strong>FFmpeg.wasm 浏览器端合成</strong>：多段视频的转场拼接完全在用户浏览器里完成，服务器零成本；</li>
+<li><strong>AI 输出 JSON 容错解析</strong>：模型输出的 JSON 偶尔不规范（字符串里带未转义换行、markdown 包裹、截断），做了括号平衡截取 + 控制字符修复 + 失败自动重试的三重容错。</li>
+</ul>
+<hr>
+<h2 id="部署踩坑记录" tabindex="-1">部署踩坑记录 <a class="header-anchor" href="#部署踩坑记录" aria-label="Permalink to &quot;部署踩坑记录&quot;"></a></h2>
+<p>部署到 Netlify 时踩了几个坑，记录一下：</p>
+<ol>
+<li><strong>monorepo 子目录</strong>：项目在 monorepo 的 <code>agnes-ai-web</code> 子目录里，Netlify 的 Base directory 必须设置为该目录；</li>
+<li><strong>本地 build 假死</strong>：<code>next dev</code> 和 <code>next build</code> 同时跑会互相锁住 <code>.next</code> 目录（Windows 下尤其明显），build 直接卡死，关掉 dev 服务器即可；</li>
+<li><strong>部署成功但页面 404</strong>：Netlify 没有应用 Next.js Runtime，把 <code>.next</code> 当静态目录原样发布了，在 <code>netlify.toml</code> 里显式声明插件解决：</li>
+</ol>
+<div class="language-toml vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">toml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0" v-pre=""><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">[</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">build</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">]</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  command = </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"npm run build"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  publish = </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">".next"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">[</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">build</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">environment</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">]</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  NODE_VERSION = </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"20"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">[[</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">plugins</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">]]</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  package = </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"@netlify/plugin-nextjs"</span></span></code></pre>
+</div><hr>
+<h2 id="写在最后" tabindex="-1">写在最后 <a class="header-anchor" href="#写在最后" aria-label="Permalink to &quot;写在最后&quot;"></a></h2>
+<p>做这个项目最大的感受是：<strong>全模态 API 把很多以前需要拼凑多个服务的事情变成了一次调用</strong>。对话、画图、视频生成、剧本创作串成一条流水线后，「一句创意出一部短片」这件事真的跑通了。</p>
+<p>如果你也想搭一个自己的 AI 站点，不妨从一个 API Key 和一次 <code>fetch</code> 开始。</p>
+<blockquote>
+<p>👉 <a href="https://leebai.netlify.app/" target="_blank" rel="noreferrer">点击体验 leebai</a></p>
+</blockquote>
+]]></content:encoded>
+            <enclosure url="https://leebblog.netlify.app/assets/leebai-chat.BGX06MEZ.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[agnes ]]></title>
+            <link>https://leebblog.netlify.app/articles/md/我的apikey</link>
+            <guid isPermaLink="false">https://leebblog.netlify.app/articles/md/我的apikey</guid>
+            <pubDate>Sat, 08 Aug 2026 11:35:17 GMT</pubDate>
+            <description><![CDATA[sk-tXOum7geZcKJiBRZ0I6f2dvdVjWckDil1vkm1N8zL9aFD8xw]]></description>
+            <content:encoded><![CDATA[<h3 id="agnes" tabindex="-1">agnes <a class="header-anchor" href="#agnes" aria-label="Permalink to &quot;agnes&quot;"></a></h3>
+<p>sk-tXOum7geZcKJiBRZ0I6f2dvdVjWckDil1vkm1N8zL9aFD8xw</p>
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[platform]]></title>
             <link>https://leebblog.netlify.app/articles/md/platform</link>
