@@ -9,7 +9,10 @@
     "dev": "vitepress dev docs",
     "build": "npm run sync && vitepress build docs",
     "serve": "vitepress serve docs",
-    "push": "sh push.sh"
+    "push": "sh push.sh",
+    "test": "playwright test",
+    "test:report": "node scripts/generate-test-report.mjs",
+    "test:all": "playwright test && node scripts/generate-test-report.mjs"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
