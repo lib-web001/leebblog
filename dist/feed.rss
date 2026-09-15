@@ -4,7 +4,7 @@
         <title>飞语</title>
         <link>https://leebblog.netlify.app</link>
         <description>leeb的个人博客 - 全栈开发、前端、后端技术分享</description>
-        <lastBuildDate>Tue, 15 Sep 2026 13:42:06 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 15 Sep 2026 14:22:02 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-cn</language>
@@ -14,6 +14,306 @@
             <link>https://leebblog.netlify.app</link>
         </image>
         <copyright>Copyright (c) 2024-present, leeb</copyright>
+        <item>
+            <title><![CDATA[AI Agents 应用实践：从设计到部署]]></title>
+            <link>https://leebblog.netlify.app/articles/ai/AI-agents-应用实践</link>
+            <guid isPermaLink="false">https://leebblog.netlify.app/articles/ai/AI-agents-应用实践</guid>
+            <pubDate>Tue, 15 Sep 2026 14:03:58 GMT</pubDate>
+            <description><![CDATA[# AI Agents 应用实践：从设计到部署
+
+## 引言
+
+随着大模型和自主代理（Agents）概念的发展，工程师们开始用“多代理协作”来解决复杂任务，比如自动化客户支持、研发辅助、数据标注流水线、智能运维等。本文面向工程实践，介绍如何设计、实现并部署一个可用的 AI Agents 应用，包括架构、示例代码、测试与运维建议。
+
+## 适用场景
+
+- 需要把复杂任务分解为多个子任务，并行处理或按序执行的场景。
+- 既要结合 LLM 的生成能力，又要依赖外部工具或系统（数据库、搜索、API）的场景。
+- 需要可观测、可回滚、可审计的自动化流程（如自动化运维、自动化测试、内容审核）。
+
+## 架构概览
+
+一个典型的 AI Agents 应用由以下部分构成：
+
+- 协调器（Orchestrator）：负责任务分配、状态管理与重试策略。
+- 多个代理（Agents）：每个代理负责一类能力（检索、规划、执行、校验）。
+- 工具接口（Tooling）：外部系统适配层（API 封装、数据库、缓存、爬虫等）。
+- 监控与审计：日志、事件链、追踪（trace）、人工干预界面。
+
+架构示意（简化）：
+
+Orchestrator -> Agent A (检索)
+Orchestrator -> Agent B (LLM 规划)
+Orchestrator -> Agent C (执行/工具)
+
+## 代理角色与职责
+
+- Retriever Agent：查询知识库或搜索引擎，返回可被 LLM 使用的上下文。
+- Planner Agent：基于任务目标生成执行步骤或子任务。
+- Executor Agent：调用工具 API（如数据库、远程服务、自动化脚本）完成具体动作。
+- Verifier Agent：验证执行结果是否满足目标，必要时触发回滚或重试。
+
+## 交互与消息模型
+
+- 同步调用：适合短时任务、实时交互的场景。
+- 异步事件：适合耗时任务或需人工介入的流程，使用消息队列（RabbitMQ、Kafka）或任务队列（Bull、Celery）。
+- 状态机+事件溯源：把任务状态与事件写入持久化存储（事件溯源），方便审计与回溯。
+
+## 示例：一个简化的 Node.js/TypeScript 实现思路
+
+说明：下面代码为概念示例，展示核心交互与模块划分。真实工程中应添加重试、限流、鉴权与监控。
+
+- 目录结构建议：
+```
+src/
+  orchestrator.ts
+  agents/
+    retriever.ts
+    planner.ts
+    executor.ts
+  tools/
+    search.ts
+    httpClient.ts
+  types.ts
+```
+
+- 核心类型（types.ts）
+
+```ts
+export type Task = {
+  id: string;
+  type: string;
+  payload: any;
+  status: 'pending' | 'running' | 'succeeded' | 'failed';
+}
+
+export type AgentResult = {
+  success: boolean;
+  data?: any;
+  error?: string;
+}
+```
+
+- 协调器（orchestrator.ts）示例
+
+```ts
+import { Task, AgentResult } from './types';
+import { RetrieverAgent } from './agents/retriever';
+import { PlannerAgent } from './agents/planner';
+import { ExecutorAgent } from './agents/executor';
+
+export class Orchestrator {
+  async handleTask(task: Task) {
+    // 1. 检索上下文
+    const retriever = new RetrieverAgent();
+    const ctx = await retriever.run(task.payload);
+
+    // 2. 规划步骤
+    const planner = new PlannerAgent();
+    const plan = await planner.run({ task, ctx });
+
+    // 3. 逐步执行并验证
+    const executor = new ExecutorAgent();
+    for (const step of plan.steps) {
+      const res: AgentResult = await executor.run(step);
+      if (!res.success) throw new Error(res.error || '执行失败');
+    }
+
+    return { status: 'ok' };
+  }
+}
+```
+
+- 简单的 Executor Agent（调用工具）
+
+```ts
+export class ExecutorAgent {
+  async run(step: any) {
+    // 根据 step.type 调用不同的工具或 API
+    if (step.type === 'http') {
+      // 调用 HTTP 工具，处理响应
+    }
+    return { success: true, data: null };
+  }
+}
+```
+
+## 部署与扩展性
+
+- 把 Agent 做成独立微服务或 Serverless 函数，按需扩展。
+- 使用消息队列解耦：Orchestrator 投递任务，Agents 订阅执行。
+- 将 LLM 调用与工具调用限流、熔断，避免突发费用或级联故障。
+
+## 测试策略
+
+- 单元测试：覆盖 Planner 的决策逻辑、Executor 的工具适配。
+- 集成测试：使用可控的伪造工具/Stub（如本地 mock server）来验证端到端流程。
+- 合规测试：记录输入与输出以便审计和可解释性检查。
+
+## 观测与安全
+
+- 记录每一步的输入/输出（脱敏后）用于审计与模型效果回溯。
+- 针对潜在不安全操作（删除、支付、发布）添加强制人工复核步骤。
+- 使用速率限制、鉴权、输入校验与输出过滤来降低滥用风险。
+
+## 实践建议（工程级）
+
+- 从小而可控的代理开始：先把检索+规划+执行做齐，再逐步拆分。
+- 把复杂的业务逻辑写在 Planner/Executor，而不是把所有逻辑依赖于 LLM 提示工程。
+- 建立快速回滚与人工接管通道。
+- 定期做模型输出抽样检查与质量验收。
+
+## 结论
+
+AI Agents 是把 LLM 能力工程化、服务化的一种有效方式。合理的模块划分、可观测的事件链、以及稳健的部署流程，是把实验性原型变为生产系统的关键。
+
+## 参考与延伸阅读
+
+- 多代理系统设计模式（检索、规划、执行、校验）。
+- 事件驱动架构与消息队列在长流程自动化中的应用。
+- LLM 安全性与审计实务。
+
+]]></description>
+            <content:encoded><![CDATA[<h1 id="ai-agents-应用实践-从设计到部署" tabindex="-1">AI Agents 应用实践：从设计到部署 <a class="header-anchor" href="#ai-agents-应用实践-从设计到部署" aria-label="Permalink to &quot;AI Agents 应用实践：从设计到部署&quot;"></a></h1>
+<h2 id="引言" tabindex="-1">引言 <a class="header-anchor" href="#引言" aria-label="Permalink to &quot;引言&quot;"></a></h2>
+<p>随着大模型和自主代理（Agents）概念的发展，工程师们开始用“多代理协作”来解决复杂任务，比如自动化客户支持、研发辅助、数据标注流水线、智能运维等。本文面向工程实践，介绍如何设计、实现并部署一个可用的 AI Agents 应用，包括架构、示例代码、测试与运维建议。</p>
+<h2 id="适用场景" tabindex="-1">适用场景 <a class="header-anchor" href="#适用场景" aria-label="Permalink to &quot;适用场景&quot;"></a></h2>
+<ul>
+<li>需要把复杂任务分解为多个子任务，并行处理或按序执行的场景。</li>
+<li>既要结合 LLM 的生成能力，又要依赖外部工具或系统（数据库、搜索、API）的场景。</li>
+<li>需要可观测、可回滚、可审计的自动化流程（如自动化运维、自动化测试、内容审核）。</li>
+</ul>
+<h2 id="架构概览" tabindex="-1">架构概览 <a class="header-anchor" href="#架构概览" aria-label="Permalink to &quot;架构概览&quot;"></a></h2>
+<p>一个典型的 AI Agents 应用由以下部分构成：</p>
+<ul>
+<li>协调器（Orchestrator）：负责任务分配、状态管理与重试策略。</li>
+<li>多个代理（Agents）：每个代理负责一类能力（检索、规划、执行、校验）。</li>
+<li>工具接口（Tooling）：外部系统适配层（API 封装、数据库、缓存、爬虫等）。</li>
+<li>监控与审计：日志、事件链、追踪（trace）、人工干预界面。</li>
+</ul>
+<p>架构示意（简化）：</p>
+<p>Orchestrator -&gt; Agent A (检索)
+Orchestrator -&gt; Agent B (LLM 规划)
+Orchestrator -&gt; Agent C (执行/工具)</p>
+<h2 id="代理角色与职责" tabindex="-1">代理角色与职责 <a class="header-anchor" href="#代理角色与职责" aria-label="Permalink to &quot;代理角色与职责&quot;"></a></h2>
+<ul>
+<li>Retriever Agent：查询知识库或搜索引擎，返回可被 LLM 使用的上下文。</li>
+<li>Planner Agent：基于任务目标生成执行步骤或子任务。</li>
+<li>Executor Agent：调用工具 API（如数据库、远程服务、自动化脚本）完成具体动作。</li>
+<li>Verifier Agent：验证执行结果是否满足目标，必要时触发回滚或重试。</li>
+</ul>
+<h2 id="交互与消息模型" tabindex="-1">交互与消息模型 <a class="header-anchor" href="#交互与消息模型" aria-label="Permalink to &quot;交互与消息模型&quot;"></a></h2>
+<ul>
+<li>同步调用：适合短时任务、实时交互的场景。</li>
+<li>异步事件：适合耗时任务或需人工介入的流程，使用消息队列（RabbitMQ、Kafka）或任务队列（Bull、Celery）。</li>
+<li>状态机+事件溯源：把任务状态与事件写入持久化存储（事件溯源），方便审计与回溯。</li>
+</ul>
+<h2 id="示例-一个简化的-node-js-typescript-实现思路" tabindex="-1">示例：一个简化的 Node.js/TypeScript 实现思路 <a class="header-anchor" href="#示例-一个简化的-node-js-typescript-实现思路" aria-label="Permalink to &quot;示例：一个简化的 Node.js/TypeScript 实现思路&quot;"></a></h2>
+<p>说明：下面代码为概念示例，展示核心交互与模块划分。真实工程中应添加重试、限流、鉴权与监控。</p>
+<ul>
+<li>目录结构建议：</li>
+</ul>
+<div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0" v-pre=""><code><span class="line"><span>src/</span></span>
+<span class="line"><span>  orchestrator.ts</span></span>
+<span class="line"><span>  agents/</span></span>
+<span class="line"><span>    retriever.ts</span></span>
+<span class="line"><span>    planner.ts</span></span>
+<span class="line"><span>    executor.ts</span></span>
+<span class="line"><span>  tools/</span></span>
+<span class="line"><span>    search.ts</span></span>
+<span class="line"><span>    httpClient.ts</span></span>
+<span class="line"><span>  types.ts</span></span></code></pre>
+</div><ul>
+<li>核心类型（types.ts）</li>
+</ul>
+<div class="language-ts vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">ts</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0" v-pre=""><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> type</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Task</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  type</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  payload</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> any</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  status</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> 'pending'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> |</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> 'running'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> |</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> 'succeeded'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> |</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> 'failed'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> type</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> AgentResult</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  success</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> boolean</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  data</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">?:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> any</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  error</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">?:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+</div><ul>
+<li>协调器（orchestrator.ts）示例</li>
+</ul>
+<div class="language-ts vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">ts</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0" v-pre=""><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { Task, AgentResult } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> './types'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { RetrieverAgent } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> './agents/retriever'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { PlannerAgent } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> './agents/planner'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { ExecutorAgent } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> './agents/executor'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Orchestrator</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  async</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> handleTask</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">task</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Task</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">    // 1. 检索上下文</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> retriever</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> RetrieverAgent</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> ctx</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> retriever.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">run</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(task.payload);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">    // 2. 规划步骤</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> planner</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> PlannerAgent</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> plan</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> planner.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">run</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({ task, ctx });</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">    // 3. 逐步执行并验证</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> executor</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> ExecutorAgent</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> step</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> of</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> plan.steps) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">      const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> res</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> AgentResult</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> executor.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">run</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(step);</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">      if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">!</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">res.success) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">throw</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Error</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(res.error </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">||</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> '执行失败'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { status: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">'ok'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> };</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+</div><ul>
+<li>简单的 Executor Agent（调用工具）</li>
+</ul>
+<div class="language-ts vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">ts</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0" v-pre=""><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> ExecutorAgent</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  async</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> run</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">step</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> any</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">    // 根据 step.type 调用不同的工具或 API</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (step.type </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">===</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> 'http'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">      // 调用 HTTP 工具，处理响应</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { success: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, data: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> };</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+</div><h2 id="部署与扩展性" tabindex="-1">部署与扩展性 <a class="header-anchor" href="#部署与扩展性" aria-label="Permalink to &quot;部署与扩展性&quot;"></a></h2>
+<ul>
+<li>把 Agent 做成独立微服务或 Serverless 函数，按需扩展。</li>
+<li>使用消息队列解耦：Orchestrator 投递任务，Agents 订阅执行。</li>
+<li>将 LLM 调用与工具调用限流、熔断，避免突发费用或级联故障。</li>
+</ul>
+<h2 id="测试策略" tabindex="-1">测试策略 <a class="header-anchor" href="#测试策略" aria-label="Permalink to &quot;测试策略&quot;"></a></h2>
+<ul>
+<li>单元测试：覆盖 Planner 的决策逻辑、Executor 的工具适配。</li>
+<li>集成测试：使用可控的伪造工具/Stub（如本地 mock server）来验证端到端流程。</li>
+<li>合规测试：记录输入与输出以便审计和可解释性检查。</li>
+</ul>
+<h2 id="观测与安全" tabindex="-1">观测与安全 <a class="header-anchor" href="#观测与安全" aria-label="Permalink to &quot;观测与安全&quot;"></a></h2>
+<ul>
+<li>记录每一步的输入/输出（脱敏后）用于审计与模型效果回溯。</li>
+<li>针对潜在不安全操作（删除、支付、发布）添加强制人工复核步骤。</li>
+<li>使用速率限制、鉴权、输入校验与输出过滤来降低滥用风险。</li>
+</ul>
+<h2 id="实践建议-工程级" tabindex="-1">实践建议（工程级） <a class="header-anchor" href="#实践建议-工程级" aria-label="Permalink to &quot;实践建议（工程级）&quot;"></a></h2>
+<ul>
+<li>从小而可控的代理开始：先把检索+规划+执行做齐，再逐步拆分。</li>
+<li>把复杂的业务逻辑写在 Planner/Executor，而不是把所有逻辑依赖于 LLM 提示工程。</li>
+<li>建立快速回滚与人工接管通道。</li>
+<li>定期做模型输出抽样检查与质量验收。</li>
+</ul>
+<h2 id="结论" tabindex="-1">结论 <a class="header-anchor" href="#结论" aria-label="Permalink to &quot;结论&quot;"></a></h2>
+<p>AI Agents 是把 LLM 能力工程化、服务化的一种有效方式。合理的模块划分、可观测的事件链、以及稳健的部署流程，是把实验性原型变为生产系统的关键。</p>
+<h2 id="参考与延伸阅读" tabindex="-1">参考与延伸阅读 <a class="header-anchor" href="#参考与延伸阅读" aria-label="Permalink to &quot;参考与延伸阅读&quot;"></a></h2>
+<ul>
+<li>多代理系统设计模式（检索、规划、执行、校验）。</li>
+<li>事件驱动架构与消息队列在长流程自动化中的应用。</li>
+<li>LLM 安全性与审计实务。</li>
+</ul>
+<hr>
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[agnes ]]></title>
             <link>https://leebblog.netlify.app/articles/md/我的apikey</link>
