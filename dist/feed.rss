@@ -4,7 +4,7 @@
         <title>飞语</title>
         <link>https://leebblog.netlify.app</link>
         <description>leeb的个人博客 - 全栈开发、前端、后端技术分享</description>
-        <lastBuildDate>Tue, 15 Sep 2026 15:01:19 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 21 Oct 2026 18:02:33 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-cn</language>
@@ -316,8 +316,8 @@ Orchestrator -&gt; Agent C (执行/工具)</p>
         </item>
         <item>
             <title><![CDATA[Electron]]></title>
-            <link>https://leebblog.netlify.app/articles/前端/Electron</link>
-            <guid isPermaLink="false">https://leebblog.netlify.app/articles/前端/Electron</guid>
+            <link>https://leebblog.netlify.app/articles/前端/electron</link>
+            <guid isPermaLink="false">https://leebblog.netlify.app/articles/前端/electron</guid>
             <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[
 # 引言
@@ -575,9 +575,11 @@ const content = await window.electronAPI.readFile('C:\\path\\to\\file.txt')
             <link>https://leebblog.netlify.app/articles/md/我的apikey</link>
             <guid isPermaLink="false">https://leebblog.netlify.app/articles/md/我的apikey</guid>
             <pubDate>Sat, 08 Aug 2026 15:01:05 GMT</pubDate>
-            <description><![CDATA[sk-tXOum7geZcKJiBRZ0I6f2dvdVjWckDil1vkm1N8zL9aFD8xw]]></description>
+            <description><![CDATA[sk-tXOum7geZcKJiBRZ0I6f2dvdVjWckDil1vkm1N8zL9aFD8xw
+sk-uQGp9h0z6wYS2WsMMpZDyeUehkKmf7uqpD9A4e59yLVqV]]></description>
             <content:encoded><![CDATA[<h3 id="agnes" tabindex="-1">agnes <a class="header-anchor" href="#agnes" aria-label="Permalink to &quot;agnes&quot;"></a></h3>
 <p>sk-tXOum7geZcKJiBRZ0I6f2dvdVjWckDil1vkm1N8zL9aFD8xw</p>
+<p>sk-uQGp9h0z6wYS2WsMMpZDyeUehkKmf7uqpD9A4e59yLVqVdWx</p>
 ]]></content:encoded>
         </item>
         <item>
